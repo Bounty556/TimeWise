@@ -46,6 +46,10 @@ namespace Soul
 	class MemoryManager
 	{
 	public:
+		/*
+		Placed at the start of each block of free memory in our memory
+		arena.
+		*/
 		struct MemoryNode
 		{
 			unsigned int BlockSize; // The size of the free memory block, including this node
@@ -56,26 +60,26 @@ namespace Soul
 		MemoryManager() = delete;
 	
 		/*
-		Initializes our whole memory block
+		Initializes our whole memory block.
 		*/
 		static void Allocate(size_t bytes);
 
 		/*
-		Cleans up all allocated memory
+		Cleans up all allocated memory.
 		*/
 		static void Deallocate();
 
 		/*
 		Attempts to mark a block of free memory as used, and returns
-		a pointer to the start of said used memory. This is *can*
-		return a block of memory that's slightly larger for formatting
-		purposes. This will return nullptr if the partitioning failed
+		a pointer to the start of said used memory. This *can* return
+		a block of memory that's slightly larger for formatting
+		purposes. This will return nullptr if the partitioning failed.
 		*/
 		static void* PartitionMemory(unsigned int bytes);
 
 		/*
 		Marks the memory at the given location as unused and calls 
-		deconstructor on object
+		deconstructor on object.
 		*/
 		template<typename T>
 		static void FreeMemory(T* location);
@@ -85,26 +89,37 @@ namespace Soul
 		a small header for each one indicating their byte size) we get
 		a free benefit in being able to tell the exact byte size of 
 		any allocated variable. Useful for not having to keep track of
-		those pesky array sizes
+		those pesky array sizes.
 		*/
 		static unsigned int GetByteSize(void* location);
 
+		/*
+		Returns the total number of bytes that are considered *used*
+		within this memory arena.
+		*/
+		static unsigned int GetTotalPartitionedMemory();
+
+		/*
+		Returns the total number of bytes that are considered free
+		within this memory arena.
+		*/
+		static unsigned int GetTotalFreeMemory();
 	private:
 		/*
 		Walks the list of nodes, making sure all connections between
-		nodes are up to date
+		nodes are up to date.
 		*/
 		static void RemovedNode(MemoryNode* removedNode);
 		
 		/*
 		Walks the list of nodes, making sure all connections between
-		nodes are up to date
+		nodes are up to date.
 		*/
 		static void AddedNode(void* newLocation);
 
 		/*
 		Draws a rough representation of memory to the console
-		TODO: Need to implement logging for this
+		TODO: Need to implement logging for this.
 		*/
 		static void DrawMemory();
 

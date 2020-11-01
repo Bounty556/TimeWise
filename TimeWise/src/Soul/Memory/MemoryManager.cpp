@@ -99,6 +99,28 @@ namespace Soul
 		return size;
 	}
 
+	unsigned int MemoryManager::GetTotalPartitionedMemory()
+	{
+		unsigned int freeBytes = GetTotalFreeMemory();
+		unsigned int partitionedBytes = (unsigned int)m_StableMemoryEnd - (unsigned int)m_StableMemoryStart - freeBytes;
+
+		return partitionedBytes;
+	}
+
+	unsigned int MemoryManager::GetTotalFreeMemory()
+	{
+		MemoryNode* currentNode = (MemoryNode*)m_StableMemoryStart;
+		unsigned int freeBytes = currentNode->BlockSize;
+
+		while (currentNode->NextNode)
+		{
+			currentNode = currentNode->NextNode;
+			freeBytes += currentNode->BlockSize;
+		}
+
+		return freeBytes;
+	}
+
 	void MemoryManager::RemovedNode(MemoryNode* removedNode)
 	{
 		MemoryNode* startNode = (MemoryNode*)m_StableMemoryStart;

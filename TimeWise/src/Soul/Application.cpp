@@ -22,7 +22,13 @@ namespace Soul
 		// Initialization
 		MemoryManager::Allocate(Gigabytes(1));
 
+		unsigned int test = MemoryManager::GetTotalFreeMemory();
+		test = MemoryManager::GetTotalPartitionedMemory();
+
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
+
+		test = MemoryManager::GetTotalFreeMemory();
+		test = MemoryManager::GetTotalPartitionedMemory();
 
 		// Main game loop
 		while (m_Running)

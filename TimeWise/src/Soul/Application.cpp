@@ -22,12 +22,7 @@ namespace Soul
 	{
 		// Initialization
 		MemoryManager::Allocate(Gigabytes(1));
-		Logger::SetLogLevel(Logger::LogLevel::Error);
-
-		SoulLogError("test");
-		SoulLogWarning("test");
-		SoulLogInfo("test");
-
+		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
 		// Main game loop

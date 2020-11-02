@@ -104,6 +104,12 @@ namespace Soul
 		within this memory arena.
 		*/
 		static unsigned int GetTotalFreeMemory();
+		
+		/*
+		Draws a rough representation of memory to the console.
+		*/
+		static void DrawMemory();
+
 	private:
 		/*
 		Walks the list of nodes, making sure all connections between
@@ -118,10 +124,10 @@ namespace Soul
 		static void AddedNode(void* newLocation);
 
 		/*
-		Draws a rough representation of memory to the console
-		TODO: Need to implement logging for this.
+		Returns the number of memory nodes (free blocks) in our memory
+		arena.
 		*/
-		static void DrawMemory();
+		static unsigned int CountNodes();
 
 	private:
 		static unsigned char* m_Memory;

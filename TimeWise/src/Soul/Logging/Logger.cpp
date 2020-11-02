@@ -5,11 +5,11 @@
 
 namespace Soul
 {
-	Logger::LogLevel Logger::m_LogLevel;
+	Logger::LogLevel Logger::m_LogLevel = Logger::LogLevel::Info;
 
 	void Logger::LogError(const char* message, ...)
 	{
-		if (m_LogLevel <= LogLevel::Error)
+		if (m_LogLevel >= LogLevel::Error)
 		{
 			va_list arglist;
 			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -23,7 +23,7 @@ namespace Soul
 
 	void Logger::LogWarning(const char* message, ...)
 	{
-		if (m_LogLevel <= LogLevel::Warning)
+		if (m_LogLevel >= LogLevel::Warning)
 		{
 			va_list arglist;
 			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -37,7 +37,7 @@ namespace Soul
 
 	void Logger::LogInfo(const char* message, ...)
 	{
-		if (m_LogLevel <= LogLevel::Info)
+		if (m_LogLevel >= LogLevel::Info)
 		{
 			va_list arglist;
 			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

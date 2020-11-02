@@ -4,6 +4,19 @@
 
 namespace Soul
 {
+	/*
+	The Logger is used to print color-coded debug information out to
+	the console. There are three log levels: Error, Warning, and
+	Info. Setting a lighter log level (Warning, Info) will show the
+	heavier log levels (Error, Warning).
+
+	By default the log level is set to Info, so all logs are shown.
+	You can change the log level with SetLogLevel().
+
+	The LogError(), LogWarning(), and LogInfo() functions should
+	not be used. Rather, the SoulLogError, SoulLogWarning and
+	SoulLogInfo macros should be used to log.
+	*/
 	class Logger
 	{
 	public:

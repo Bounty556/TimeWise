@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 
+#include <Logging/Logger.h>
 #include <Macros.h>
 
 namespace Soul
@@ -83,6 +84,7 @@ namespace Soul
 		}
 
 		// We couldn't find a valid memory block
+		SoulLogError("Failed to allocate %d bytes.", bytes);
 		Assert(false);
 		return (void*)nullptr;
 	}
@@ -119,6 +121,11 @@ namespace Soul
 		}
 
 		return freeBytes;
+	}
+
+	void MemoryManager::DrawMemory()
+	{
+		SoulLogInfo("%d bytes available, %d bytes used. There are %d nodes in memory.", GetTotalFreeMemory(), GetTotalPartitionedMemory(), CountNodes());
 	}
 
 	void MemoryManager::RemovedNode(MemoryNode* removedNode)
@@ -181,8 +188,17 @@ namespace Soul
 		}
 	}
 
-	void MemoryManager::DrawMemory()
+	unsigned int MemoryManager::CountNodes()
 	{
+		MemoryNode* currentNode = (MemoryNode*)m_StableMemoryStart;
+		unsigned int nodeCount = 0;
 
+		while (currentNode)
+		{
+			nodeCount++;
+			currentNode = currentNode->NextNode;
+		}
+
+		return nodeCount;
 	}
 }

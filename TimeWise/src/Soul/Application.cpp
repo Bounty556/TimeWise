@@ -1,5 +1,6 @@
 #include "Application.h"
 
+#include <Logging/Logger.h>
 #include <Macros.h>
 #include <Memory/MemoryManager.h>
 
@@ -21,14 +22,13 @@ namespace Soul
 	{
 		// Initialization
 		MemoryManager::Allocate(Gigabytes(1));
+		Logger::SetLogLevel(Logger::LogLevel::Error);
 
-		unsigned int test = MemoryManager::GetTotalFreeMemory();
-		test = MemoryManager::GetTotalPartitionedMemory();
+		SoulLogError("test");
+		SoulLogWarning("test");
+		SoulLogInfo("test");
 
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
-
-		test = MemoryManager::GetTotalFreeMemory();
-		test = MemoryManager::GetTotalPartitionedMemory();
 
 		// Main game loop
 		while (m_Running)

@@ -2,8 +2,8 @@
 
 #include "Soul/Application.h"
 
-// TODO: Add Input Manager
 // TODO: Add logger
+// TODO: Add Input Manager
 // TODO: Add debug memory visualizer
 // TODO: Add file io
 // TODO: Add basic character

@@ -1,5 +1,9 @@
 #pragma once
 
+#include <Logging/Logger.h>
+
+// TODO: Test to make sure this works with arrays of objects
+
 // Takes in the type of the object and calls its constructor
 #define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type))) type(__VA_ARGS__))
 
@@ -138,6 +142,12 @@ namespace Soul
 	template<class T>
 	void MemoryManager::FreeMemory(T* location)
 	{
+		if (location == nullptr)
+		{
+			SoulLogWarning("Nullptr was attempted to be freed.");
+			return;
+		}
+
 		// TODO: Test this with a custom type to make sure the
 		//       destructor is actually being called
 		// TODO: Check to see if we should be destroying an array?

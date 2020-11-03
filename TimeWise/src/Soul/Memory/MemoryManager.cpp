@@ -2,8 +2,7 @@
 
 #include <stdlib.h>
 
-#include <Logging/Logger.h>
-#include <Macros.h>
+#include <Utility/Macros.h>
 
 namespace Soul
 {
@@ -184,7 +183,7 @@ namespace Soul
 		else
 		{
 			currentNode->NextNode = newNode;
-			newNode->NextNode = currentNode;
+			newNode->NextNode = nullptr;
 		}
 	}
 

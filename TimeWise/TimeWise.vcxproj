@@ -165,9 +165,10 @@
     <ClInclude Include="src\Soul\Application.h" />
     <ClInclude Include="src\Soul\Input\ControlsMap.h" />
     <ClInclude Include="src\Soul\Logging\Logger.h" />
-    <ClInclude Include="src\Soul\Macros.h" />
+    <ClInclude Include="src\Soul\Utility\Macros.h" />
     <ClInclude Include="src\Soul\Memory\MemoryManager.h" />
     <ClInclude Include="src\Soul\Soul.h" />
+    <ClInclude Include="src\Soul\Utility\String.h" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />
@@ -298,6 +299,7 @@
     <ClCompile Include="src\Soul\Input\ControlsMap.cpp" />
     <ClCompile Include="src\Soul\Logging\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />
+    <ClCompile Include="src\Soul\Utility\String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

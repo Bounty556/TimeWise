@@ -11,7 +11,8 @@
 // TODO: Volatile memory management
 // TODO: Networking
 // TODO: Multi-threading
-// TODO: debug memory visualizer
+// TODO: Debug memory visualizer
+// TODO: Custom string type?
 
 class Client : public Soul::Application
 {

@@ -3,6 +3,8 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
+#include <Utility/String.h>
+
 namespace Soul
 {
 	class ControlsMap
@@ -35,7 +37,7 @@ namespace Soul
 		*/
 		struct Input
 		{
-			char* InputName;
+			String InputName;
 			ButtonState State;
 			sf::Keyboard::Key KeyboardKey;
 			sf::Mouse::Button MouseButton;

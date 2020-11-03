@@ -21,6 +21,7 @@ namespace Soul
 
 		String& operator+=(const String& otherString);
 		String& operator+=(const char* otherString);
+		String& operator+=(const char otherChar);
 		const char operator[](unsigned int index) const;
 
 		/*
@@ -35,6 +36,14 @@ namespace Soul
 		> 0 if this string is lexicographically larger than the provided string.
 		*/
 		int CompareTo(const String& otherString) const;
+
+		/*
+		Returns:
+		< 0 if this string is lexicographically less than the provided string.
+		0 if this string is lexicographically equivalent to the provided string.
+		> 0 if this string is lexicographically larger than the provided string.
+		*/
+		int CompareTo(const char* otherString) const;
 
 		/*
 		Returns the C-Style string underlying this String object.

@@ -132,6 +132,51 @@ namespace Soul
 		return *this;
 	}
 
+	String& String::operator+=(const char otherChar)
+	{
+		
+		// There are 2 scenarios here: one where we don't exceed our current string capacity,
+		// and one where we do. If we exceed our string capacity, we need to repartition memory
+		// for our string and move things over
+		bool isOverCapacity = false;
+		if (m_StringCapacity <= m_StringLength + 2)
+		{
+			m_StringCapacity *= 2;
+			isOverCapacity = true;
+		}
+
+		if (isOverCapacity)
+		{
+			SoulLogInfo("Over capacity");
+
+			char* tempPointer = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+
+			// Put the values of both the strings at the temp pointer
+			unsigned int stringIndex = 0;
+			for (unsigned int i = 0; i < m_StringLength; ++i)
+			{
+				tempPointer[stringIndex] = m_CString[i];
+				++stringIndex;
+			}
+			
+			tempPointer[stringIndex] = otherChar;
+			tempPointer[stringIndex + 1] = '\n';
+
+			// Clean up and reassign
+			MemoryManager::FreeMemory(m_CString);
+			m_StringLength += 1;
+			m_CString = tempPointer;
+		}
+		else
+		{
+			m_CString[m_StringLength] = otherChar;
+			m_CString[m_StringLength + 1] = '\n';
+			m_StringLength += 1;
+		}
+
+		return *this;
+	}
+
 	const char String::operator[](unsigned int index) const
 	{
 		if (index < 0 || index >= m_StringLength)
@@ -151,6 +196,11 @@ namespace Soul
 	int String::CompareTo(const String& otherString) const
 	{
 		return strcmp(m_CString, otherString.m_CString);
+	}
+
+	int String::CompareTo(const char* otherString) const
+	{
+		return strcmp(m_CString, otherString);
 	}
 
 	const char* String::GetCString() const

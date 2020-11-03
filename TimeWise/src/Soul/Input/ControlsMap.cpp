@@ -14,14 +14,10 @@ namespace Soul
 		// Put all of the inputs into the array, initialize values
 		for (unsigned int character = 0, i = 0; i < m_ControlsCount; ++i)
 		{
-			m_Controls[i] = {};
-			// TODO: Implement using custom string
-			//strcpy(m_Controls[i].InputName, "");
 			m_Controls[i].State = ButtonState::None;
 			while (inputString[character] != ',' && inputString[character] != ';')
 			{
-				// TODO: Implement using custom string
-				//strcat(m_Controls[i].InputName, inputString[character]);
+				m_Controls->InputName += inputString[character];
 				++character;
 			}
 
@@ -46,7 +42,7 @@ namespace Soul
 	{
 		for (unsigned int i = 0; i < m_ControlsCount; i++)
 		{
-			if (strcmp(inputName, m_Controls[i].InputName))
+			if (m_Controls[i].InputName.CompareTo(inputName))
 			{
 				return m_Controls[i];
 			}

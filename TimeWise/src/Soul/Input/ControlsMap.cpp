@@ -1,5 +1,7 @@
 #include "ControlsMap.h"
 
+#include <new>
+
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
 #include <Utility/Macros.h>
@@ -7,19 +9,20 @@
 namespace Soul
 {
 	ControlsMap::ControlsMap(const char* inputString, unsigned int inputs) :
-		m_ControlsCount(inputs)
+		m_ControlsCount(inputs),
+		m_Controls(PartitionArray(Input, inputs))
 	{
-		m_Controls = (Input*)MemoryManager::PartitionMemory(m_ControlsCount * sizeof(Input));
-
 		// Put all of the inputs into the array, initialize values
 		for (unsigned int character = 0, i = 0; i < m_ControlsCount; ++i)
 		{
 			m_Controls[i].State = ButtonState::None;
 			while (inputString[character] != ',' && inputString[character] != ';')
 			{
-				m_Controls->InputName += inputString[character];
+				m_Controls[i].InputName += inputString[character];
 				++character;
 			}
+
+			m_Controls[i].InputName += '\0';
 
 			if (inputString[character] == ',')
 			{

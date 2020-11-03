@@ -7,6 +7,8 @@
 // Takes in the type of the object and calls its constructor
 #define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type))) type(__VA_ARGS__))
 
+#define PartitionArray(type, count) (new (MemoryManager::PartitionMemory(sizeof(type) * count)) type[count])
+
 namespace Soul
 {
 	/*

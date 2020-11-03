@@ -164,13 +164,16 @@ namespace Soul
 
 			// Clean up and reassign
 			MemoryManager::FreeMemory(m_CString);
-			m_StringLength += 1;
 			m_CString = tempPointer;
 		}
 		else
 		{
 			m_CString[m_StringLength] = otherChar;
 			m_CString[m_StringLength + 1] = '\n';
+		}
+		
+		if (otherChar != '\0')
+		{
 			m_StringLength += 1;
 		}
 

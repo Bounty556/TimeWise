@@ -2,14 +2,16 @@
 
 #include "Soul/Application.h"
 
-// TODO: Add Input Manager
-// TODO: Add debug memory visualizer
-// TODO: Add file io
-// TODO: Add basic character
-// TODO: Add layers
-// TODO: Add UI
-// TODO: Add Event queue/event processing
-// TODO: Add volatile memory management
+// TODO: Input Manager
+// TODO: File io
+// TODO: Basic character
+// TODO: layers
+// TODO: UI
+// TODO: Event queue/event processing
+// TODO: Volatile memory management
+// TODO: Networking
+// TODO: Multi-threading
+// TODO: debug memory visualizer
 
 class Client : public Soul::Application
 {

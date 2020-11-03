@@ -82,32 +82,52 @@ namespace Soul
 	{
 		unsigned int otherLength = strlen(otherString);
 		unsigned int tempLength = m_StringLength + otherLength;
-		while (m_StringCapacity <= tempLength)
+
+		// There are 2 scenarios here: one where we don't exceed our current string capacity,
+		// and one where we do. If we exceed our string capacity, we need to repartition memory
+		// for our string and move things over
+		bool isOverCapacity = false;
+
+		while (m_StringCapacity <= tempLength + 1)
 		{
 			m_StringCapacity *= 2;
+			isOverCapacity = true;
 		}
 
-		char* tempPointer = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
-
-		// Put the values of both the strings at the temp pointer
-		unsigned int stringIndex = 0;
-		for (unsigned int i = 0; i < m_StringLength; ++i)
+		if (isOverCapacity)
 		{
-			tempPointer[stringIndex] = m_CString[i];
-			++stringIndex;
-		}
+			char* tempPointer = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
 
-		// Add 1 to get the null terminator
-		for (unsigned int i = 0; i < otherLength + 1; ++i)
+			// Put the values of both the strings at the temp pointer
+			unsigned int stringIndex = 0;
+			for (unsigned int i = 0; i < m_StringLength; ++i)
+			{
+				tempPointer[stringIndex] = m_CString[i];
+				++stringIndex;
+			}
+
+			// Add 1 to get the null terminator
+			for (unsigned int i = 0; i < otherLength + 1; ++i)
+			{
+				tempPointer[stringIndex] = otherString[i];
+				++stringIndex;
+			}
+
+			// Clean up and reassign
+			MemoryManager::FreeMemory(m_CString);
+			m_StringLength = tempLength;
+			m_CString = tempPointer;
+		}
+		else
 		{
-			tempPointer[stringIndex] = otherString[i];
-			++stringIndex;
-		}
+			// Add the other strings characters to the end of our string
+			for (unsigned int i = 0; i < otherLength + 1; ++i)
+			{
+				m_CString[m_StringLength + i] = otherString[i];
+			}
 
-		// Clean up and reassign
-		MemoryManager::FreeMemory(m_CString);
-		m_StringLength = tempLength;
-		m_CString = tempPointer;
+			m_StringLength = tempLength;
+		}
 
 		return *this;
 	}

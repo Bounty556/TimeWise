@@ -29,17 +29,16 @@ namespace Soul
 		free((void*)m_Memory);
 	}
 
-	// TODO: Maybe we should be finding the smallest free block
-	//       possible and partitioning there first, saving the bigger
-	//       blocks for larger partitions
-	void* MemoryManager::PartitionMemory(unsigned int bytes)
+	// TODO: Maybe we should be finding the smallest free block possible and partitioning there 
+	//       first, saving the bigger blocks for larger partitions
+	void* MemoryManager::PartitionMemory(unsigned int bytes, unsigned int isArray, unsigned int boundary)
 	{
 		MemoryNode* memoryNode = (MemoryNode*)m_StableMemoryStart;
-		// Need 4 bytes to store the size of the variable we're
-		// allocating
-		unsigned int actualBytes = bytes + sizeof(unsigned int); 
 
-		// TODO: Align to byte boundaries?
+		// Need more bytes to store the header for the partition we're making
+		unsigned int actualBytes = bytes + sizeof(PartitionHeader); 
+
+		// DO IMMEDIATELY: Align to byte boundaries
 		
 		while (true)
 		{
@@ -47,25 +46,30 @@ namespace Soul
 			if (memoryNode->BlockSize - sizeof(MemoryNode*) >= actualBytes)
 			{
 				void* location = ((unsigned char*)memoryNode) + (memoryNode->BlockSize - actualBytes);
-				unsigned int* header = (unsigned int*)location;
-				(*header) = actualBytes;
-				location = ((unsigned char*)location) + sizeof(unsigned int);
+				PartitionHeader* header = (PartitionHeader*)location;
+				header->Bytes = actualBytes;
+				header->IsArray = isArray;
+				void* tempLocation = location;
+				location = ((unsigned char*)location) + sizeof(PartitionHeader);
 
 				memoryNode->BlockSize -= actualBytes;
 
 				return location;
 			}
-			// In this scenario, we can't keep our node - repair nodes
-			// afterwards
+			// In this scenario, we can't keep our node - repair nodes afterwards
 			else if (memoryNode->BlockSize >= actualBytes)
 			{
-				RemovedNode(memoryNode);
+				// If we try to remove our 0th node everything will break...
+				Assert(memoryNode != m_StableMemoryStart);
+
+				RemoveNode(memoryNode);
 
 				void* location = ((void*)memoryNode);
-				unsigned int* header = (unsigned int*)location;
-				(*header) = memoryNode->BlockSize;
-				
-				location = ((unsigned char*)location) + sizeof(unsigned int);
+				PartitionHeader* header = (PartitionHeader*)location;
+				header->Bytes = memoryNode->BlockSize;
+				header->IsArray = isArray;
+
+				location = ((unsigned char*)location) + sizeof(PartitionHeader);
 
 				return location;
 			}
@@ -94,10 +98,8 @@ namespace Soul
 		Assert(location < m_StableMemoryEnd);
 
 		// Back newLocation up to where we put the header
-		void* newLocation = (unsigned char*)location - sizeof(unsigned int);
-		unsigned int size = *((unsigned int*)newLocation);
-		size -= sizeof(unsigned int); // Don't include header
-		return size;
+		PartitionHeader* header = (PartitionHeader*)((unsigned char*)location - sizeof(PartitionHeader));
+		return header->Bytes - sizeof(PartitionHeader);
 	}
 
 	unsigned int MemoryManager::GetTotalPartitionedMemory()
@@ -127,7 +129,7 @@ namespace Soul
 		SoulLogInfo("%d bytes available, %d bytes used. There are %d nodes in memory.", GetTotalFreeMemory(), GetTotalPartitionedMemory(), CountNodes());
 	}
 
-	void MemoryManager::RemovedNode(MemoryNode* removedNode)
+	void MemoryManager::RemoveNode(MemoryNode* removedNode)
 	{
 		MemoryNode* startNode = (MemoryNode*)m_StableMemoryStart;
 
@@ -138,11 +140,11 @@ namespace Soul
 		}
 	}
 
-	void MemoryManager::AddedNode(void* location)
+	void MemoryManager::AddNode(void* location)
 	{
 		// Back newLocation up to where we put the header
-		void* newLocation = (unsigned char*)location - sizeof(unsigned int);
-		unsigned int size = *((unsigned int*)newLocation);
+		void* newLocation = ((unsigned char*)location) - sizeof(PartitionHeader);
+		unsigned int size = ((PartitionHeader*)newLocation)->Bytes;
 
 		// Create a new memory node at the given location
 		MemoryNode* newNode = (MemoryNode*)newLocation;

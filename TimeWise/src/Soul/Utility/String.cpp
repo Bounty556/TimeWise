@@ -28,7 +28,7 @@ namespace Soul
 			m_StringCapacity = 64; // The minimum is 64 bytes
 		}
 
-		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity, false, sizeof(char));
 
 		memcpy(m_CString, initialString, m_StringLength + 1);
 	}
@@ -37,9 +37,7 @@ namespace Soul
 		m_StringLength(otherString.m_StringLength),
 		m_StringCapacity(otherString.m_StringCapacity)
 	{
-		SoulLogInfo("Copy constructor called");
-
-		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity, false, sizeof(char));
 
 		memcpy(m_CString, otherString.GetCString(), m_StringLength + 1);
 	}
@@ -48,8 +46,6 @@ namespace Soul
 		m_StringLength(otherString.m_StringLength),
 		m_StringCapacity(otherString.m_StringCapacity)
 	{
-		SoulLogInfo("Move constructor called");
-
 		m_CString = otherString.m_CString;
 		otherString.m_CString = nullptr;
 	}
@@ -66,7 +62,7 @@ namespace Soul
 		
 		MemoryManager::FreeMemory(m_CString);
 
-		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity, false, sizeof(char));
 
 		memcpy(m_CString, otherString.m_CString, m_StringLength + 1);
 
@@ -96,7 +92,7 @@ namespace Soul
 
 		if (isOverCapacity)
 		{
-			char* tempPointer = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+			char* tempPointer = (char*)MemoryManager::PartitionMemory(m_StringCapacity, false, sizeof(char));
 
 			// Put the values of both the strings at the temp pointer
 			unsigned int stringIndex = 0;
@@ -147,9 +143,7 @@ namespace Soul
 
 		if (isOverCapacity)
 		{
-			SoulLogInfo("Over capacity");
-
-			char* tempPointer = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+			char* tempPointer = (char*)MemoryManager::PartitionMemory(m_StringCapacity, false, sizeof(char));
 
 			// Put the values of both the strings at the temp pointer
 			unsigned int stringIndex = 0;

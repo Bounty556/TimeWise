@@ -62,7 +62,6 @@ namespace Soul
 		struct Input
 		{
 			Input();
-			~Input();
 
 			String InputName;
 			

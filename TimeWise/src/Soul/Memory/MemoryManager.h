@@ -5,9 +5,9 @@
 // TODO: Test to make sure this works with arrays of objects
 
 // Takes in the type of the object and calls its constructor
-#define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type))) type(__VA_ARGS__))
+#define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type), 0, sizeof(type))) type(__VA_ARGS__))
 
-#define PartitionArray(type, count) (new (MemoryManager::PartitionMemory(sizeof(type) * count)) type[count])
+#define PartitionArray(type, count) (new (MemoryManager::PartitionMemory(sizeof(type) * count, 1, sizeof(type))) type[count])
 
 namespace Soul
 {
@@ -62,6 +62,16 @@ namespace Soul
 			MemoryNode* NextNode; // Location of the following node in memory
 		};
 
+		/*
+		Placed at the start of each partition to note how many bytes are stored, as well as if
+		the partition contains an array or not.
+		*/
+		struct PartitionHeader
+		{
+			unsigned int Bytes; // The number of bytes stored in this partition, including header
+			unsigned int IsArray; // Does this partition contain an array?
+		};
+
 	public:
 		MemoryManager() = delete;
 	
@@ -81,7 +91,7 @@ namespace Soul
 		a block of memory that's slightly larger for formatting
 		purposes. This will return nullptr if the partitioning failed.
 		*/
-		static void* PartitionMemory(unsigned int bytes);
+		static void* PartitionMemory(unsigned int bytes, unsigned int isArray, unsigned int boundary);
 
 		/*
 		Marks the memory at the given location as unused and calls 
@@ -121,13 +131,13 @@ namespace Soul
 		Walks the list of nodes, making sure all connections between
 		nodes are up to date.
 		*/
-		static void RemovedNode(MemoryNode* removedNode);
+		static void RemoveNode(MemoryNode* removedNode);
 		
 		/*
 		Walks the list of nodes, making sure all connections between
 		nodes are up to date.
 		*/
-		static void AddedNode(void* newLocation);
+		static void AddNode(void* newLocation);
 
 		/*
 		Returns the number of memory nodes (free blocks) in our memory
@@ -136,9 +146,9 @@ namespace Soul
 		static unsigned int CountNodes();
 
 	private:
-		static unsigned char* m_Memory;
-		static void* m_StableMemoryStart;
-		static void* m_StableMemoryEnd;
+		static unsigned char* m_Memory; // Our entire allocated memory byte array
+		static void* m_StableMemoryStart; // The location of the start of our stable memory block
+		static void* m_StableMemoryEnd; // The location of the end of our stable memory block
 	};
 
 	template<class T>
@@ -150,11 +160,23 @@ namespace Soul
 			return;
 		}
 
-		// TODO: Test this with a custom type to make sure the
-		//       destructor is actually being called
-		// TODO: Check to see if we should be destroying an array?
-		location->~T();
+		// Check to see if this is an array we're freeing
+		void* newLocation = ((unsigned char*)location) - sizeof(PartitionHeader);
+		PartitionHeader* header = (PartitionHeader*)newLocation;
 
-		AddedNode(location);
+		if (header->IsArray)
+		{
+			int timesToLoop = header->Bytes / sizeof(T);
+			for (int i = 0; i < timesToLoop; ++i)
+			{
+				location[i].~T();
+			}
+		}
+		else
+		{
+			location->~T();
+		}
+
+		AddNode(location);
 	}
 }

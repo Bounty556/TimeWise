@@ -27,19 +27,17 @@ namespace Soul
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
+		MemoryManager::DrawMemory();
 		{
 			ControlsMap controls("Jump,Run,Duck,Swim;", 4);
-
-			controls.GetInputInfo("Jump");
 		}
+		MemoryManager::DrawMemory();
 
 		// Main game loop
 		while (m_Running)
 		{
 			// Event processing
 			ProcessEvents();
-
-			// Update
 
 			// Rendering
 			m_Window->clear();

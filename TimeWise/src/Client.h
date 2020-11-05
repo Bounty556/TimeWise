@@ -2,9 +2,11 @@
 
 #include "Soul/Application.h"
 
-// TODO: Input Manager
-// TODO: Unit tester
+// TODO: Add string to type conversions for String class
+// TODO: Controller class
+// TODO: Add controls file format reader/writer
 // TODO: File io
+// TODO: Unit tester
 // TODO: Basic character
 // TODO: layers
 // TODO: UI

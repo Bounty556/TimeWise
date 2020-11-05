@@ -204,4 +204,56 @@ namespace Soul
 	{
 		return m_CString;
 	}
+
+	int String::ToInt() const
+	{
+		// Extract only the number
+		String number;
+		bool encounteredNumber = false;
+		bool isNegative = false;
+		for (unsigned int i = 0; i < m_StringLength; ++i)
+		{
+			// If this is a numerical character
+			if (m_CString[i] >= 48 && m_CString[i] <= 57)
+			{
+				// Check to see if this is negative
+				if (encounteredNumber = false && i > 0 && m_CString[i - 1] == '-')
+				{
+					isNegative = true;
+				}
+				encounteredNumber = true;
+				number += m_CString[i];
+			}
+			else if (!encounteredNumber && m_CString[i] == '.')
+			{
+				encounteredNumber = true;
+				number += '0';
+				break;
+			}
+			else if (encounteredNumber)
+			{
+				break;
+			}
+		}
+
+		if (encounteredNumber)
+		{
+			int convertedInt = 0;
+
+			for (unsigned int i = 0; i < number.Length(); ++i)
+			{
+				int charValue = number[i] - 48;
+				convertedInt += (charValue);
+			}
+
+			return convertedInt;
+		}
+
+		return -1;
+	}
+
+	float String::ToFloat() const
+	{
+		return -1.0f;
+	}
 }

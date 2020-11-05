@@ -50,6 +50,18 @@ namespace Soul
 		*/
 		const char* GetCString() const;
 
+		/*
+		Attempts to convert the contents of this String into an integer. Will return -1 if no
+		integer is found.
+		*/
+		int ToInt() const;
+
+		/*
+		Attempts to convert the contents of this String into a float. Will return -1.0f if no float
+		is found.
+		*/
+		float ToFloat() const;
+
 	private:
 		char* m_CString;
 

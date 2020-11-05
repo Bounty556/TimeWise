@@ -46,7 +46,6 @@ namespace Soul
 
 		// Clean up
 		MemoryManager::FreeMemory(m_Window);
-		int t = MemoryManager::GetTotalPartitionedMemory();
 		MemoryManager::Deallocate();
 	}
 

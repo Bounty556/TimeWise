@@ -6,6 +6,7 @@
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
 #include <Utility/String.h>
+#include <Utility/Timer.h>
 #include <Memory/MemoryManager.h>
 
 namespace Soul
@@ -28,20 +29,6 @@ namespace Soul
 		MemoryManager::Allocate(Gigabytes(1));
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
-
-		MemoryManager::DrawMemory();
-		{
-			TextFile file("res/test.controls");
-
-			SoulLogInfo("%s", file.GetCString());
-
-			file.GetString() = "Hello File!";
-
-			file.WriteStringToFile();
-
-			MemoryManager::DrawMemory();
-		}
-		MemoryManager::DrawMemory();
 
 		// Main game loop
 		while (m_Running)

@@ -2,11 +2,10 @@
 
 #include "Soul/Application.h"
 
-// TODO: Writing to text files
+// TODO: Add Map class
+// TODO: Add Array class
 // TODO: Add .controls file format reader/writer
 // TODO: Controller class
-// TODO: Add Timer
-// TODO: Unit tester?
 // TODO: Event queue/event processing
 // TODO: layers
 // TODO: World Layer

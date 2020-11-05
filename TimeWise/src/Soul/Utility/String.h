@@ -83,5 +83,10 @@ namespace Soul
 		more memory.
 		*/
 		unsigned int m_StringCapacity;
+
+		/*
+		The smallest capacity we would partition.
+		*/
+		const unsigned int m_MinimumCapacity = 32;
 	};
 }

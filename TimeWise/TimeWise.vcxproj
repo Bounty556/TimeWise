@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="src\Client.h" />
     <ClInclude Include="src\Soul\Application.h" />
+    <ClInclude Include="src\Soul\Files\ControlFile.h" />
     <ClInclude Include="src\Soul\Files\TextFile.h" />
     <ClInclude Include="src\Soul\Input\ControlsMap.h" />
     <ClInclude Include="src\Soul\Logging\Logger.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="src\Soul\Soul.h" />
     <ClInclude Include="src\Soul\Utility\Math.h" />
     <ClInclude Include="src\Soul\Utility\String.h" />
+    <ClInclude Include="src\Soul\Utility\Timer.h" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />
@@ -299,12 +301,14 @@
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
+    <ClCompile Include="src\Soul\Files\ControlFile.cpp" />
     <ClCompile Include="src\Soul\Files\TextFile.cpp" />
     <ClCompile Include="src\Soul\Input\ControlsMap.cpp" />
     <ClCompile Include="src\Soul\Logging\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />
     <ClCompile Include="src\Soul\Utility\String.cpp" />
+    <ClCompile Include="src\Soul\Utility\Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

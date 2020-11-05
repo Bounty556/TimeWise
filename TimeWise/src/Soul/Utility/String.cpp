@@ -11,7 +11,7 @@ namespace Soul
 	String::String(const char* initialString) :
 		m_StringLength(strlen(initialString))
 	{
-		if (m_StringLength + 1 > 32)
+		if (m_StringLength + 1 > m_MinimumCapacity / 2)
 		{
 			// Determine capacity through doubling highest bit
 			unsigned int bits = m_StringLength + 1;
@@ -26,7 +26,7 @@ namespace Soul
 		}
 		else
 		{
-			m_StringCapacity = 64; // The minimum is 64 bytes
+			m_StringCapacity = m_MinimumCapacity; // The minimum is 64 bytes
 		}
 
 		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
@@ -37,13 +37,13 @@ namespace Soul
 	String::String(unsigned int capacity) :
 		m_StringLength(0)
 	{
-		if (capacity < 64)
+		if (capacity < m_MinimumCapacity)
 		{
 			m_StringCapacity = capacity;
 		}
 		else
 		{
-			int tempCapacity = 64;
+			unsigned int tempCapacity = m_MinimumCapacity;
 			while (tempCapacity <= capacity)
 			{
 				tempCapacity *= 2;

@@ -80,13 +80,39 @@ namespace Soul
 	String& String::operator=(const String& otherString)
 	{
 		m_StringLength = otherString.m_StringLength;
-		m_StringCapacity = otherString.m_StringCapacity;
+
+		if (m_StringCapacity < otherString.m_StringCapacity)
+		{
+			SoulLogInfo("Repartitioning");
+			m_StringCapacity = otherString.m_StringCapacity;
+			MemoryManager::FreeMemory(m_CString);
+			m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+		}
 		
-		MemoryManager::FreeMemory(m_CString);
-
-		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
-
 		memcpy(m_CString, otherString.m_CString, m_StringLength + 1);
+
+		return *this;
+	}
+
+	String& String::operator=(const char* otherString)
+	{
+		m_StringLength = strlen(otherString);
+
+		bool didCapacityIncrease = false;
+		while (m_StringCapacity <= m_StringLength)
+		{
+			didCapacityIncrease = true;
+			m_StringCapacity *= 2;
+		}
+
+		if (didCapacityIncrease)
+		{
+			SoulLogInfo("Repartitioning");
+			MemoryManager::FreeMemory(m_CString);
+			m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+		}
+
+		memcpy(m_CString, otherString, m_StringLength + 1);
 
 		return *this;
 	}

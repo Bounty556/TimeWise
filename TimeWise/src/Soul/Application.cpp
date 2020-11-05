@@ -35,7 +35,7 @@ namespace Soul
 
 			SoulLogInfo("%s", file.GetCString());
 
-			file.GetString() += "\nI'm adding this on to the end!";
+			file.GetString() = "Hello File!";
 
 			file.WriteStringToFile();
 

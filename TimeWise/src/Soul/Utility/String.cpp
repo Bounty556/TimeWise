@@ -2,6 +2,7 @@
 
 #include <Memory/MemoryManager.h>
 #include <Utility/Macros.h>
+#include <Utility/Math.h>
 
 #include <cstring>
 
@@ -217,7 +218,7 @@ namespace Soul
 			if (m_CString[i] >= 48 && m_CString[i] <= 57)
 			{
 				// Check to see if this is negative
-				if (encounteredNumber = false && i > 0 && m_CString[i - 1] == '-')
+				if (encounteredNumber == false && i > 0 && m_CString[i - 1] == '-')
 				{
 					isNegative = true;
 				}
@@ -243,7 +244,12 @@ namespace Soul
 			for (unsigned int i = 0; i < number.Length(); ++i)
 			{
 				int charValue = number[i] - 48;
-				convertedInt += (charValue);
+				convertedInt += charValue * Math::Pow(10, number.Length() - (i + 1));
+			}
+
+			if (isNegative)
+			{
+				convertedInt *= -1;
 			}
 
 			return convertedInt;

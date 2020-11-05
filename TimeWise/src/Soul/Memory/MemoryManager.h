@@ -64,6 +64,7 @@ namespace Soul
 		struct PartitionHeader
 		{
 			unsigned int Bytes; // The number of bytes stored in this partition, including header
+			unsigned int Count; // The number of objects store in this partition
 		};
 
 	public:
@@ -157,7 +158,7 @@ namespace Soul
 		// Check to see if this is an array we're freeing
 		PartitionHeader* header = (PartitionHeader*)((unsigned char*)location - sizeof(PartitionHeader));
 
-		int timesToLoop = header->Bytes / sizeof(T);
+		int timesToLoop = header->Count;
 		for (int i = 0; i < timesToLoop; ++i)
 		{
 			location[i].~T();

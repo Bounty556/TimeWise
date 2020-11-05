@@ -46,6 +46,7 @@ namespace Soul
 				void* location = ((unsigned char*)currentNode) + (currentNode->BlockSize - actualBytes);
 				PartitionHeader* header = (PartitionHeader*)location;
 				header->Bytes = actualBytes;
+				header->Count = count;
 				location = (unsigned char*)location + sizeof(PartitionHeader);
 
 				currentNode->BlockSize -= actualBytes;
@@ -63,7 +64,7 @@ namespace Soul
 				void* location = currentNode;
 				PartitionHeader* header = (PartitionHeader*)location;
 				header->Bytes = currentNode->BlockSize;
-
+				header->Count = count;
 				location = (unsigned char*)location + sizeof(PartitionHeader);
 
 				return location;
@@ -129,7 +130,7 @@ namespace Soul
 	void MemoryManager::AddNode(void* location)
 	{
 		// Back newLocation up to where we put the header
-		void* newLocation = ((unsigned char*)location) - sizeof(PartitionHeader);
+		void* newLocation = (unsigned char*)location - sizeof(PartitionHeader);
 		unsigned int size = ((PartitionHeader*)newLocation)->Bytes;
 
 		// Create a new memory node at the given location
@@ -149,7 +150,7 @@ namespace Soul
 				// Check to see if newNode and currentNode can be combined
 				if ((unsigned char*)newNode + newNode->BlockSize == (unsigned char*)currentNode)
 				{
-					newNode->BlockSize += newNode->BlockSize;
+					newNode->BlockSize += currentNode->BlockSize;
 					newNode->NextNode = currentNode->NextNode;
 					previousNode->NextNode = newNode;
 					didCombine = true;
@@ -159,6 +160,10 @@ namespace Soul
 				if ((unsigned char*)previousNode + previousNode->BlockSize == (unsigned char*)newNode)
 				{
 					previousNode->BlockSize += newNode->BlockSize;
+					if (didCombine)
+					{
+						previousNode->NextNode = newNode->NextNode;
+					}
 				}
 				else
 				{
@@ -174,8 +179,7 @@ namespace Soul
 			previousNode = currentNode;
 		}
 
-		// If we still haven't found this new node, it must be at the
-		// end
+		// If we still haven't found this new node, it must be at the end
 		if ((unsigned char*)currentNode + currentNode->BlockSize == (unsigned char*)newNode)
 		{
 			currentNode->BlockSize += newNode->BlockSize;

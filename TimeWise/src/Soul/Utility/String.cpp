@@ -301,7 +301,7 @@ namespace Soul
 			for (unsigned int i = 0; i < number.Length(); ++i)
 			{
 				int charValue = number[i] - 48;
-				convertedInt += charValue * Math::Pow(10, number.Length() - (i + 1));
+				convertedInt += charValue * Math::PowInt(10, number.Length() - (i + 1));
 			}
 
 			if (isNegative)

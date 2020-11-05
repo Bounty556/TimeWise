@@ -27,5 +27,12 @@ namespace Soul
 		a hash.
 		*/
 		unsigned long long HashString(const String& string);
+
+		/*
+		Uses the Polynomial Rolling Hash function
+		(https://cp-algorithms.com/string/string-hashing.html) to convert a String object into
+		a hash.
+		*/
+		unsigned long long HashString(const char* string);
 	}
 }

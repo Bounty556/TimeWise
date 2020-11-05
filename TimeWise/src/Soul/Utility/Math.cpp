@@ -1,5 +1,6 @@
 #include "Math.h"
 
+#include <cstring>
 #include <new>
 
 namespace Soul
@@ -51,6 +52,23 @@ namespace Soul
 			unsigned long long m = 1000000009;
 			
 			for (unsigned int i = 0; i < string.Length(); ++i)
+			{
+				hashValue += (string[i] * hashPowers[power]) % m;
+
+				power = (power + 1) % 12;
+			}
+
+			return hashValue;
+		}
+
+		unsigned long long HashString(const char* string)
+		{
+			unsigned int power = 0;
+			unsigned long long hashValue = 0;
+			unsigned long long m = 1000000009;
+			unsigned int stringLength = strlen(string);
+
+			for (unsigned int i = 0; i < stringLength; ++i)
 			{
 				hashValue += (string[i] * hashPowers[power]) % m;
 

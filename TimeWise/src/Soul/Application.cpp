@@ -34,6 +34,11 @@ namespace Soul
 			TextFile file("res/test.controls");
 
 			SoulLogInfo("%s", file.GetCString());
+
+			file.GetString() += "\nI'm adding this on to the end!";
+
+			file.WriteStringToFile();
+
 			MemoryManager::DrawMemory();
 		}
 		MemoryManager::DrawMemory();

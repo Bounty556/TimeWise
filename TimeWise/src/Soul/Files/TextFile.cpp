@@ -25,13 +25,26 @@ namespace Soul
 		m_FileContents = Partition(String, (unsigned int)fileSize.QuadPart);
 
 		DWORD bytesRead;
-
 		// TODO: Provide alternative?
 		Assert(ReadFile(fileHandle, m_FileContents->GetBufferStart(), (DWORD)fileSize.QuadPart, &bytesRead, 0));
-		m_FileContents->SetLength((unsigned int)fileSize.QuadPart);
+		m_FileContents->SetLength((unsigned int)bytesRead);
 
 		// We need to add a null terminator since the file doesn't contain one
 		(*m_FileContents) += '\0';
+
+		CloseHandle(fileHandle);
+	}
+
+	void TextFile::WriteStringToFile()
+	{
+		HANDLE fileHandle = CreateFileA(m_FilePath, GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+		// TODO: Provide alternative?
+		Assert(fileHandle != INVALID_HANDLE_VALUE);
+
+		DWORD bytesWritten;
+		// TODO: Provide alternative?
+		Assert(WriteFile(fileHandle, m_FileContents->GetCString(), m_FileContents->Length(), &bytesWritten, 0));
 
 		CloseHandle(fileHandle);
 	}

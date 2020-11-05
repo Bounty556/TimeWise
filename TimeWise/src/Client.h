@@ -2,8 +2,8 @@
 
 #include "Soul/Application.h"
 
-// TODO: File io
-// TODO: Add controls file format reader/writer
+// TODO: Writing to text files
+// TODO: Add .controls file format reader/writer
 // TODO: Controller class
 // TODO: Add Timer
 // TODO: Unit tester?

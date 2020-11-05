@@ -14,6 +14,11 @@ namespace Soul
 		~TextFile();
 
 		/*
+		Writes the contents of the underlying String to the same file that was read.
+		*/
+		void WriteStringToFile();
+
+		/*
 		A shortcut function to get the CString that the Soul::String holds.
 		*/
 		const char* GetCString() const;

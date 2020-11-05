@@ -34,6 +34,27 @@ namespace Soul
 		memcpy(m_CString, initialString, m_StringLength + 1);
 	}
 
+	String::String(unsigned int capacity) :
+		m_StringLength(0)
+	{
+		if (capacity < 64)
+		{
+			m_StringCapacity = capacity;
+		}
+		else
+		{
+			int tempCapacity = 64;
+			while (tempCapacity <= capacity)
+			{
+				tempCapacity *= 2;
+			}
+			m_StringCapacity = tempCapacity;
+		}
+
+		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+		m_CString[0] = '\0';
+	}
+
 	String::String(const String& otherString) :
 		m_StringLength(otherString.m_StringLength),
 		m_StringCapacity(otherString.m_StringCapacity)
@@ -191,6 +212,11 @@ namespace Soul
 		return m_StringLength;
 	}
 
+	void String::SetLength(unsigned int length)
+	{
+		m_StringLength = length;
+	}
+
 	int String::CompareTo(const String& otherString) const
 	{
 		return strcmp(m_CString, otherString.m_CString);
@@ -202,6 +228,11 @@ namespace Soul
 	}
 
 	const char* String::GetCString() const
+	{
+		return m_CString;
+	}
+
+	char* String::GetBufferStart() const
 	{
 		return m_CString;
 	}

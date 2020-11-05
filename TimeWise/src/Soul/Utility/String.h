@@ -11,6 +11,7 @@ namespace Soul
 	{
 	public:
 		String(const char* initialString = "");
+		String(unsigned int capacity);
 
 		String(const String& otherString); // Copy constructor
 		String(String&& otherString); // Move constructor
@@ -28,6 +29,12 @@ namespace Soul
 		Returns the length of the string. Does not include the null terminator.
 		*/
 		unsigned int Length() const;
+
+		/*
+		Sets the length of this string. Should only be used if directly editing the buffer
+		itself, such as when loading file contents into the string.
+		*/
+		void SetLength(unsigned int length);
 
 		/*
 		Returns:
@@ -49,6 +56,12 @@ namespace Soul
 		Returns the C-Style string underlying this String object.
 		*/
 		const char* GetCString() const;
+
+		/*
+		Returns the address of the start of the buffer in the MemoryArena that holds the string.
+		USE WITH CAUTION!!!
+		*/
+		char* GetBufferStart() const;
 
 		/*
 		Attempts to convert the contents of this String into an integer. Will return -1 if no

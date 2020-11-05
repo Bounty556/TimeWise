@@ -2,14 +2,18 @@
 
 #include "Soul/Application.h"
 
-// TODO: Controller class
-// TODO: Add controls file format reader/writer
 // TODO: File io
-// TODO: Unit tester
-// TODO: Basic character
-// TODO: layers
-// TODO: UI
+// TODO: Add controls file format reader/writer
+// TODO: Controller class
+// TODO: Add Timer
+// TODO: Unit tester?
 // TODO: Event queue/event processing
+// TODO: layers
+// TODO: World Layer
+// TODO: Spatial tree of some sort
+// TODO: Add Resource Manager (Textures, Sounds, Music)
+// TODO: Basic character
+// TODO: UI
 // TODO: Volatile memory management
 // TODO: Networking
 // TODO: Multi-threading

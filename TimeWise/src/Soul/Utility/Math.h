@@ -2,6 +2,9 @@
 
 namespace Soul
 {
+	/*
+	Contains various math utility functions.
+	*/
 	namespace Math
 	{
 		/*

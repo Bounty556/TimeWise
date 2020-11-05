@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="src\Client.h" />
     <ClInclude Include="src\Soul\Application.h" />
+    <ClInclude Include="src\Soul\Files\TextFile.h" />
     <ClInclude Include="src\Soul\Input\ControlsMap.h" />
     <ClInclude Include="src\Soul\Logging\Logger.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
@@ -270,6 +271,7 @@
     <ClInclude Include="vendor\SFML\include\SFML\Window\WindowStyle.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\test.controls" />
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl" />
     <None Include="vendor\SFML\include\SFML\Graphics\Glsl.inl" />
     <None Include="vendor\SFML\include\SFML\Graphics\Rect.inl" />
@@ -297,6 +299,7 @@
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
+    <ClCompile Include="src\Soul\Files\TextFile.cpp" />
     <ClCompile Include="src\Soul\Input\ControlsMap.cpp" />
     <ClCompile Include="src\Soul\Logging\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />

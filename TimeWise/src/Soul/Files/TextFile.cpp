@@ -37,7 +37,8 @@ namespace Soul
 
 	void TextFile::WriteStringToFile()
 	{
-		HANDLE fileHandle = CreateFileA(m_FilePath, GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		DeleteFileA(m_FilePath);
+		HANDLE fileHandle = CreateFileA(m_FilePath, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 		// TODO: Provide alternative?
 		Assert(fileHandle != INVALID_HANDLE_VALUE);

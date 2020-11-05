@@ -2,7 +2,6 @@
 
 #include "Soul/Application.h"
 
-// TODO: Add string to type conversions for String class
 // TODO: Controller class
 // TODO: Add controls file format reader/writer
 // TODO: File io
@@ -15,6 +14,7 @@
 // TODO: Networking
 // TODO: Multi-threading
 // TODO: Debug memory visualizer
+// TODO: Add random number gen
 
 class Client : public Soul::Application
 {

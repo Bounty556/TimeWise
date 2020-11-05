@@ -257,9 +257,4 @@ namespace Soul
 
 		return -1;
 	}
-
-	float String::ToFloat() const
-	{
-		return -1.0f;
-	}
 }

@@ -31,59 +31,45 @@ namespace Soul
 
 	// TODO: Maybe we should be finding the smallest free block possible and partitioning there 
 	//       first, saving the bigger blocks for larger partitions
-	void* MemoryManager::PartitionMemory(unsigned int bytes, unsigned int isArray, unsigned int boundary)
+	void* MemoryManager::PartitionMemory(unsigned int bytes, unsigned int count)
 	{
-		MemoryNode* memoryNode = (MemoryNode*)m_StableMemoryStart;
+		MemoryNode* currentNode = (MemoryNode*)m_StableMemoryStart;
 
 		// Need more bytes to store the header for the partition we're making
-		unsigned int actualBytes = bytes + sizeof(PartitionHeader); 
+		unsigned int actualBytes = (bytes * count) + sizeof(PartitionHeader); 
 
-		// DO IMMEDIATELY: Align to byte boundaries
-		
-		while (true)
+		while (currentNode)
 		{
 			// If we were to store memory here, can we keep our node?
-			if (memoryNode->BlockSize - sizeof(MemoryNode*) >= actualBytes)
+			if (currentNode->BlockSize - sizeof(MemoryNode*) >= actualBytes)
 			{
-				void* location = ((unsigned char*)memoryNode) + (memoryNode->BlockSize - actualBytes);
+				void* location = ((unsigned char*)currentNode) + (currentNode->BlockSize - actualBytes);
 				PartitionHeader* header = (PartitionHeader*)location;
 				header->Bytes = actualBytes;
-				header->IsArray = isArray;
-				void* tempLocation = location;
-				location = ((unsigned char*)location) + sizeof(PartitionHeader);
+				location = (unsigned char*)location + sizeof(PartitionHeader);
 
-				memoryNode->BlockSize -= actualBytes;
+				currentNode->BlockSize -= actualBytes;
 
 				return location;
 			}
 			// In this scenario, we can't keep our node - repair nodes afterwards
-			else if (memoryNode->BlockSize >= actualBytes)
+			else if (currentNode->BlockSize >= actualBytes)
 			{
 				// If we try to remove our 0th node everything will break...
-				Assert(memoryNode != m_StableMemoryStart);
+				Assert(currentNode != m_StableMemoryStart);
 
-				RemoveNode(memoryNode);
+				RemoveNode(currentNode);
 
-				void* location = ((void*)memoryNode);
+				void* location = currentNode;
 				PartitionHeader* header = (PartitionHeader*)location;
-				header->Bytes = memoryNode->BlockSize;
-				header->IsArray = isArray;
+				header->Bytes = currentNode->BlockSize;
 
-				location = ((unsigned char*)location) + sizeof(PartitionHeader);
+				location = (unsigned char*)location + sizeof(PartitionHeader);
 
 				return location;
 			}
-			else // Go on to the next node
-			{
-				if (memoryNode->NextNode)
-				{
-					memoryNode = memoryNode->NextNode;
-				}
-				else
-				{
-					break;
-				}
-			}
+
+			currentNode = currentNode->NextNode;
 		}
 
 		// We couldn't find a valid memory block
@@ -159,8 +145,17 @@ namespace Soul
 			// We passed the new Node, reconstruct
 			if (newNode < currentNode)
 			{
-				// First, make sure this node can't be combined with
-				// the previous node
+				bool didCombine = false;
+				// Check to see if newNode and currentNode can be combined
+				if ((unsigned char*)newNode + newNode->BlockSize == (unsigned char*)currentNode)
+				{
+					newNode->BlockSize += newNode->BlockSize;
+					newNode->NextNode = currentNode->NextNode;
+					previousNode->NextNode = newNode;
+					didCombine = true;
+				}
+
+				// Check to see if previousNode and newNode can be combined
 				if ((unsigned char*)previousNode + previousNode->BlockSize == (unsigned char*)newNode)
 				{
 					previousNode->BlockSize += newNode->BlockSize;
@@ -168,7 +163,10 @@ namespace Soul
 				else
 				{
 					previousNode->NextNode = newNode;
-					newNode->NextNode = currentNode;
+					if (!didCombine)
+					{
+						newNode->NextNode = currentNode;
+					}
 				}
 				return;
 			}

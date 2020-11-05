@@ -29,6 +29,8 @@ namespace Soul
 		// Put all of the inputs into the array, initialize values
 		for (unsigned int character = 0, i = 0; i < m_ControlsCount; ++i)
 		{
+			new (m_Controls + i) Input();
+
 			while (inputString[character] != ',' && inputString[character] != ';')
 			{
 				m_Controls[i].InputName += inputString[character];

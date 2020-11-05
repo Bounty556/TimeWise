@@ -5,9 +5,9 @@
 // TODO: Test to make sure this works with arrays of objects
 
 // Takes in the type of the object and calls its constructor
-#define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type), 0, sizeof(type))) type(__VA_ARGS__))
+#define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type))) type(__VA_ARGS__))
 
-#define PartitionArray(type, count) (new (MemoryManager::PartitionMemory(sizeof(type) * count, 1, sizeof(type))) type[count])
+#define PartitionArray(type, count) ((type*)(MemoryManager::PartitionMemory(sizeof(type), count)))
 
 namespace Soul
 {
@@ -21,21 +21,17 @@ namespace Soul
 
 	There are currently two ways to partition memory:
 	
-	1. If you're partitioning a non-primitive with a constructor, it's
-	   cleaner to use the Partition macro above. This takes in the
-	   type of the object, and then all of the arguments necessary for
-	   the object's constructor.
-	   
-	   Ex:
-	   m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
+	1. Partitioning using the Partition macro, which will initialize the object in place of the
+	   partitioned memory.
 
-	2. If you're partitioning space for primitives, the Partition
-       macro should not be called, as primitives do not have
-	   constructors. Instead, just set the pointer for the primitives
-	   to the pointer returned from PartitionMemory().
-
+	2. Partitioning using the PartitionArray macro. This will not initialize any of the objects
+	   in the array, so care will need to be taken to initialize them manually.
 	   Ex:
-	   unsigned char* bytes = (unsigned char*)PartitionMemory(5000);
+	   m_Controls = PartitionArray(Input, 4); // Partition
+	   for (unsigned int i = 0; i < 4; ++i)
+	   {
+	       new (m_Controls + i) Input(); // Initialize
+	   }
 
 	To free memory from the memory arena, call FreeMemory(). This will
 	allow the space that variable took up to be marked as usable
@@ -63,13 +59,11 @@ namespace Soul
 		};
 
 		/*
-		Placed at the start of each partition to note how many bytes are stored, as well as if
-		the partition contains an array or not.
+		Placed at the start of each partition to note how many bytes are stored.
 		*/
 		struct PartitionHeader
 		{
 			unsigned int Bytes; // The number of bytes stored in this partition, including header
-			unsigned int IsArray; // Does this partition contain an array?
 		};
 
 	public:
@@ -91,7 +85,7 @@ namespace Soul
 		a block of memory that's slightly larger for formatting
 		purposes. This will return nullptr if the partitioning failed.
 		*/
-		static void* PartitionMemory(unsigned int bytes, unsigned int isArray, unsigned int boundary);
+		static void* PartitionMemory(unsigned int bytes, unsigned int count = 1);
 
 		/*
 		Marks the memory at the given location as unused and calls 
@@ -161,20 +155,12 @@ namespace Soul
 		}
 
 		// Check to see if this is an array we're freeing
-		void* newLocation = ((unsigned char*)location) - sizeof(PartitionHeader);
-		PartitionHeader* header = (PartitionHeader*)newLocation;
+		PartitionHeader* header = (PartitionHeader*)((unsigned char*)location - sizeof(PartitionHeader));
 
-		if (header->IsArray)
+		int timesToLoop = header->Bytes / sizeof(T);
+		for (int i = 0; i < timesToLoop; ++i)
 		{
-			int timesToLoop = header->Bytes / sizeof(T);
-			for (int i = 0; i < timesToLoop; ++i)
-			{
-				location[i].~T();
-			}
-		}
-		else
-		{
-			location->~T();
+			location[i].~T();
 		}
 
 		AddNode(location);

@@ -35,7 +35,20 @@ namespace Soul
 		{
 			Map<String> stringMap;
 			String toAdd("Test!");
+			String toAdd2("Test2!");
+			String toAdd3("Test3!");
+			String toAdd4("Test4!");
+			String toAdd5("Test5!");
+			String toAdd6("Test6!");
+			String toAdd7("Test7!");
+			MemoryManager::DrawMemory();
 			stringMap.AddPair(Math::HashString(toAdd), toAdd);
+			stringMap.AddPair(Math::HashString(toAdd2), toAdd2);
+			stringMap.AddPair(Math::HashString(toAdd3), toAdd3);
+			stringMap.AddPair(Math::HashString(toAdd4), toAdd4);
+			stringMap.AddPair(Math::HashString(toAdd5), toAdd5);
+			stringMap.AddPair(Math::HashString(toAdd6), toAdd6);
+			stringMap.AddPair(Math::HashString(toAdd7), toAdd7);
 			MemoryManager::DrawMemory();
 		}
 		MemoryManager::DrawMemory();

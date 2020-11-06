@@ -64,14 +64,14 @@ namespace Soul
 		/*
 		The start of the memory 
 		*/
-		Set<T*>* m_Memory;
+		Set<T>* m_Memory;
 	};
 
 	template <class T>
 	Map<T>::Map(unsigned int capacity) :
 		m_Count(0),
 		m_Capacity(Math::FindNextPrime(capacity)),
-		m_Memory(PartitionArray(Map<T>::Set<T*>, m_Capacity))
+		m_Memory(PartitionArray(Map<T>::Set<T>, m_Capacity))
 	{
 
 	}
@@ -79,13 +79,12 @@ namespace Soul
 	template <class T>
 	Map<T>::~Map()
 	{
-		/*for (unsigned int i = 0; i < m_Capacity; ++i)
+		SoulLogInfo("Freeing");
+		for (int i = 0; i < m_Capacity; ++i)
 		{
-			if (m_Memory[i].Hash != 0)
-			{
-				m_Memory[i].Value->~T();
-			}
-		}*/
+			SoulLogInfo("%lld", m_Memory[i].Hash);
+		}
+		MemoryManager::FreeMemory(m_Memory);
 	}
 
 	template <class T>
@@ -108,15 +107,17 @@ namespace Soul
 			// We couldn't find a spot
 			if (attempts++ >= maxAttempts)
 			{
-				SoulLogError("Error, could not find valid memory for new pair.\nCurrent capacity: %d\nCurrent pairs: %d", m_Capacity, m_Count);
+				SoulLogWarning("Error, could not find valid memory for new pair.\nCurrent capacity: %d\nCurrent pairs: %d", m_Capacity, m_Count);
 				return false;
 			}
 
-			location += (attempts * attempts) % m_Capacity;
+			location = (location + (attempts * attempts)) % m_Capacity;
 		}
 
 		m_Memory[location].Hash = hash;
 		new (&(m_Memory[location].Value)) T(std::move(value));
+		
+		m_Count++;
 
 		return true;
 	}
@@ -153,6 +154,40 @@ namespace Soul
 	template <class T>
 	void Map<T>::Resize(unsigned int newCapacity)
 	{
+		// Create a new memory block with the necessary size, move all previous elements into it
+		Set<T>* newMemory = PartitionArray(Set<T>, m_Capacity);
 
+		for (int i = 0; i < m_Capacity; ++i)
+		{
+			if (m_Memory[i].Hash != 0)
+			{
+				break;
+			}
+
+			// Find the location to place this pair
+			unsigned int location = m_Memory[i].Hash % newCapacity;
+
+			unsigned int attempts = 0;
+			unsigned int maxAttempts = newCapacity / 2;
+			// Check to see if there is an object at that location
+			while (newMemory[location].Hash != 0)
+			{
+				// We couldn't find a spot
+				if (attempts++ >= maxAttempts)
+				{
+					Assert(false);
+				}
+
+				location = (location + (attempts * attempts)) % newCapacity;
+			}
+
+			newMemory[location].Hash = m_Memory[i].Hash;
+			new (&(newMemory[location].Value)) T(std::move(m_Memory[i].Value));
+		}
+
+		// Free the old memory and reassign
+		MemoryManager::FreeMemory(m_Memory);
+		m_Capacity = newCapacity;
+		m_Memory = newMemory;
 	}
 }

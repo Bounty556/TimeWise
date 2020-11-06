@@ -94,6 +94,11 @@ namespace Soul
 		return m_LastValue.GetCString();
 	}
 
+	const String& StringReader::GetString() const
+	{
+		return m_LastValue;
+	}
+
 	bool StringReader::IsAtEnd() const
 	{
 		return m_CurrentIndex == m_LastIndex;

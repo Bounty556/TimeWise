@@ -60,6 +60,11 @@ namespace Soul
 		const char* GetLastValue() const;
 
 		/*
+		Returns the underlying Soul::String used by this StringReader for temp strings.
+		*/
+		const String& GetString() const;
+
+		/*
 		Returns whether the entire string has been traversed yet.
 		*/
 		bool IsAtEnd() const;

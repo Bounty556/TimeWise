@@ -176,7 +176,7 @@ namespace Soul
 		}
 
 		m_Memory[location].Hash = hash;
-		new (&(m_Memory[location].Value)) T(value);
+		new (&(m_Memory[location].Value)) T(std::move(value));
 
 		m_Count++;
 

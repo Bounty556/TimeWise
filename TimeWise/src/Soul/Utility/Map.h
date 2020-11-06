@@ -9,7 +9,8 @@ namespace Soul
 {
 	/*
 	A dictionary-like structure implemented using a hash map. All keys must be integers, preferably
-	hashes.
+	hashes. The type stored in this Map should either be a primitive, or a type with a proper move
+	constructor.
 	*/
 	template <class T>
 	class Map

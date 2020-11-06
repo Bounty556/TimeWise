@@ -8,6 +8,7 @@
 #include <Utility/Map.h>
 #include <Utility/String.h>
 #include <Utility/Timer.h>
+#include <Utility/Vector.h>
 #include <Memory/MemoryManager.h>
 
 namespace Soul

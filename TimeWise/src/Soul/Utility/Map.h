@@ -50,6 +50,15 @@ namespace Soul
 		bool AddPair(K&& key, V&& value);
 
 		/*
+		Adds a new hash-value pair to the map.
+		*/
+		bool AddPair(K& key, V&& value);
+		/*
+		Adds a new hash-value pair to the map.
+		*/
+		bool AddPair(K&& key, V& value);
+
+		/*
 		Clears this map of all of its data sets.
 		*/
 		void Clear();
@@ -160,6 +169,80 @@ namespace Soul
 
 	template <class K, class V>
 	bool MapType::AddPair(K&& key, V&& value)
+	{
+		// Check to make sure adding this doesn't fill our capacity
+		if (m_Count + 1 >= m_Capacity)
+		{
+			Resize(Math::FindNextPrime(m_Capacity * 2));
+		}
+
+		// Find the location to place this pair
+		unsigned long long hash = Hash(key);
+		unsigned int location = hash % m_Capacity;
+
+		unsigned int attempts = 0;
+		unsigned int maxAttempts = m_Capacity / 2;
+		// Check to see if there is an object at that location
+		while (m_Memory[location].IsInitialized)
+		{
+			// We couldn't find a spot
+			if (attempts++ >= maxAttempts)
+			{
+				SoulLogWarning("Error, could not find valid memory for new pair.\nCurrent capacity: %d\nCurrent pairs: %d", m_Capacity, m_Count);
+				return false;
+			}
+
+			location = (location + (attempts * attempts)) % m_Capacity;
+		}
+
+		m_Memory[location].IsInitialized = true;
+		new (&(m_Memory[location].Key)) K(std::move(key));
+		new (&(m_Memory[location].Value)) V(std::move(value));
+
+		m_Count++;
+
+		return true;
+	}
+
+	template <class K, class V>
+	bool MapType::AddPair(K& key, V&& value)
+	{
+		// Check to make sure adding this doesn't fill our capacity
+		if (m_Count + 1 >= m_Capacity)
+		{
+			Resize(Math::FindNextPrime(m_Capacity * 2));
+		}
+
+		// Find the location to place this pair
+		unsigned long long hash = Hash(key);
+		unsigned int location = hash % m_Capacity;
+
+		unsigned int attempts = 0;
+		unsigned int maxAttempts = m_Capacity / 2;
+		// Check to see if there is an object at that location
+		while (m_Memory[location].IsInitialized)
+		{
+			// We couldn't find a spot
+			if (attempts++ >= maxAttempts)
+			{
+				SoulLogWarning("Error, could not find valid memory for new pair.\nCurrent capacity: %d\nCurrent pairs: %d", m_Capacity, m_Count);
+				return false;
+			}
+
+			location = (location + (attempts * attempts)) % m_Capacity;
+		}
+
+		m_Memory[location].IsInitialized = true;
+		new (&(m_Memory[location].Key)) K(std::move(key));
+		new (&(m_Memory[location].Value)) V(std::move(value));
+
+		m_Count++;
+
+		return true;
+	}
+
+	template <class K, class V>
+	bool MapType::AddPair(K&& key, V& value)
 	{
 		// Check to make sure adding this doesn't fill our capacity
 		if (m_Count + 1 >= m_Capacity)

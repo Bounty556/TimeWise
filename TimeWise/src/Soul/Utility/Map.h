@@ -32,6 +32,11 @@ namespace Soul
 		bool AddPair(unsigned long long hash, T& value);
 
 		/*
+		Adds a new hash-value pair to the map.
+		*/
+		bool AddPair(unsigned long long hash, T&& value);
+
+		/*
 		Gets the value stored at the provided hash.
 		*/
 		T* Get(unsigned long long hash) const;
@@ -112,6 +117,41 @@ namespace Soul
 		m_Memory[location].Hash = hash;
 		new (&(m_Memory[location].Value)) T(std::move(value));
 		
+		m_Count++;
+
+		return true;
+	}
+
+	template <class T>
+	bool Map<T>::AddPair(unsigned long long hash, T&& value)
+	{
+		// Check to make sure adding this doesn't fill our capacity
+		if (m_Count + 1 >= m_Capacity)
+		{
+			Resize(Math::FindNextPrime(m_Capacity * 2));
+		}
+
+		// Find the location to place this pair
+		unsigned int location = hash % m_Capacity;
+
+		unsigned int attempts = 0;
+		unsigned int maxAttempts = m_Capacity / 2;
+		// Check to see if there is an object at that location
+		while (m_Memory[location].Hash != 0)
+		{
+			// We couldn't find a spot
+			if (attempts++ >= maxAttempts)
+			{
+				SoulLogWarning("Error, could not find valid memory for new pair.\nCurrent capacity: %d\nCurrent pairs: %d", m_Capacity, m_Count);
+				return false;
+			}
+
+			location = (location + (attempts * attempts)) % m_Capacity;
+		}
+
+		m_Memory[location].Hash = hash;
+		new (&(m_Memory[location].Value)) T(value);
+
 		m_Count++;
 
 		return true;

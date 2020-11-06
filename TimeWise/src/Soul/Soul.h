@@ -6,5 +6,7 @@
 #include "Logging/Logger.h"
 #include "Utility/Macros.h"
 #include "Utility/Math.h"
+#include "Utility/Map.h"
 #include "Utility/String.h"
+#include "Utility/Timer.h"
 #include "Memory/MemoryManager.h"

@@ -2,7 +2,6 @@
 
 #include "Soul/Application.h"
 
-// TODO: Add Map class
 // TODO: Add Array class
 // TODO: Add .controls file format reader/writer
 // TODO: Controller class

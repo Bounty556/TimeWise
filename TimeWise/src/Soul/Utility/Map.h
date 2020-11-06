@@ -1,48 +1,53 @@
 #pragma once
 
 #include <Memory/MemoryManager.h>
+#include <Utility/Hashes.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
 
 #include <memory>
 
+#define MapType Map<K, V>
+#define SetType Set<K, V>
+
 namespace Soul
 {
 	/*
-	A dictionary-like structure implemented using a hash map. All keys must be integers, preferably
-	hashes. The type stored in this Map should either be a primitive, or a type with a proper move
-	constructor.
+	A dictionary-like structure implemented using a hash map. All keys must be hashable via, an
+	overloaded Hash function preferably (from Utility/Hashes.h)	hashes. The type stored in this
+	Map should either be a primitive, or a type with a proper move constructor.
 	*/
-	template <class T>
+	template <class K, class V>
 	class Map
 	{
 	public:
-		template <class T>
+		template <class K, class V>
 		struct Set
 		{
-			unsigned long long Hash;
-			T Value;
+			bool IsInitialized;
+			K Key;
+			V Value;
 		};
 
 	public:
 		Map(unsigned int capacity = 7);
 
-		Map(const Map<T>&) = delete; // No copy constructor
-		Map(Map<T>&& otherMap); // Move constructor
+		Map(const MapType&) = delete; // No copy constructor
+		Map(MapType&& otherMap); // Move constructor
 		
-		Map& operator=(const Map<T>&) = delete; // No copy assignment
+		Map& operator=(const MapType&) = delete; // No copy assignment
 
 		~Map();
 
 		/*
 		Adds a new hash-value pair to the map.
 		*/
-		bool AddPair(unsigned long long hash, T& value);
+		bool AddPair(K& key, V& value);
 
 		/*
 		Adds a new hash-value pair to the map.
 		*/
-		bool AddPair(unsigned long long hash, T&& value);
+		bool AddPair(K&& key, V&& value);
 
 		/*
 		Clears this map of all of its data sets.
@@ -52,7 +57,7 @@ namespace Soul
 		/*
 		Gets the value stored at the provided hash.
 		*/
-		T* Get(unsigned long long hash) const;
+		V* Get(const K& key) const;
 
 		/*
 		Gets the number of sets stored in this map.
@@ -60,6 +65,9 @@ namespace Soul
 		unsigned int GetCount() const;
 
 	private:
+		/*
+		Repartitions this map to have the desired capacity.
+		*/
 		void Resize(unsigned int newCapacity);
 
 	private:
@@ -82,20 +90,20 @@ namespace Soul
 		/*
 		The start of the memory 
 		*/
-		Set<T>* m_Memory;
+		Set<K, V>* m_Memory;
 	};
 
-	template <class T>
-	Map<T>::Map(unsigned int capacity) :
+	template <class K, class V>
+	MapType::Map(unsigned int capacity) :
 		m_Count(0),
 		m_Capacity(Math::FindNextPrime(capacity)),
-		m_Memory(PartitionArray(Map<T>::Set<T>, m_Capacity))
+		m_Memory(PartitionArray(MapType::SetType, m_Capacity))
 	{
 
 	}
 
-	template <class T>
-	Map<T>::Map(Map<T>&& otherMap)
+	template <class K, class V>
+	MapType::Map(MapType&& otherMap)
 	{
 		m_Capacity = otherMap.m_Capacity;
 		m_Count = otherMap.m_Count;
@@ -104,8 +112,8 @@ namespace Soul
 		otherMap.m_Memory = nullptr;
 	}
 
-	template <class T>
-	Map<T>::~Map()
+	template <class K, class V>
+	MapType::~Map()
 	{
 		if (m_Memory)
 		{
@@ -113,8 +121,8 @@ namespace Soul
 		}
 	}
 
-	template <class T>
-	bool Map<T>::AddPair(unsigned long long hash, T& value)
+	template <class K, class V>
+	bool MapType::AddPair(K& key, V& value)
 	{
 		// Check to make sure adding this doesn't fill our capacity
 		if (m_Count + 1 >= m_Capacity)
@@ -123,12 +131,13 @@ namespace Soul
 		}
 
 		// Find the location to place this pair
+		unsigned int hash = Hash(key);
 		unsigned int location = hash % m_Capacity;
 
 		unsigned int attempts = 0;
 		unsigned int maxAttempts = m_Capacity / 2;
 		// Check to see if there is an object at that location
-		while (m_Memory[location].Hash != 0)
+		while (m_Memory[location].IsInitialized)
 		{
 			// We couldn't find a spot
 			if (attempts++ >= maxAttempts)
@@ -140,16 +149,17 @@ namespace Soul
 			location = (location + (attempts * attempts)) % m_Capacity;
 		}
 
-		m_Memory[location].Hash = hash;
-		new (&(m_Memory[location].Value)) T(std::move(value));
+		m_Memory[location].IsInitialized = true;
+		new (&(m_Memory[location].Key)) K(std::move(key));
+		new (&(m_Memory[location].Value)) V(std::move(value));
 		
 		m_Count++;
 
 		return true;
 	}
 
-	template <class T>
-	bool Map<T>::AddPair(unsigned long long hash, T&& value)
+	template <class K, class V>
+	bool MapType::AddPair(K&& key, V&& value)
 	{
 		// Check to make sure adding this doesn't fill our capacity
 		if (m_Count + 1 >= m_Capacity)
@@ -158,12 +168,13 @@ namespace Soul
 		}
 
 		// Find the location to place this pair
+		unsigned long long hash = Hash(key);
 		unsigned int location = hash % m_Capacity;
 
 		unsigned int attempts = 0;
 		unsigned int maxAttempts = m_Capacity / 2;
 		// Check to see if there is an object at that location
-		while (m_Memory[location].Hash != 0)
+		while (m_Memory[location].IsInitialized)
 		{
 			// We couldn't find a spot
 			if (attempts++ >= maxAttempts)
@@ -175,41 +186,45 @@ namespace Soul
 			location = (location + (attempts * attempts)) % m_Capacity;
 		}
 
-		m_Memory[location].Hash = hash;
-		new (&(m_Memory[location].Value)) T(std::move(value));
+		m_Memory[location].IsInitialized = true;
+		new (&(m_Memory[location].Key)) K(std::move(key));
+		new (&(m_Memory[location].Value)) V(std::move(value));
 
 		m_Count++;
 
 		return true;
 	}
 
-	template <class T>
-	void Map<T>::Clear()
+	template <class K, class V>
+	void MapType::Clear()
 	{
 		// Call all destructors
 		for (unsigned int i = 0; i < m_Capacity; ++i)
 		{
-			if (m_Memory[i].Hash)
+			if (m_Memory[i].IsInitialized)
 			{
-				m_Memory[i].Value.~T();
+				m_Memory[i].Key.~K();
+				m_Memory[i].Value.~V();
 			}
 		}
 
 		// Clear all data
-		memset(m_Memory, 0, m_Capacity * sizeof(Set<T>));
+		memset(m_Memory, 0, m_Capacity * sizeof(SetType));
 		m_Count = 0;
 	}
 
-	template <class T>
-	T* Map<T>::Get(unsigned long long hash) const
+	template <class K, class V>
+	V* MapType::Get(const K& key) const
 	{
 		// Find the location to place this pair
+		unsigned long long hash = Hash(key);
 		unsigned int location = hash % m_Capacity;
 
 		unsigned int attempts = 0;
 		unsigned int maxAttempts = m_Capacity / 2;
+
 		// Check to see if there is an object at that location
-		while (m_Memory[location].Hash != hash)
+		while (m_Memory[location].Key != key)
 		{
 			// We couldn't find a spot
 			if (attempts++ >= maxAttempts)
@@ -224,32 +239,33 @@ namespace Soul
 		return &(m_Memory[location].Value);
 	}
 
-	template <class T>
-	unsigned int Map<T>::GetCount() const
+	template <class K, class V>
+	unsigned int MapType::GetCount() const
 	{
 		return m_Count;
 	}
 
-	template <class T>
-	void Map<T>::Resize(unsigned int newCapacity)
+	template <class K, class V>
+	void MapType::Resize(unsigned int newCapacity)
 	{
 		// Create a new memory block with the necessary size, move all previous elements into it
-		Set<T>* newMemory = PartitionArray(Set<T>, newCapacity);
+		SetType* newMemory = PartitionArray(SetType, newCapacity);
 
 		for (unsigned int i = 0; i < m_Capacity; ++i)
 		{
-			if (m_Memory[i].Hash == 0)
+			if (!m_Memory[i].IsInitialized)
 			{
-				break;
+				continue;
 			}
 
 			// Find the location to place this pair
-			unsigned int location = m_Memory[i].Hash % newCapacity;
+			unsigned long long hash = Hash(m_Memory[i].Key);
+			unsigned int location = hash % newCapacity;
 
 			unsigned int attempts = 0;
 			unsigned int maxAttempts = newCapacity / 2;
 			// Check to see if there is an object at that location
-			while (newMemory[location].Hash != 0)
+			while (newMemory[location].IsInitialized)
 			{
 				// We couldn't find a spot
 				if (attempts++ >= maxAttempts)
@@ -260,15 +276,14 @@ namespace Soul
 				location = (location + (attempts * attempts)) % newCapacity;
 			}
 
-			newMemory[location].Hash = m_Memory[i].Hash;
-			new (&(newMemory[location].Value)) T(std::move(m_Memory[i].Value));
+			newMemory[location].IsInitialized = true;
+			new (&(newMemory[location].Key)) K(std::move(m_Memory[i].Key));
+			new (&(newMemory[location].Value)) V(std::move(m_Memory[i].Value));
 		}
 
 		// Free the old memory and reassign
 		MemoryManager::FreeMemory(m_Memory);
 		m_Capacity = newCapacity;
 		m_Memory = newMemory;
-
-		SoulLogInfo("Resizing to %d", m_Capacity);
 	}
 }

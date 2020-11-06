@@ -168,7 +168,8 @@
     <ClInclude Include="src\Soul\Input\ControlsMap.h" />
     <ClInclude Include="src\Soul\Logging\Logger.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
-    <ClInclude Include="src\Soul\Utility\IHashable.h" />
+    <ClInclude Include="src\Soul\Tests.h" />
+    <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
     <ClInclude Include="src\Soul\Memory\MemoryManager.h" />
     <ClInclude Include="src\Soul\Soul.h" />
@@ -310,6 +311,7 @@
     <ClCompile Include="src\Soul\Logging\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />
+    <ClCompile Include="src\Soul\Utility\Hashes.cpp" />
     <ClCompile Include="src\Soul\Utility\Vector.h" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />
     <ClCompile Include="src\Soul\Strings\String.cpp" />

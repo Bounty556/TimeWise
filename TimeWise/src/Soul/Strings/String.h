@@ -25,6 +25,13 @@ namespace Soul
 		String& operator+=(const String& otherString);
 		String& operator+=(const char* otherString);
 		String& operator+=(const char otherChar);
+
+		bool operator==(const String& otherString) const;
+		bool operator==(const char* otherString) const;
+
+		bool operator!=(const String& otherString) const;
+		bool operator!=(const char* otherString) const;
+
 		const char operator[](unsigned int index) const;
 
 		/*

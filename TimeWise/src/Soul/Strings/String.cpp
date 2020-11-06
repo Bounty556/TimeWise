@@ -244,6 +244,26 @@ namespace Soul
 		return *this;
 	}
 
+	bool String::operator==(const String& otherString) const
+	{
+		return CompareTo(otherString) == 0;
+	}
+
+	bool String::operator==(const char* otherString) const
+	{
+		return CompareTo(otherString) == 0;
+	}
+
+	bool String::operator!=(const String& otherString) const
+	{
+		return CompareTo(otherString) != 0;
+	}
+
+	bool String::operator!=(const char* otherString) const
+	{
+		return CompareTo(otherString) != 0;
+	}
+
 	const char String::operator[](unsigned int index) const
 	{
 		if (index < 0 || index >= m_StringLength)

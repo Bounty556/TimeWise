@@ -29,32 +29,32 @@ namespace Soul
 
 	void ControlsFile::ReadToMap()
 	{
-		m_Controls.Clear();
+		//m_Controls.Clear();
 
-		StringReader stringReader(m_File.GetString());
+		//StringReader stringReader(m_File.GetString());
 
-		while (!stringReader.IsAtEnd())
-		{
+		//while (!stringReader.IsAtEnd())
+		//{
 
-			// The first line should be the name of the control
-			stringReader.GetNextLine();
-			unsigned long long controlNameHash = Math::HashString(stringReader.GetLastValue());
+		//	// The first line should be the name of the control
+		//	stringReader.GetNextLine();
+		//	unsigned long long controlNameHash = Math::HashString(stringReader.GetLastValue());
 
-			Map<int> inputValues;
+		//	Map<int> inputValues;
 
-			for (unsigned int i = 0; i < 4; ++i)
-			{
-				// Get the first input type and value
-				stringReader.GetNextChar();
-				unsigned long long hash = Math::HashString(stringReader.GetLastValue());
+		//	for (unsigned int i = 0; i < 4; ++i)
+		//	{
+		//		// Get the first input type and value
+		//		stringReader.GetNextChar();
+		//		unsigned long long hash = Math::HashString(stringReader.GetLastValue());
 
-				stringReader.GetNextChar();
-				stringReader.GetNextLine();
+		//		stringReader.GetNextChar();
+		//		stringReader.GetNextLine();
 
-				inputValues.AddPair(hash, stringReader.GetString().ToInt());
-			}
+		//		inputValues.AddPair(hash, stringReader.GetString().ToInt());
+		//	}
 
-			m_Controls.AddPair(controlNameHash, std::move(inputValues));
-		}
+		//	m_Controls.AddPair(controlNameHash, std::move(inputValues));
+		//}
 	}
 }

@@ -77,6 +77,6 @@ namespace Soul
 		/*
 		A representation of the .controls file as a nested map.
 		*/
-		Map<Map<int>> m_Controls;
+		Map<String, Map<String, int>> m_Controls;
 	};
 }

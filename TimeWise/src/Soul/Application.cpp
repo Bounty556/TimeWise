@@ -13,6 +13,8 @@
 #include <Utility/Vector.h>
 #include <Memory/MemoryManager.h>
 
+#include <Tests.h>
+
 namespace Soul
 {
 	Application::Application() :
@@ -33,12 +35,6 @@ namespace Soul
 		MemoryManager::Allocate(Gigabytes(1));
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
-
-		MemoryManager::DrawMemory();
-		{
-
-		}
-		MemoryManager::DrawMemory();
 
 		// Main game loop
 		while (m_Running)

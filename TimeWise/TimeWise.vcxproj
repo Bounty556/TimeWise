@@ -305,6 +305,7 @@
     <ClCompile Include="src\Soul\Input\ControlsMap.cpp" />
     <ClCompile Include="src\Soul\Logging\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />
+    <ClCompile Include="src\Soul\Utility\Vector.h" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />
     <ClCompile Include="src\Soul\Utility\String.cpp" />
     <ClCompile Include="src\Soul\Utility\Timer.cpp" />

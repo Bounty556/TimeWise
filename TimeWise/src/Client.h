@@ -2,7 +2,7 @@
 
 #include "Soul/Application.h"
 
-// TODO: Add Array class
+// TODO: Finish Vector class
 // TODO: Add .controls file format reader/writer
 // TODO: Controller class
 // TODO: Event queue/event processing

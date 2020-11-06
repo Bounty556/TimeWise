@@ -24,6 +24,12 @@ namespace Soul
 
 	public:
 		Map(unsigned int capacity = 7);
+
+		Map(const Map<T>&) = delete; // No copy constructor
+		Map(Map<T>&&) = delete; // No move constructor
+		
+		Map& operator=(const Map<T>&) = delete; // No copy assignment
+
 		~Map();
 
 		/*

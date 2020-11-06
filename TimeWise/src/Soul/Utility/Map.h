@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Memory/MemoryManager.h>
+#include <Utility/Macros.h>
 #include <Utility/Math.h>
 
 #include <memory>
@@ -42,6 +43,11 @@ namespace Soul
 		Adds a new hash-value pair to the map.
 		*/
 		bool AddPair(unsigned long long hash, T&& value);
+
+		/*
+		Clears this map of all of its data sets.
+		*/
+		void Clear();
 
 		/*
 		Gets the value stored at the provided hash.
@@ -175,6 +181,23 @@ namespace Soul
 		m_Count++;
 
 		return true;
+	}
+
+	template <class T>
+	void Map<T>::Clear()
+	{
+		// Call all destructors
+		for (unsigned int i = 0; i < m_Capacity; ++i)
+		{
+			if (m_Memory[i].Hash)
+			{
+				m_Memory[i].Value.~T();
+			}
+		}
+
+		// Clear all data
+		memset(m_Memory, 0, m_Capacity * sizeof(Set<T>));
+		m_Count = 0;
 	}
 
 	template <class T>

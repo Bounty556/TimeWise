@@ -1,5 +1,6 @@
 #include "Application.h"
 
+#include <Files/ControlsFile.h>
 #include <Files/TextFile.h>
 #include <Input/ControlsMap.h>
 #include <Logging/Logger.h>
@@ -31,6 +32,13 @@ namespace Soul
 		MemoryManager::Allocate(Gigabytes(1));
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
+
+		MemoryManager::DrawMemory();
+		{
+			ControlsFile controls("res/test.controls");
+			MemoryManager::DrawMemory();
+		}
+		MemoryManager::DrawMemory();
 
 		// Main game loop
 		while (m_Running)

@@ -3,7 +3,7 @@
 #include <Files/TextFile.h>
 #include <Input/ControlsMap.h>
 #include <Utility/Map.h>
-#include <Utility/String.h>
+#include <Strings/String.h>
 
 namespace Soul
 {

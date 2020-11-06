@@ -30,8 +30,8 @@ namespace Soul
 		}
 
 		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
-
-		memcpy(m_CString, initialString, m_StringLength + 1);
+		memcpy(m_CString, initialString, m_StringLength);
+		m_CString[m_StringLength] = '\0';
 	}
 
 	String::String(unsigned int capacity) :
@@ -61,7 +61,8 @@ namespace Soul
 	{
 		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
 
-		memcpy(m_CString, otherString.GetCString(), m_StringLength + 1);
+		memcpy(m_CString, otherString.GetCString(), m_StringLength);
+		m_CString[m_StringLength] = '\0';
 	}
 
 	String::String(String&& otherString) :
@@ -92,7 +93,8 @@ namespace Soul
 			m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
 		}
 		
-		memcpy(m_CString, otherString.m_CString, m_StringLength + 1);
+		memcpy(m_CString, otherString.m_CString, m_StringLength);
+		m_CString[m_StringLength] = '\0';
 
 		return *this;
 	}
@@ -115,7 +117,8 @@ namespace Soul
 			m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
 		}
 
-		memcpy(m_CString, otherString, m_StringLength + 1);
+		memcpy(m_CString, otherString, m_StringLength);
+		m_CString[m_StringLength] = '\0';
 
 		return *this;
 	}
@@ -205,7 +208,7 @@ namespace Soul
 			}
 			
 			tempPointer[stringIndex] = otherChar;
-			tempPointer[stringIndex + 1] = '\n';
+			tempPointer[stringIndex + 1] = '\0';
 
 			// Clean up and reassign
 			MemoryManager::FreeMemory(m_CString);
@@ -214,7 +217,7 @@ namespace Soul
 		else
 		{
 			m_CString[m_StringLength] = otherChar;
-			m_CString[m_StringLength + 1] = '\n';
+			m_CString[m_StringLength + 1] = '\0';
 		}
 		
 		if (otherChar != '\0')

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Utility/String.h>
+#include <Strings/String.h>
 
 namespace Soul
 {

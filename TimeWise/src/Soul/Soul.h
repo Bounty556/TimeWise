@@ -7,7 +7,7 @@
 #include "Utility/Macros.h"
 #include "Utility/Math.h"
 #include "Utility/Map.h"
-#include "Utility/String.h"
+#include "Strings/String.h"
 #include "Utility/Timer.h"
 #include "Utility/Vector.h"
 #include "Memory/MemoryManager.h"

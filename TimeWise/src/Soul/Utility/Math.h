@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Utility/String.h>
+#include <Strings/String.h>
 
 // TODO: Look into turning these into constexpr functions
 

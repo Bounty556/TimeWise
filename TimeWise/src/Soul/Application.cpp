@@ -7,7 +7,8 @@
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
 #include <Utility/Map.h>
-#include <Utility/String.h>
+#include <Strings/String.h>
+#include <Strings/StringReader.h>
 #include <Utility/Timer.h>
 #include <Utility/Vector.h>
 #include <Memory/MemoryManager.h>
@@ -33,10 +34,23 @@ namespace Soul
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		MemoryManager::DrawMemory();
+		/*MemoryManager::DrawMemory();
 		{
 			ControlsFile controls("res/test.controls");
 			MemoryManager::DrawMemory();
+		}
+		MemoryManager::DrawMemory();*/
+
+		MemoryManager::DrawMemory();
+		{
+			TextFile textFile("res/test.controls");
+			StringReader stringReader(textFile.GetString());
+
+			while (!stringReader.IsAtEnd())
+			{
+				stringReader.GetNextLine();
+				SoulLogInfo("This line is: %s", stringReader.GetLastValue());
+			}
 		}
 		MemoryManager::DrawMemory();
 

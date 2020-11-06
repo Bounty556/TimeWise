@@ -4,7 +4,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-#include <Utility/String.h>
+#include <Strings/String.h>
 
 namespace Soul
 {

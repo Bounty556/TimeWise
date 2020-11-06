@@ -5,6 +5,7 @@
 #include <Logging/Logger.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
+#include <Utility/Map.h>
 #include <Utility/String.h>
 #include <Utility/Timer.h>
 #include <Memory/MemoryManager.h>
@@ -29,6 +30,15 @@ namespace Soul
 		MemoryManager::Allocate(Gigabytes(1));
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
+
+		MemoryManager::DrawMemory();
+		{
+			Map<String> stringMap;
+			String toAdd("Test!");
+			stringMap.AddPair(Math::HashString(toAdd), toAdd);
+			MemoryManager::DrawMemory();
+		}
+		MemoryManager::DrawMemory();
 
 		// Main game loop
 		while (m_Running)

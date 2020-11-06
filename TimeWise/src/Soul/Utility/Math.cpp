@@ -75,7 +75,18 @@ namespace Soul
 				power = (power + 1) % 12;
 			}
 
+			if (hashValue == 0)
+			{
+				hashValue = 1;
+			}
+
 			return hashValue;
+		}
+
+		unsigned int FindNextPrime(unsigned int number)
+		{
+			// TODO: Actually implement
+			return number;
 		}
 	}
 }

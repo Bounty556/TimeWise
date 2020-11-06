@@ -12,8 +12,6 @@ namespace Soul
 
 	void MemoryManager::Allocate(size_t bytes)
 	{
-		// TODO: Set memory to 0's ?
-
 		m_Memory = (unsigned char*)malloc(bytes);
 		m_StableMemoryStart = m_Memory + Megabytes(2);
 		m_StableMemoryEnd = m_Memory + bytes;
@@ -29,7 +27,7 @@ namespace Soul
 		free((void*)m_Memory);
 	}
 
-	// TODO: Maybe we should be finding the smallest free block possible and partitioning there 
+	// TODO: We should be finding the smallest free block possible and partitioning there 
 	//       first, saving the bigger blocks for larger partitions
 	void* MemoryManager::PartitionMemory(unsigned int bytes, unsigned int count)
 	{
@@ -44,6 +42,10 @@ namespace Soul
 			if (currentNode->BlockSize - sizeof(MemoryNode*) >= actualBytes)
 			{
 				void* location = ((unsigned char*)currentNode) + (currentNode->BlockSize - actualBytes);
+
+				// Initialize newly partitioned memory to 0
+				memset(location, 0, actualBytes);
+
 				PartitionHeader* header = (PartitionHeader*)location;
 				header->Bytes = actualBytes;
 				header->Count = count;
@@ -62,6 +64,10 @@ namespace Soul
 				RemoveNode(currentNode);
 
 				void* location = currentNode;
+
+				// Initialize newly partitioned memory to 0
+				memset(location, 0, currentNode->BlockSize);
+
 				PartitionHeader* header = (PartitionHeader*)location;
 				header->Bytes = currentNode->BlockSize;
 				header->Count = count;

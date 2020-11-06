@@ -34,5 +34,10 @@ namespace Soul
 		a hash.
 		*/
 		unsigned long long HashString(const char* string);
+
+		/*
+		Finds the nearest prime that is >= to the provided number.
+		*/
+		unsigned int FindNextPrime(unsigned int number);
 	}
 }

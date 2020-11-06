@@ -74,7 +74,10 @@ namespace Soul
 
 	String::~String()
 	{
-		MemoryManager::FreeMemory(m_CString);
+		if (m_CString)
+		{
+			MemoryManager::FreeMemory(m_CString);
+		}
 	}
 
 	String& String::operator=(const String& otherString)

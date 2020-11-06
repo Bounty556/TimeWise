@@ -48,7 +48,7 @@ namespace Soul
 
 			while (!stringReader.IsAtEnd())
 			{
-				stringReader.GetNextLine();
+				stringReader.GetNextChar();
 				SoulLogInfo("This line is: %s", stringReader.GetLastValue());
 			}
 		}

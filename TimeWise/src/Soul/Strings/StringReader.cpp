@@ -21,9 +21,15 @@ namespace Soul
 
 	void StringReader::GetNextChar()
 	{
-		if (m_CurrentIndex != m_LastIndex)
+		m_LastValue = "";
+		while (m_CurrentIndex < m_LastIndex)
 		{
-			m_LastValue = m_StringStart[m_CurrentIndex];
+			if (m_StringStart[m_CurrentIndex] != '\r')
+			{
+				m_LastValue = m_StringStart[m_CurrentIndex];
+				++m_CurrentIndex;
+				return;
+			}
 			++m_CurrentIndex;
 		}
 	}
@@ -41,7 +47,7 @@ namespace Soul
 			m_CurrentIndex++;
 		}
 
-		if (m_CurrentIndex != m_LastIndex)
+		if (m_CurrentIndex < m_LastIndex)
 		{
 			// Skip over the character we want to stop at
 			m_CurrentIndex++;
@@ -52,7 +58,7 @@ namespace Soul
 	{
 		m_LastValue = "";
 
-		while (m_StringStart[m_CurrentIndex] != toFind && m_CurrentIndex != m_LastIndex)
+		while (m_StringStart[m_CurrentIndex] != toFind && m_CurrentIndex < m_LastIndex)
 		{
 			if (m_StringStart[m_CurrentIndex] != '\r')
 			{
@@ -61,7 +67,7 @@ namespace Soul
 			m_CurrentIndex++;
 		}
 
-		if (m_CurrentIndex != m_LastIndex)
+		if (m_CurrentIndex < m_LastIndex)
 		{
 			// Add the character we wanted to stop at
 			m_LastValue += m_StringStart[m_CurrentIndex];
@@ -73,7 +79,7 @@ namespace Soul
 	{
 		m_LastValue = "";
 
-		while (m_CurrentIndex != m_LastIndex)
+		while (m_CurrentIndex < m_LastIndex)
 		{
 			if (m_StringStart[m_CurrentIndex] != '\r')
 			{

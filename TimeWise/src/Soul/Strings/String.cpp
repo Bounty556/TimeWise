@@ -87,7 +87,6 @@ namespace Soul
 
 		if (m_StringCapacity < otherString.m_StringCapacity)
 		{
-			SoulLogInfo("Repartitioning");
 			m_StringCapacity = otherString.m_StringCapacity;
 			MemoryManager::FreeMemory(m_CString);
 			m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
@@ -120,6 +119,23 @@ namespace Soul
 		memcpy(m_CString, otherString, m_StringLength);
 		m_CString[m_StringLength] = '\0';
 
+		return *this;
+	}
+
+	String& String::operator=(const char otherChar)
+	{
+		if (otherChar != '\0')
+		{
+			m_StringLength = 1;
+			m_CString[1] = '\0';
+			m_CString[0] = otherChar;
+		}
+		else
+		{
+			m_StringLength = 0;
+			m_CString[0] = '\0';
+		}
+	
 		return *this;
 	}
 

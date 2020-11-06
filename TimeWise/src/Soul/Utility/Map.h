@@ -131,6 +131,7 @@ namespace Soul
 			// We couldn't find a spot
 			if (attempts++ >= maxAttempts)
 			{
+				SoulLogWarning("Could not find value with hash: %lld", hash);
 				return nullptr;
 			}
 
@@ -184,5 +185,7 @@ namespace Soul
 		MemoryManager::FreeMemory(m_Memory);
 		m_Capacity = newCapacity;
 		m_Memory = newMemory;
+
+		SoulLogInfo("Resizing to %d", m_Capacity);
 	}
 }

@@ -85,8 +85,34 @@ namespace Soul
 
 		unsigned int FindNextPrime(unsigned int number)
 		{
-			// TODO: Actually implement
+			while (!IsPrime(number))
+			{
+				number++;
+			}
+
 			return number;
+		}
+
+		bool IsPrime(unsigned int number)
+		{
+			// Check to see if even
+			if (number % 2 == 0)
+			{
+				return false;
+			}
+
+			unsigned int half = number / 2;
+
+			while (half >= 3)
+			{
+				if (number % half == 0)
+				{
+					return false;
+				}
+				half -= 1;
+			}
+
+			return true;
 		}
 	}
 }

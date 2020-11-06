@@ -39,5 +39,10 @@ namespace Soul
 		Finds the nearest prime that is >= to the provided number.
 		*/
 		unsigned int FindNextPrime(unsigned int number);
+
+		/*
+		Checks to see if this number is prime.
+		*/
+		bool IsPrime(unsigned int number);
 	}
 }

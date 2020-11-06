@@ -2,7 +2,6 @@
 
 #include "Soul/Application.h"
 
-// TODO: Add StringReader class
 // TODO: Add .controls file format reader/writer
 // TODO: Controller class
 // TODO: Event queue/event processing

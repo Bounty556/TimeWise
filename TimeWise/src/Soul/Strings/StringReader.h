@@ -5,7 +5,20 @@
 namespace Soul
 {
 	/*
-	Helper class that aids in reading CString and Soul::Strings line by line.
+	Helper class that aids in reading CString and Soul::Strings line by line. This works quite
+	differently from a typical StringStream. First, one of the get functions is called, which 
+	stores the resulting string into a variable within this StringReader. This string can then
+	be accessed at anytime via GetLastValue().
+	Ex:
+
+	String string(...);
+	StringReader stringReader(string);
+
+	while (!stringReader.IsAtEnd())
+	{
+		stringReader.GetNextLine();
+		SoulLogInfo("%s", stringReader.GetLastValue());
+	}
 	*/
 	class StringReader
 	{

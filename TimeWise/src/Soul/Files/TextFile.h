@@ -6,11 +6,18 @@ namespace Soul
 {
 	/*
 	A file that uses a Soul::String as it's underlying buffer. Solely to be used for text files.
+
+	The file is automatically read from when the object is created, and te underlying
+	Soul::String object can be written and read from whenever desired. When you want to write
+	back to the file, simply call WriteStringToFile(), and whatever is in the Soul::String will
+	overwrite the contents of the file.
 	*/
 	class TextFile
 	{
 	public:
 		TextFile(const char* fileName);
+		TextFile() = delete;
+		
 		~TextFile();
 
 		/*

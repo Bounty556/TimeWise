@@ -19,7 +19,7 @@ namespace Soul
 		Vector(unsigned int capacity = 8);
 
 		Vector(const Vector<T>&) = delete; // No copy constructor
-		Vector(Vector<T>&&) = delete; // No move constructor
+		Vector(Vector<T>&& otherVector); // Move constructor
 
 		~Vector();
 
@@ -91,9 +91,22 @@ namespace Soul
 	}
 
 	template <class T>
+	Vector<T>::Vector(Vector<T>&& otherVector)
+	{
+		m_Capacity = otherVector.m_Capacity;
+		m_Count = otherVector.m_Count;
+		m_Memory = otherVector.m_Memory;
+
+		otherVector.m_Memory = nullptr;
+	}
+
+	template <class T>
 	Vector<T>::~Vector()
 	{
-		MemoryManager::FreeMemory(m_Memory);
+		if (m_Memory)
+		{
+			MemoryManager::FreeMemory(m_Memory);
+		}
 	}
 
 	template <class T>

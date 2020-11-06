@@ -41,19 +41,6 @@ namespace Soul
 		}
 		MemoryManager::DrawMemory();*/
 
-		MemoryManager::DrawMemory();
-		{
-			TextFile textFile("res/test.controls");
-			StringReader stringReader(textFile.GetString());
-
-			while (!stringReader.IsAtEnd())
-			{
-				stringReader.GetNextChar();
-				SoulLogInfo("This line is: %s", stringReader.GetLastValue());
-			}
-		}
-		MemoryManager::DrawMemory();
-
 		// Main game loop
 		while (m_Running)
 		{

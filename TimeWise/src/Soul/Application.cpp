@@ -34,12 +34,11 @@ namespace Soul
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		/*MemoryManager::DrawMemory();
+		MemoryManager::DrawMemory();
 		{
-			ControlsFile controls("res/test.controls");
-			MemoryManager::DrawMemory();
+
 		}
-		MemoryManager::DrawMemory();*/
+		MemoryManager::DrawMemory();
 
 		// Main game loop
 		while (m_Running)

@@ -79,11 +79,6 @@ namespace Soul
 	template <class T>
 	Map<T>::~Map()
 	{
-		SoulLogInfo("Freeing");
-		for (int i = 0; i < m_Capacity; ++i)
-		{
-			SoulLogInfo("%lld", m_Memory[i].Hash);
-		}
 		MemoryManager::FreeMemory(m_Memory);
 	}
 
@@ -155,11 +150,11 @@ namespace Soul
 	void Map<T>::Resize(unsigned int newCapacity)
 	{
 		// Create a new memory block with the necessary size, move all previous elements into it
-		Set<T>* newMemory = PartitionArray(Set<T>, m_Capacity);
+		Set<T>* newMemory = PartitionArray(Set<T>, newCapacity);
 
-		for (int i = 0; i < m_Capacity; ++i)
+		for (unsigned int i = 0; i < m_Capacity; ++i)
 		{
-			if (m_Memory[i].Hash != 0)
+			if (m_Memory[i].Hash == 0)
 			{
 				break;
 			}

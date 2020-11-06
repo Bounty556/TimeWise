@@ -33,6 +33,10 @@ namespace Soul
 
 		MemoryManager::DrawMemory();
 		{
+			Timer timer;
+
+			timer.Start();
+
 			Map<String> stringMap;
 			String toAdd("Test!");
 			String toAdd2("Test2!");
@@ -41,7 +45,7 @@ namespace Soul
 			String toAdd5("Test5!");
 			String toAdd6("Test6!");
 			String toAdd7("Test7!");
-			MemoryManager::DrawMemory();
+			
 			stringMap.AddPair(Math::HashString(toAdd), toAdd);
 			stringMap.AddPair(Math::HashString(toAdd2), toAdd2);
 			stringMap.AddPair(Math::HashString(toAdd3), toAdd3);
@@ -49,7 +53,10 @@ namespace Soul
 			stringMap.AddPair(Math::HashString(toAdd5), toAdd5);
 			stringMap.AddPair(Math::HashString(toAdd6), toAdd6);
 			stringMap.AddPair(Math::HashString(toAdd7), toAdd7);
-			MemoryManager::DrawMemory();
+
+			timer.Start();
+			SoulLogInfo("Time elapsed: %lld", timer.GetElapsedMilliseconds());
+
 		}
 		MemoryManager::DrawMemory();
 

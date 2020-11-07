@@ -30,5 +30,10 @@ namespace Soul
 		Checks to see if this number is prime.
 		*/
 		bool IsPrime(unsigned int number);
+
+		/*
+		Returns the absolute value of this number.
+		*/
+		float Abs(float number);
 	}
 }

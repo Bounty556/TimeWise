@@ -254,8 +254,6 @@ namespace Soul
 
 		m_Count++;
 
-		SoulLogInfo("Added to location %p", &(m_Memory[location]));
-
 		return true;
 	}
 

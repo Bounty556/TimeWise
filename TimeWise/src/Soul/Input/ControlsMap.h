@@ -115,6 +115,11 @@ namespace Soul
 		*/
 		void SetController(unsigned int controllerId);
 
+		/*
+		Removes all of the stored input mappings for this controls map.
+		*/
+		void ClearControls();
+
 	private:
 		/*
 		Array of Inputs that map to the games controls.

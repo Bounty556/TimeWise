@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Window/Event.hpp>
+
 #include <Files/ControlsFile.h>
 #include <Input/ControlsMap.h>
 
@@ -8,25 +10,47 @@ namespace Soul
 	class Controller
 	{
 	public:
-		Controller(const char* controlsProfile, int controller = -1);
+		struct InputInfo
+		{
+			ControlsMap::ButtonState State;
+			float AxisPosition;
+		};
 
-		void ProcessInput();
+	public:
+		Controller(const char* controlsProfile = "res/guestControls.controls", unsigned int controller = 0);
+
+		void ProcessInput(sf::Event& e);
+
+		/*
+		Sets the next input value as a mapping for this control.
+		*/
+		void RecordInput(const char* controlString);
 
 		void UpdateInputInfo();
-		void SetControlsProfile();
+
+		// TODO: void SetControlsProfile();
+
 		void SetInputMapping(const char* controlString, char inputOrigin, int inputValue);
 
-		void SetControllerId();
-		int GetControllerId() const;
+		void SetControllerId(int controllerId);
 
-		ControlsMap::ButtonState GetInputState(const char* controlString);
-		float GetAxis(const char* controlString);
+		unsigned int GetControllerId() const;
+
+		InputInfo GetInputInfo(const char* controlString) const;
+	
+	private:
+		void ReloadControls();
 
 	private:
 		/*
 		Whether this controller is looking for input to update a control profile.
 		*/
 		bool m_IsRecordingInput;
+
+		/*
+		The mapping that this controller is looking for input from.
+		*/
+		String m_RecordedMapping;
 
 		/*
 		The file associated with this controller's profile.
@@ -41,6 +65,6 @@ namespace Soul
 		/*
 		The ID of the controller that this class is checking for input from.
 		*/
-		int m_ControllerId;
+		unsigned int m_ControllerId;
 	};
 }

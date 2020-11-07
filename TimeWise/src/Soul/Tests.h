@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Files/ControlsFile.h>
+#include <Input/Controller.h>
 #include <Input/ControlsMap.h>
 #include <Utility/Macros.h>
 #include <Utility/Map.h>
@@ -177,6 +178,11 @@ namespace Soul
 				Assert(controlsMap.GetInputInfo("Shoot").Axis == sf::Joystick::Y);
 			}
 			MemoryManager::DrawMemory();
+		}
+
+		void ControllerTest()
+		{
+			
 		}
 	}
 }

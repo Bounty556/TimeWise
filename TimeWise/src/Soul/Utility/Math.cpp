@@ -74,5 +74,14 @@ namespace Soul
 
 			return true;
 		}
+
+		float Abs(float number)
+		{
+			if (number < 0.0f)
+			{
+				return -number;
+			}
+			return number;
+		}
 	}
 }

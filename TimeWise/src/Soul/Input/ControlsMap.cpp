@@ -13,7 +13,7 @@ namespace Soul
 		MouseButton(-1),
 		ControllerButton(-1),
 		Axis(-1),
-		State(ButtonState::None),
+		State(ControlsMap::ButtonState::None),
 		AxisPosition(0.0f)
 	{
 	}
@@ -106,5 +106,10 @@ namespace Soul
 	void ControlsMap::SetController(unsigned int controllerId)
 	{
 		m_ControllerId = controllerId;
+	}
+
+	void ControlsMap::ClearControls()
+	{
+		m_Controls.Clear();
 	}
 }

@@ -62,6 +62,11 @@ namespace Soul
 		*/
 		void WriteToFile();
 
+		/*
+		Returns a list of all of the names of the inputs that were loaded.
+		*/
+		Vector<String*> GetInputNames() const;
+
 	private:
 		/*
 		Reads the file into the m_Controls nested map.

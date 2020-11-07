@@ -57,6 +57,11 @@ namespace Soul
 		m_File.WriteStringToFile();
 	}
 
+	Vector<String*> ControlsFile::GetInputNames() const
+	{
+		return m_Controls.GetKeys();
+	}
+
 	void ControlsFile::ReadToMap()
 	{
 		StringReader stringReader(m_File.GetString());

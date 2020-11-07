@@ -12,9 +12,9 @@ namespace Soul
 		ReadToMap();
 	}
 
-	void ControlsFile::UpdateControls(const ControlsMap::Input& input)
+	void ControlsFile::UpdateControls(const char* controlName, const ControlsMap::Input& input)
 	{
-		Map<String, int>& inputMap = *(m_Controls.Get(input.InputName));
+		Map<String, int>& inputMap = *(m_Controls.Get(controlName));
 		*(inputMap.Get('k')) = input.KeyboardKey;
 		*(inputMap.Get('m')) = input.MouseButton;
 		*(inputMap.Get('a')) = input.Axis;
@@ -34,7 +34,7 @@ namespace Soul
 		String& fileString = m_File.GetString();
 		fileString = "";
 		
-		Vector<const String*> keys = m_Controls.GetKeys();
+		Vector<String*> keys = m_Controls.GetKeys();
 		for (unsigned int i = 0; i < keys.Length(); i++)
 		{
 			Map<String, int>& inputMap = *(m_Controls.Get(*keys[i]));

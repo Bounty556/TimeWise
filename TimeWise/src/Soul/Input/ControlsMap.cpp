@@ -9,7 +9,6 @@
 namespace Soul
 {
 	ControlsMap::Input::Input() :
-		InputName(),
 		KeyboardKey(-1),
 		MouseButton(-1),
 		ControllerButton(-1),
@@ -19,63 +18,31 @@ namespace Soul
 	{
 	}
 
-	ControlsMap::ControlsMap(const char* inputString, unsigned int inputs) :
-		m_ControlsCount(inputs),
-		m_Controls(PartitionArray(Input, inputs)),
+	ControlsMap::ControlsMap() :
+		m_Controls(),
 		m_ControllerId(-1)
 	{
-		Assert(m_Controls);
 
-		// Put all of the inputs into the array, initialize values
-		for (unsigned int character = 0, i = 0; i < m_ControlsCount; ++i)
-		{
-			new (m_Controls + i) Input();
-
-			while (inputString[character] != ',' && inputString[character] != ';')
-			{
-				m_Controls[i].InputName += inputString[character];
-				++character;
-			}
-
-			m_Controls[i].InputName += '\0';
-
-			if (inputString[character] == ',')
-			{
-				++character;
-			}
-			else if (inputString[character] == ';' && i != m_ControlsCount - 1)
-			{
-				SoulLogError("Incorrect number of inputs (%d) passed with input string (%s)", inputs, inputString);
-				Assert(false);
-			}
-		}
 	}
 
-	ControlsMap::~ControlsMap()
+	void ControlsMap::AddInput(const char* controlString, Input input)
 	{
-		MemoryManager::FreeMemory(m_Controls);
+		m_Controls.AddPair(String(controlString), input);
 	}
 
 	const ControlsMap::Input& ControlsMap::GetInputInfo(const char* input) const
 	{
-		for (unsigned int i = 0; i < m_ControlsCount; ++i)
-		{
-			if (m_Controls[i].InputName.CompareTo(input) == 0)
-			{
-				return m_Controls[i];
-			}
-		}
-
-		SoulLogError("Unable to find control mapping for input %s", input);
-		Assert(false);
-		return m_Controls[0];
+		return *(m_Controls.Get(String(input)));
 	}
 
 	void ControlsMap::UpdateInputInfo()
 	{
-		for (unsigned int i = 0; i < m_ControlsCount; ++i)
+		Vector<Input*> inputs = m_Controls.GetValues();
+
+		for (unsigned int i = 0; i < inputs.Length(); ++i)
 		{
-			Input& input = m_Controls[i];
+			Input& input = *(inputs[i]);
+
 			// Are mouse, keyboard, or controller pressed
 			if ((input.KeyboardKey != -1 &&
 				sf::Keyboard::isKeyPressed((sf::Keyboard::Key)input.KeyboardKey)) ||
@@ -112,64 +79,28 @@ namespace Soul
 		}
 	}
 
-	void ControlsMap::SetControllerInput(const char* input, unsigned int controllerButton)
+	void ControlsMap::SetControllerInput(const char* controlString, unsigned int controllerButton)
 	{
-		for (unsigned int i = 0; i < m_ControlsCount; ++i)
-		{
-			if (m_Controls[i].InputName.CompareTo(input) == 0)
-			{
-				m_Controls[i].Axis = -1;
-				m_Controls[i].ControllerButton = controllerButton;
-				return;
-			}
-		}
-
-		SoulLogWarning("Unable to find control mapping for input %s when setting controller input.", input);
+		m_Controls.Get(controlString)->ControllerButton = controllerButton;
+		m_Controls.Get(controlString)->Axis = -1;
 	}
 
-	void ControlsMap::SetMouseInput(const char* input, sf::Mouse::Button mouseButton)
+	void ControlsMap::SetMouseInput(const char* controlString, sf::Mouse::Button mouseButton)
 	{
-		for (unsigned int i = 0; i < m_ControlsCount; ++i)
-		{
-			if (m_Controls[i].InputName.CompareTo(input) == 0)
-			{
-				m_Controls[i].KeyboardKey = -1;
-				m_Controls[i].MouseButton = (int)mouseButton;
-				return;
-			}
-		}
-
-		SoulLogWarning("Unable to find control mapping for input %s when setting mouse input.", input);
+		m_Controls.Get(controlString)->MouseButton = mouseButton;
+		m_Controls.Get(controlString)->KeyboardKey = -1;
 	}
 
-	void ControlsMap::SetKeyboardInput(const char* input, sf::Keyboard::Key keyboardKey)
+	void ControlsMap::SetKeyboardInput(const char* controlString, sf::Keyboard::Key keyboardKey)
 	{
-		for (unsigned int i = 0; i < m_ControlsCount; ++i)
-		{
-			if (m_Controls[i].InputName.CompareTo(input) == 0)
-			{
-				m_Controls[i].MouseButton = -1;
-				m_Controls[i].KeyboardKey = (int)keyboardKey;
-				return;
-			}
-		}
-
-		SoulLogWarning("Unable to find control mapping for input %s when setting keyboard input.", input);
+		m_Controls.Get(controlString)->KeyboardKey = keyboardKey;
+		m_Controls.Get(controlString)->MouseButton = -1;
 	}
 
-	void ControlsMap::SetControllerAxis(const char* input, sf::Joystick::Axis axis)
+	void ControlsMap::SetControllerAxis(const char* controlString, sf::Joystick::Axis axis)
 	{
-		for (unsigned int i = 0; i < m_ControlsCount; ++i)
-		{
-			if (m_Controls[i].InputName.CompareTo(input) == 0)
-			{
-				m_Controls[i].ControllerButton = -1;
-				m_Controls[i].Axis = axis;
-				return;
-			}
-		}
-
-		SoulLogWarning("Unable to find control mapping for input %s when setting axis input.", input);
+		m_Controls.Get(controlString)->Axis = axis;
+		m_Controls.Get(controlString)->ControllerButton = -1;
 	}
 
 	void ControlsMap::SetController(unsigned int controllerId)

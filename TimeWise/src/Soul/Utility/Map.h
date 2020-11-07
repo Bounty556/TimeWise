@@ -82,7 +82,12 @@ namespace Soul
 		/*
 		Returns a vector of all of the keys stored in this map.
 		*/
-		Vector<const K*> GetKeys() const;
+		Vector<K*> GetKeys() const;
+
+		/*
+		Returns a vector of all of the values stored in this map.
+		*/
+		Vector<V*> GetValues() const;
 
 	private:
 		/*
@@ -359,9 +364,9 @@ namespace Soul
 	}
 
 	template <class K, class V>
-	Vector<const K*> MapType::GetKeys() const
+	Vector<K*> MapType::GetKeys() const
 	{
-		Vector<const K*> keys(m_Count);
+		Vector<K*> keys(m_Count);
 		for (unsigned int i = 0; i < m_Capacity; ++i)
 		{
 			if (m_Memory[i].IsInitialized)
@@ -371,6 +376,21 @@ namespace Soul
 		}
 
 		return keys;
+	}
+
+	template <class K, class V>
+	Vector<V*> MapType::GetValues() const
+	{
+		Vector<V*> values(m_Count);
+		for (unsigned int i = 0; i < m_Capacity; ++i)
+		{
+			if (m_Memory[i].IsInitialized)
+			{
+				values.Push(&(m_Memory[i].Value));
+			}
+		}
+
+		return values;
 	}
 
 	template <class K, class V>

@@ -5,6 +5,7 @@
 #include <SFML/Window/Mouse.hpp>
 
 #include <Strings/String.h>
+#include <Utility/Map.h>
 
 namespace Soul
 {
@@ -63,8 +64,6 @@ namespace Soul
 		{
 			Input();
 
-			String InputName;
-			
 			int KeyboardKey;
 			int MouseButton;
 			int ControllerButton;
@@ -75,14 +74,9 @@ namespace Soul
 		};
 
 	public:
-		/*
-		Controls are initialized using a comma-delimited list of input names, ending with a
-		semicolon.
-		Ex: "Jump,Duck,Barrel Roll,Slide;"
-		*/
-		ControlsMap(const char* inputString, unsigned int inputs);
-		ControlsMap() = delete;
-		~ControlsMap();
+		ControlsMap();
+
+		void AddInput(const char* controlString, Input input);
 
 		/*
 		Returns the Input info associated with the provided input name.
@@ -97,24 +91,24 @@ namespace Soul
 		/*
 		Sets the control of the given input to a button on the controller.
 		*/
-		void SetControllerInput(const char* input, unsigned int controllerButton);
+		void SetControllerInput(const char* controlString, unsigned int controllerButton);
 		
 		/*
 		Sets the control of the given input to an axis on the controller.
 		*/
-		void SetControllerAxis(const char* input, sf::Joystick::Axis axis);
+		void SetControllerAxis(const char* controlString, sf::Joystick::Axis axis);
 
 		/*
 		Sets the control of the given input to a button on the mouse. Overrides any existing
 		keyboard input.
 		*/
-		void SetMouseInput(const char* input, sf::Mouse::Button mouseButton);
+		void SetMouseInput(const char* controlString, sf::Mouse::Button mouseButton);
 		
 		/*
 		Sets the control of the given input to a key on the keyboard. Overrides any existing
 		mouse input.
 		*/
-		void SetKeyboardInput(const char* input, sf::Keyboard::Key keyboardKey);
+		void SetKeyboardInput(const char* controlString, sf::Keyboard::Key keyboardKey);
 
 		/*
 		Sets the controller that this control map is used for.
@@ -125,12 +119,7 @@ namespace Soul
 		/*
 		Array of Inputs that map to the games controls.
 		*/
-		Input* m_Controls;
-
-		/*
-		How many controls are in this map.
-		*/
-		unsigned int m_ControlsCount;
+		Map<String, Input> m_Controls;
 
 		/*
 		The Id of the controller that uses this control map. -1 if no associated controller.

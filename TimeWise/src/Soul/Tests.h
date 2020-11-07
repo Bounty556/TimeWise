@@ -96,7 +96,7 @@ namespace Soul
 				stringIntMap.AddPair(String("3"), 3);
 				stringIntMap.AddPair(String("4"), 4);
 
-				Vector<const String*> keys = stringIntMap.GetKeys();
+				Vector<String*> keys = stringIntMap.GetKeys();
 				Assert(*keys[0] == String("1"));
 				Assert(*keys[1] == String("2"));
 				Assert(*keys[2] == String("3"));
@@ -127,11 +127,10 @@ namespace Soul
 				ControlsFile controlsFile("res/test2.controls");
 
 				ControlsMap::Input input;
-				input.InputName = String("Shoot");
 				input.ControllerButton = 4;
 				input.KeyboardKey = sf::Keyboard::Space;
 				
-				controlsFile.UpdateControls(input);
+				controlsFile.UpdateControls("Shoot", input);
 				Assert(controlsFile.GetInputValue("Shoot", 'c') == 4);
 				Assert(controlsFile.GetInputValue("Shoot", 'k') == sf::Keyboard::Space);
 				Assert(controlsFile.GetInputValue("Shoot", 'm') == -1);
@@ -150,6 +149,33 @@ namespace Soul
 				Assert(controlsFile.GetInputValue("Shoot", 'a') == -1);
 			}
 
+			MemoryManager::DrawMemory();
+		}
+
+		void ControlsMapTest()
+		{
+			MemoryManager::DrawMemory();
+			{
+				ControlsMap controlsMap;
+				ControlsMap::Input testInput1;
+				ControlsMap::Input testInput2;
+
+				testInput1.KeyboardKey = sf::Keyboard::Space;
+
+				controlsMap.AddInput("Jump", testInput1);
+				controlsMap.AddInput("Shoot", testInput2);
+
+				controlsMap.SetControllerAxis("Shoot", sf::Joystick::Y);
+
+				Assert(controlsMap.GetInputInfo("Jump").KeyboardKey == sf::Keyboard::Space);
+				Assert(controlsMap.GetInputInfo("Jump").MouseButton == -1);
+				Assert(controlsMap.GetInputInfo("Jump").ControllerButton == -1);
+				Assert(controlsMap.GetInputInfo("Jump").Axis == -1);
+				Assert(controlsMap.GetInputInfo("Shoot").KeyboardKey == -1);
+				Assert(controlsMap.GetInputInfo("Shoot").MouseButton == -1);
+				Assert(controlsMap.GetInputInfo("Shoot").ControllerButton == -1);
+				Assert(controlsMap.GetInputInfo("Shoot").Axis == sf::Joystick::Y);
+			}
 			MemoryManager::DrawMemory();
 		}
 	}

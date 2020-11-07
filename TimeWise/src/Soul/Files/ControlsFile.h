@@ -50,7 +50,7 @@ namespace Soul
 		Updates this controls file to contain the information contained in the provided input
 		mapping.
 		*/
-		void UpdateControls(const ControlsMap::Input& input);
+		void UpdateControls(const char* controlName, const ControlsMap::Input& input);
 
 		/*
 		Returns the current input value loaded from the .controls from for the given control.

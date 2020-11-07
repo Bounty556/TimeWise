@@ -4,7 +4,7 @@
 
 namespace Soul
 {
-	Controller::Controller(const char* controlsProfile, unsigned int controller) :
+	Controller::Controller(int controller, const char* controlsProfile) :
 		m_IsRecordingInput(false),
 		m_RecordedMapping(),
 		m_ControlsFile(controlsProfile),
@@ -95,11 +95,6 @@ namespace Soul
 	{
 		m_ControllerId = controllerId;
 		m_ControlsMap.SetController(controllerId);
-	}
-
-	unsigned int Controller::GetControllerId() const
-	{
-		return m_ControllerId;
 	}
 
 	Controller::InputInfo Controller::GetInputInfo(const char* controlString) const

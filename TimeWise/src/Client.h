@@ -2,7 +2,6 @@
 
 #include "Soul/Application.h"
 
-// TODO: Controller class
 // TODO: InputManager class
 // TODO: Event queue/event processing
 // TODO: layers

@@ -45,9 +45,9 @@ namespace Soul
 
 			// Are mouse, keyboard, or controller pressed
 			if ((input.KeyboardKey != -1 &&
-				sf::Keyboard::isKeyPressed((sf::Keyboard::Key)input.KeyboardKey)) ||
+				sf::Keyboard::isKeyPressed((sf::Keyboard::Key)input.KeyboardKey) && m_ControllerId <= 0) ||
 				(input.MouseButton != -1 &&
-				sf::Mouse::isButtonPressed((sf::Mouse::Button)input.MouseButton)) ||
+				sf::Mouse::isButtonPressed((sf::Mouse::Button)input.MouseButton) && m_ControllerId <= 0) ||
 				(input.ControllerButton != -1 &&
 				sf::Joystick::isButtonPressed(m_ControllerId, input.ControllerButton)))
 			{

@@ -37,25 +37,11 @@ namespace Soul
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
 		{
-			Controller controller;
-
 			// Main game loop
 			while (m_Running)
 			{
 				// Event processing
 				ProcessEvents();
-
-				controller.UpdateInputInfo();
-
-				if (controller.GetInputInfo("Jump").State & ControlsMap::ButtonState::Pressed)
-				{
-					SoulLogInfo("Jump button pressed");
-				}
-
-				if (controller.GetInputInfo("Select").State & ControlsMap::ButtonState::Pressed)
-				{
-					SoulLogInfo("Select button pressed");
-				}
 
 				// Rendering
 				m_Window->clear();

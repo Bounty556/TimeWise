@@ -7,6 +7,9 @@
 
 namespace Soul
 {
+	/*
+	This is the main class that represents a single user's input. 
+	*/
 	class Controller
 	{
 	public:
@@ -17,7 +20,7 @@ namespace Soul
 		};
 
 	public:
-		Controller(const char* controlsProfile = "res/guestControls.controls", unsigned int controller = 0);
+		Controller(int controller = -1, const char* controlsProfile = "res/guestControls.controls");
 
 		void ProcessInput(sf::Event& e);
 
@@ -33,8 +36,6 @@ namespace Soul
 		void SetInputMapping(const char* controlString, char inputOrigin, int inputValue);
 
 		void SetControllerId(int controllerId);
-
-		unsigned int GetControllerId() const;
 
 		InputInfo GetInputInfo(const char* controlString) const;
 	
@@ -65,6 +66,6 @@ namespace Soul
 		/*
 		The ID of the controller that this class is checking for input from.
 		*/
-		unsigned int m_ControllerId;
+		int m_ControllerId;
 	};
 }

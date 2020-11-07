@@ -29,11 +29,32 @@ namespace Soul
 		return *(m_Controls.Get(controlString)->Get(inputString));
 	}
 
-	void ControlsFile::WriteMapToFile()
+	void ControlsFile::WriteToFile()
 	{
 		String& fileString = m_File.GetString();
-		
 		fileString = "";
+		
+		Vector<const String*> keys = m_Controls.GetKeys();
+		for (unsigned int i = 0; i < keys.Length(); i++)
+		{
+			Map<String, int>& inputMap = *(m_Controls.Get(*keys[i]));
+
+			fileString += keys[i]->GetCString();
+			fileString += "\nk ";
+			fileString += String::IntToString(*inputMap.Get(String('k')));
+			fileString += "\nm ";
+			fileString += String::IntToString(*inputMap.Get(String('m')));
+			fileString += "\na ";
+			fileString += String::IntToString(*inputMap.Get(String('a')));
+			fileString += "\nc ";
+			fileString += String::IntToString(*inputMap.Get(String('c')));
+			if (i != keys.Length() - 1)
+			{
+				fileString += '\n';
+			}
+		}
+
+		m_File.WriteStringToFile();
 	}
 
 	void ControlsFile::ReadToMap()

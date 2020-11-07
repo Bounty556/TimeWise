@@ -2,8 +2,8 @@
 
 #include "Soul/Application.h"
 
-// TODO: Add .controls file format reader/writer
 // TODO: Controller class
+// TODO: InputManager class
 // TODO: Event queue/event processing
 // TODO: layers
 // TODO: World Layer

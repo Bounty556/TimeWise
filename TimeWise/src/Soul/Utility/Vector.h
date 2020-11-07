@@ -50,7 +50,7 @@ namespace Soul
 		/*
 		Gets the current number of elements stored in this vector.
 		*/
-		unsigned int Count() const;
+		unsigned int Length() const;
 
 	private:
 		void Resize(unsigned int newCapacity);
@@ -162,7 +162,7 @@ namespace Soul
 	}
 
 	template <class T>
-	unsigned int Vector<T>::Count() const
+	unsigned int Vector<T>::Length() const
 	{
 		return m_Count;
 	}

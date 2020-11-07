@@ -365,4 +365,42 @@ namespace Soul
 
 		return -1;
 	}
+
+	void String::Reverse()
+	{
+		unsigned int stringEnd = m_StringLength - 1;
+		for (unsigned int i = 0; i < m_StringLength / 2; ++i)
+		{
+			char tempChar = m_CString[i];
+			m_CString[i] = m_CString[stringEnd - i];
+			m_CString[stringEnd - i] = tempChar;
+		}
+	}
+
+	String String::IntToString(int value)
+	{
+		String converted;
+		bool isNegative = false;
+		if (value < 0)
+		{
+			isNegative = true;
+			value = -value;
+		}
+
+		while (value > 0)
+		{
+			unsigned int digit = value % 10;
+			converted += (char)(digit + 48);
+			value = value / 10;
+		}
+
+		if (isNegative)
+		{
+			converted += '-';
+		}
+
+		converted.Reverse();
+
+		return converted;
+	}
 }

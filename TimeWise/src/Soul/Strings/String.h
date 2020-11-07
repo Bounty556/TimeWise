@@ -79,6 +79,16 @@ namespace Soul
 		*/
 		int ToInt() const;
 
+		/*
+		Reverses the characters in this String.
+		*/
+		void Reverse();
+
+		/*
+		Utility function that converts an integer into a Soul::String.
+		*/
+		static String IntToString(int value);
+
 	private:
 		char* m_CString;
 

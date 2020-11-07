@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Files/ControlsFile.h>
+#include <Input/ControlsMap.h>
 #include <Utility/Macros.h>
 #include <Utility/Map.h>
 
@@ -109,15 +110,6 @@ namespace Soul
 		{
 			MemoryManager::DrawMemory();
 			{
-				ControlsFile controlsFile("res/test2.controls");
-
-				Assert(controlsFile.GetInputValue("Shoot", 'c') == -1);
-				Assert(controlsFile.GetInputValue("Shoot", 'a') == 3);
-				Assert(controlsFile.GetInputValue("Shoot", 'k') == -1);
-				Assert(controlsFile.GetInputValue("Shoot", 'm') == 1);
-			}
-
-			{
 				ControlsFile controlsFile("res/test.controls");
 
 				Assert(controlsFile.GetInputValue("Jump", 'k') == 12);
@@ -129,6 +121,35 @@ namespace Soul
 				Assert(controlsFile.GetInputValue("Shoot", 'c') == -1);
 				Assert(controlsFile.GetInputValue("Shoot", 'm') == 1);
 			}
+
+			// Loading, editing, writing to file
+			{
+				ControlsFile controlsFile("res/test2.controls");
+
+				ControlsMap::Input input;
+				input.InputName = String("Shoot");
+				input.ControllerButton = 4;
+				input.KeyboardKey = sf::Keyboard::Space;
+				
+				controlsFile.UpdateControls(input);
+				Assert(controlsFile.GetInputValue("Shoot", 'c') == 4);
+				Assert(controlsFile.GetInputValue("Shoot", 'k') == sf::Keyboard::Space);
+				Assert(controlsFile.GetInputValue("Shoot", 'm') == -1);
+				Assert(controlsFile.GetInputValue("Shoot", 'a') == -1);
+
+				controlsFile.WriteToFile();
+			}
+
+			// Loading from written file
+			{
+				ControlsFile controlsFile("res/test2.controls");
+
+				Assert(controlsFile.GetInputValue("Shoot", 'c') == 4);
+				Assert(controlsFile.GetInputValue("Shoot", 'k') == sf::Keyboard::Space);
+				Assert(controlsFile.GetInputValue("Shoot", 'm') == -1);
+				Assert(controlsFile.GetInputValue("Shoot", 'a') == -1);
+			}
+
 			MemoryManager::DrawMemory();
 		}
 	}

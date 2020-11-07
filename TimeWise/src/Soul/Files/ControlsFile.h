@@ -57,12 +57,12 @@ namespace Soul
 		*/
 		int GetInputValue(const char* controlName, char inputOrigin) const;
 
-	private:
 		/*
 		Writes the contents of the m_Controls nested map to the .controls file.
 		*/
-		void WriteMapToFile();
+		void WriteToFile();
 
+	private:
 		/*
 		Reads the file into the m_Controls nested map.
 		*/

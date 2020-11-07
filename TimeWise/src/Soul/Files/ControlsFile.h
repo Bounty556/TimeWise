@@ -44,8 +44,8 @@ namespace Soul
 	class ControlsFile
 	{
 	public:
+		ControlsFile() = delete;
 		ControlsFile(const char* fileName);
-
 		ControlsFile(ControlsFile&& otherFile); // Move constructor
 
 		/*

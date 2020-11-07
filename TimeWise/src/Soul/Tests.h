@@ -104,6 +104,24 @@ namespace Soul
 				Assert(*keys[3] == String("4"));
 			}
 
+			{
+				Map<String, Map<String, int>> testMap;
+				Map<String, int> innerMap1;
+				innerMap1.AddPair("1", 1);
+				innerMap1.AddPair("2", 2);
+				innerMap1.AddPair("3", 3);
+				innerMap1.AddPair("4", 4);
+				Map<String, int> innerMap2;
+				innerMap2.AddPair("1", 1);
+				innerMap2.AddPair("2", 2);
+				innerMap2.AddPair("3", 3);
+				innerMap2.AddPair("4", 4);
+				
+				testMap.AddPair(String("FirstMap"), std::move(innerMap1));
+				testMap.AddPair(String("SecondMap"), std::move(innerMap2));
+				Map<String, Map<String, int>> testMap2(std::move(testMap));
+			}
+
 			MemoryManager::DrawMemory();
 		}
 
@@ -178,11 +196,6 @@ namespace Soul
 				Assert(controlsMap.GetInputInfo("Shoot").Axis == sf::Joystick::Y);
 			}
 			MemoryManager::DrawMemory();
-		}
-
-		void ControllerTest()
-		{
-			
 		}
 	}
 }

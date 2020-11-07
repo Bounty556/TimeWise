@@ -39,6 +39,8 @@ namespace Soul
 		Map& operator=(const MapType&) = delete; // No copy assignment
 
 		~Map();
+		
+		bool operator==(const MapType& otherMap);
 
 		/*
 		Adds a new hash-value pair to the map.
@@ -144,6 +146,12 @@ namespace Soul
 		{
 			MemoryManager::FreeMemory(m_Memory);
 		}
+	}
+
+	template <class K, class V>
+	bool MapType::operator==(const MapType& otherMap)
+	{
+		return (otherMap.m_Memory == m_Memory);
 	}
 
 	template <class K, class V>

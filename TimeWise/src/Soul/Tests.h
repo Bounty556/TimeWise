@@ -88,6 +88,20 @@ namespace Soul
 				Assert(intIntMap.GetCount() == 0);
 			}
 
+			{
+				Map<String, int> stringIntMap;
+				stringIntMap.AddPair(String("1"), 1);
+				stringIntMap.AddPair(String("2"), 2);
+				stringIntMap.AddPair(String("3"), 3);
+				stringIntMap.AddPair(String("4"), 4);
+
+				Vector<const String*> keys = stringIntMap.GetKeys();
+				Assert(*keys[0] == String("1"));
+				Assert(*keys[1] == String("2"));
+				Assert(*keys[2] == String("3"));
+				Assert(*keys[3] == String("4"));
+			}
+
 			MemoryManager::DrawMemory();
 		}
 

@@ -14,7 +14,11 @@ namespace Soul
 
 	void ControlsFile::UpdateControls(const ControlsMap::Input& input)
 	{
-		// TODO: Implement
+		Map<String, int>& inputMap = *(m_Controls.Get(input.InputName));
+		*(inputMap.Get('k')) = input.KeyboardKey;
+		*(inputMap.Get('m')) = input.MouseButton;
+		*(inputMap.Get('a')) = input.Axis;
+		*(inputMap.Get('c')) = input.ControllerButton;
 	}
 
 	int ControlsFile::GetInputValue(const char* controlName, char inputOrigin) const
@@ -27,7 +31,9 @@ namespace Soul
 
 	void ControlsFile::WriteMapToFile()
 	{
-		// TODO: Implement
+		String& fileString = m_File.GetString();
+		
+		fileString = "";
 	}
 
 	void ControlsFile::ReadToMap()

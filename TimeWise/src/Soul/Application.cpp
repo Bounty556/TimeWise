@@ -36,8 +36,6 @@ namespace Soul
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		Tests::ControlsFileTest();
-
 		// Main game loop
 		while (m_Running)
 		{

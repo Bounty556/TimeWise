@@ -2,8 +2,6 @@
 
 #include <Logging/Logger.h>
 
-// TODO: Test to make sure this works with arrays of objects
-
 // Takes in the type of the object and calls its constructor
 #define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type))) type(__VA_ARGS__))
 

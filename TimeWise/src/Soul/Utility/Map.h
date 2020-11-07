@@ -4,6 +4,7 @@
 #include <Utility/Hashes.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
+#include <Utility/Vector.h>
 
 #include <memory>
 
@@ -77,6 +78,11 @@ namespace Soul
 		Prints a debug drawing of this map.
 		*/
 		void DebugPrintMap() const;
+
+		/*
+		Returns a vector of all of the keys stored in this map.
+		*/
+		Vector<const K*> GetKeys() const;
 
 	private:
 		/*
@@ -350,6 +356,21 @@ namespace Soul
 			}
 		}
 		SoulLogInfo("\n\n\n");
+	}
+
+	template <class K, class V>
+	Vector<const K*> MapType::GetKeys() const
+	{
+		Vector<const K*> keys(m_Count);
+		for (unsigned int i = 0; i < m_Capacity; ++i)
+		{
+			if (m_Memory[i].IsInitialized)
+			{
+				keys.Push(&(m_Memory[i].Key));
+			}
+		}
+
+		return keys;
 	}
 
 	template <class K, class V>

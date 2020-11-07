@@ -140,7 +140,7 @@ namespace Soul
 		}
 
 		// Put our new element at m_Count, then increase
-		new (&m_Memory[m_Count]) T(element);
+		new (&m_Memory[m_Count]) T(std::move(element));
 		m_Count++;
 	}
 
@@ -175,7 +175,7 @@ namespace Soul
 
 		for (unsigned int i = 0; i < m_Capacity; ++i)
 		{
-			new (&newMemory[i]) T(m_Memory[i]);
+			new (&newMemory[i]) T(std::move(m_Memory[i]));
 		}
 
 		MemoryManager::FreeMemory(m_Memory);

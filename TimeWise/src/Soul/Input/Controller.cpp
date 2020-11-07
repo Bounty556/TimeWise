@@ -15,6 +15,15 @@ namespace Soul
 		ReloadControls();
 	}
 
+	Controller::Controller(Controller&& otherController) :
+		m_RecordedMapping(std::move(otherController.m_RecordedMapping)),
+		m_ControlsFile(std::move(otherController.m_ControlsFile)),
+		m_ControlsMap(std::move(otherController.m_ControlsMap)),
+		m_ControllerId(otherController.m_ControllerId)
+	{
+
+	}
+
 	void Controller::ProcessInput(sf::Event& e)
 	{
 		if (m_IsRecordingInput)
@@ -106,6 +115,11 @@ namespace Soul
 		inputInfo.AxisPosition = input.AxisPosition;
 
 		return inputInfo;
+	}
+
+	int Controller::GetControllerId() const
+	{
+		return m_ControllerId;
 	}
 
 	void Controller::ReloadControls()

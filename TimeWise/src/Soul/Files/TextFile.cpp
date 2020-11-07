@@ -35,6 +35,14 @@ namespace Soul
 		CloseHandle(fileHandle);
 	}
 
+	TextFile::TextFile(TextFile&& otherFile)
+	{
+		m_FileContents = otherFile.m_FileContents;
+		m_FilePath = otherFile.m_FilePath;
+
+		otherFile.m_FileContents = nullptr;
+	}
+
 	void TextFile::WriteStringToFile()
 	{
 		DeleteFileA(m_FilePath);
@@ -52,7 +60,10 @@ namespace Soul
 
 	TextFile::~TextFile()
 	{
-		MemoryManager::FreeMemory(m_FileContents);
+		if (m_FileContents)
+		{
+			m_FileContents->~String();
+		}
 	}
 
 	const char* TextFile::GetCString() const

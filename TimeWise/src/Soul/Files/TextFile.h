@@ -17,6 +17,8 @@ namespace Soul
 	public:
 		TextFile(const char* fileName);
 		TextFile() = delete;
+
+		TextFile(TextFile&& otherFile); // Move constructor
 		
 		~TextFile();
 
@@ -36,7 +38,16 @@ namespace Soul
 		String& GetString() const;
 
 	private:
+		/*
+		The name/path of the file this object has opened.
+		*/
 		const char* m_FilePath;
+
+		/*
+		A pointer to the underlying string that contains the contents of the file this object 
+		has opened. A pointer is needed here for optimization, as we want to set the initial
+		capacity of the string to be the size of the opened file.
+		*/
 		String* m_FileContents;
 	};
 }

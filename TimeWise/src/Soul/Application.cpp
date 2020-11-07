@@ -3,6 +3,7 @@
 #include <Files/ControlsFile.h>
 #include <Files/TextFile.h>
 #include <Input/ControlsMap.h>
+#include <Input/InputManager.h>
 #include <Logging/Logger.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
@@ -33,24 +34,42 @@ namespace Soul
 	{
 		// Initialization
 		MemoryManager::Allocate(Gigabytes(1));
+		InputManager::Init();
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		{
-			// Main game loop
-			while (m_Running)
-			{
-				// Event processing
-				ProcessEvents();
+		InputManager::SetAcceptingNewControllers(true);
 
-				// Rendering
-				m_Window->clear();
-				m_Window->display();
+		// Main game loop
+		while (m_Running)
+		{
+			// Event processing
+			ProcessEvents();
+			InputManager::Update();
+
+			if (InputManager::GetInputInfo(0, "Jump").State & ControlsMap::Pressed)
+			{
+				SoulLogInfo("Player 1 Jumped!");
 			}
+
+			if (InputManager::GetInputInfo(1, "Jump").State & ControlsMap::Pressed)
+			{
+				SoulLogInfo("Player 2 Jumped!");
+			}
+
+			if (InputManager::GetInputInfo(2, "Jump").State & ControlsMap::Pressed)
+			{
+				SoulLogInfo("Player 3 Jumped!");
+			}
+
+			// Rendering
+			m_Window->clear();
+			m_Window->display();
 		}
 
 		// Clean up
 		MemoryManager::FreeMemory(m_Window);
+		InputManager::CleanUp();
 		MemoryManager::Deallocate();
 	}
 
@@ -74,6 +93,7 @@ namespace Soul
 					}
 				} break;
 			}
+			InputManager::ProcessInput(e);
 		}
 	}
 }

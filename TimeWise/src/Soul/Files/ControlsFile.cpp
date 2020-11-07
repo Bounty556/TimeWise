@@ -12,6 +12,13 @@ namespace Soul
 		ReadToMap();
 	}
 
+	ControlsFile::ControlsFile(ControlsFile&& otherFile) :
+		m_File(std::move(otherFile.m_File)),
+		m_Controls(std::move(otherFile.m_Controls))
+	{
+
+	}
+
 	void ControlsFile::UpdateControls(const char* controlName, const ControlsMap::Input& input)
 	{
 		Map<String, int>& inputMap = *(m_Controls.Get(controlName));

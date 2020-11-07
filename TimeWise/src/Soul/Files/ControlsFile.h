@@ -46,6 +46,8 @@ namespace Soul
 	public:
 		ControlsFile(const char* fileName);
 
+		ControlsFile(ControlsFile&& otherFile); // Move constructor
+
 		/*
 		Updates this controls file to contain the information contained in the provided input
 		mapping.

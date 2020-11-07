@@ -8,7 +8,30 @@
 namespace Soul
 {
 	/*
-	This is the main class that represents a single user's input. 
+	This is the main class that represents a single user's input. This is generally managed by
+	the InputManager, but here is a typical use case for the controller:
+
+	Controller controller; // By default, this will load guestControls.controls into controller
+	                          -1
+	Controller controller1(0, "res/player1Controls.controls");
+
+	// Main game loop
+	while (...)
+	{
+		...
+		controller.UpdateInputInfo();
+		controller1.UpdateInputInfo();
+
+		if (controller.GetInputInfo().State & ControlsMap::Button::Pressed)
+		{
+			SoulLogInfo("Button was pressed!");
+		}
+
+		if (Math::Abs(controller1.GetInputInfo().AxisPosition) > 50.0f)
+		{
+			SoulLogInfo("Axis was tilted!");
+		}
+	}
 	*/
 	class Controller
 	{
@@ -22,6 +45,11 @@ namespace Soul
 	public:
 		Controller(int controller = -1, const char* controlsProfile = "res/guestControls.controls");
 
+		Controller(Controller&& otherController); // Move constructor
+
+		/*
+		Used for checking for any input when recording input to update a control mapping.
+		*/
 		void ProcessInput(sf::Event& e);
 
 		/*
@@ -29,17 +57,37 @@ namespace Soul
 		*/
 		void RecordInput(const char* controlString);
 
+		/*
+		Updates the states of all controls that this controller uses.
+		*/
 		void UpdateInputInfo();
 
 		// TODO: void SetControlsProfile();
 
+		/*
+		Sets the input mapping for a specific control and input origin.
+		*/
 		void SetInputMapping(const char* controlString, char inputOrigin, int inputValue);
 
+		/*
+		Sets the controller that this should listen for input from.
+		*/
 		void SetControllerId(int controllerId);
 
+		/*
+		Returns the state and axis position for a given input.
+		*/
 		InputInfo GetInputInfo(const char* controlString) const;
 	
+		/*
+		Gets the Id this controller listens for input from.
+		*/
+		int GetControllerId() const;
+
 	private:
+		/*
+		Loads the controls from the .controls file to the controls map.
+		*/
 		void ReloadControls();
 
 	private:

@@ -167,6 +167,7 @@
     <ClInclude Include="src\Soul\Files\TextFile.h" />
     <ClInclude Include="src\Soul\Input\Controller.h" />
     <ClInclude Include="src\Soul\Input\ControlsMap.h" />
+    <ClInclude Include="src\Soul\Input\InputManager.h" />
     <ClInclude Include="src\Soul\Logging\Logger.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Tests.h" />
@@ -312,6 +313,7 @@
     <ClCompile Include="src\Soul\Files\TextFile.cpp" />
     <ClCompile Include="src\Soul\Input\Controller.cpp" />
     <ClCompile Include="src\Soul\Input\ControlsMap.cpp" />
+    <ClCompile Include="src\Soul\Input\InputManager.cpp" />
     <ClCompile Include="src\Soul\Logging\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />

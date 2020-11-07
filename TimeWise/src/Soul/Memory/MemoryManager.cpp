@@ -80,6 +80,7 @@ namespace Soul
 		}
 
 		// We couldn't find a valid memory block
+		DrawMemory();
 		SoulLogError("Failed to allocate %d bytes.", bytes);
 		Assert(false);
 		return (void*)nullptr;

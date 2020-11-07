@@ -278,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\test.controls" />
+    <None Include="res\test2.controls" />
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl" />
     <None Include="vendor\SFML\include\SFML\Graphics\Glsl.inl" />
     <None Include="vendor\SFML\include\SFML\Graphics\Rect.inl" />

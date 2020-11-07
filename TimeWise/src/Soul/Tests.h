@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Files/ControlsFile.h>
 #include <Utility/Macros.h>
 #include <Utility/Map.h>
 
@@ -87,6 +88,35 @@ namespace Soul
 				Assert(intIntMap.GetCount() == 0);
 			}
 
+			MemoryManager::DrawMemory();
+		}
+
+		void ControlsFileTest()
+		{
+			MemoryManager::DrawMemory();
+			{
+				ControlsFile controlsFile("res/test2.controls");
+
+				// TODO: Find out what is deteriorating the inner Map when GetInputValue is called
+
+				Assert(controlsFile.GetInputValue("Shoot", 'c') == -1);
+				Assert(controlsFile.GetInputValue("Shoot", 'a') == 3);
+				Assert(controlsFile.GetInputValue("Shoot", 'k') == -1);
+				Assert(controlsFile.GetInputValue("Shoot", 'm') == 1);
+			}
+
+			{
+				ControlsFile controlsFile("res/test.controls");
+
+				Assert(controlsFile.GetInputValue("Jump", 'k') == 12);
+				Assert(controlsFile.GetInputValue("Jump", 'm') == -1);
+				Assert(controlsFile.GetInputValue("Jump", 'a') == -1);
+				Assert(controlsFile.GetInputValue("Jump", 'c') == 2);
+				Assert(controlsFile.GetInputValue("Shoot", 'a') == 3);
+				Assert(controlsFile.GetInputValue("Shoot", 'k') == -1);
+				Assert(controlsFile.GetInputValue("Shoot", 'c') == -1);
+				Assert(controlsFile.GetInputValue("Shoot", 'm') == 1);
+			}
 			MemoryManager::DrawMemory();
 		}
 	}

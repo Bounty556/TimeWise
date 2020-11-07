@@ -19,7 +19,13 @@ namespace Soul
 
 	int ControlsFile::GetInputValue(const char* controlName, char inputOrigin) const
 	{
-		return 0;
+		String controlString(controlName);
+		String inputString(inputOrigin);
+
+		m_Controls.DebugPrintMap();
+		m_Controls.Get(controlString)->DebugPrintMap();
+
+		return *(m_Controls.Get(controlString)->Get(inputString));
 	}
 
 	void ControlsFile::WriteMapToFile()
@@ -29,13 +35,10 @@ namespace Soul
 
 	void ControlsFile::ReadToMap()
 	{
-		m_Controls.Clear();
-
 		StringReader stringReader(m_File.GetString());
 
 		while (!stringReader.IsAtEnd())
 		{
-
 			// The first line should be the name of the control
 			stringReader.GetNextLine();
 			String controlName(stringReader.GetLastValue());
@@ -54,7 +57,7 @@ namespace Soul
 				inputValues.AddPair(inputOrigin, (int)(stringReader.GetString().ToInt()));
 			}
 
-			//m_Controls.AddPair(controlNameHash, std::move(inputValues));
+			m_Controls.AddPair(controlName, std::move(inputValues));
 		}
 	}
 }

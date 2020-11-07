@@ -11,6 +11,7 @@ namespace Soul
 	{
 	public:
 		String(const char* initialString = "");
+		String(const char initialChar);
 		String(unsigned int capacity);
 
 		String(const String& otherString); // Copy constructor

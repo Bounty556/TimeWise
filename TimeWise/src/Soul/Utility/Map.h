@@ -73,6 +73,11 @@ namespace Soul
 		*/
 		unsigned int GetCount() const;
 
+		/*
+		Prints a debug drawing of this map.
+		*/
+		void DebugPrintMap() const;
+
 	private:
 		/*
 		Repartitions this map to have the desired capacity.
@@ -238,6 +243,8 @@ namespace Soul
 
 		m_Count++;
 
+		SoulLogInfo("Added to location %p", &(m_Memory[location]));
+
 		return true;
 	}
 
@@ -307,7 +314,7 @@ namespace Soul
 		unsigned int maxAttempts = m_Capacity / 2;
 
 		// Check to see if there is an object at that location
-		while (m_Memory[location].Key != key)
+		while ((m_Memory[location].IsInitialized && m_Memory[location].Key != key))
 		{
 			// We couldn't find a spot
 			if (attempts++ >= maxAttempts)
@@ -316,7 +323,7 @@ namespace Soul
 				return nullptr;
 			}
 
-			location += (attempts * attempts) % m_Capacity;
+			location = (location + (attempts * attempts)) % m_Capacity;
 		}
 
 		return &(m_Memory[location].Value);
@@ -326,6 +333,23 @@ namespace Soul
 	unsigned int MapType::GetCount() const
 	{
 		return m_Count;
+	}
+
+	template <class K, class V>
+	void MapType::DebugPrintMap() const
+	{
+		for (unsigned int i = 0; i < m_Capacity; ++i)
+		{
+			if (m_Memory[i].IsInitialized)
+			{
+				SoulLogInfo("%s", m_Memory[i].Key.GetCString());
+			}
+			else
+			{
+				SoulLogInfo("0");
+			}
+		}
+		SoulLogInfo("\n\n\n");
 	}
 
 	template <class K, class V>

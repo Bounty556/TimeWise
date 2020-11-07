@@ -34,6 +34,15 @@ namespace Soul
 		m_CString[m_StringLength] = '\0';
 	}
 
+	String::String(const char initialChar) :
+		m_StringLength(1),
+		m_StringCapacity(m_MinimumCapacity)
+	{
+		m_CString = (char*)MemoryManager::PartitionMemory(m_StringCapacity);
+		m_CString[0] = initialChar;
+		m_CString[1] = '\0';
+	}
+
 	String::String(unsigned int capacity) :
 		m_StringLength(0)
 	{

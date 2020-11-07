@@ -97,8 +97,6 @@ namespace Soul
 			{
 				ControlsFile controlsFile("res/test2.controls");
 
-				// TODO: Find out what is deteriorating the inner Map when GetInputValue is called
-
 				Assert(controlsFile.GetInputValue("Shoot", 'c') == -1);
 				Assert(controlsFile.GetInputValue("Shoot", 'a') == 3);
 				Assert(controlsFile.GetInputValue("Shoot", 'k') == -1);

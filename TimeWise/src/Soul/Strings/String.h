@@ -88,14 +88,14 @@ namespace Soul
 		unsigned int m_StringLength;
 
 		/*
+		The smallest capacity we would partition.
+		*/
+		const unsigned int m_MinimumCapacity = 32;
+		
+		/*
 		Number of characters that this string could potentially have before it needs to request
 		more memory.
 		*/
 		unsigned int m_StringCapacity;
-
-		/*
-		The smallest capacity we would partition.
-		*/
-		const unsigned int m_MinimumCapacity = 32;
 	};
 }

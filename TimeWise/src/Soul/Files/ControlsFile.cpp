@@ -14,7 +14,7 @@ namespace Soul
 
 	void ControlsFile::UpdateControls(const ControlsMap::Input& input)
 	{
-
+		// TODO: Implement
 	}
 
 	int ControlsFile::GetInputValue(const char* controlName, char inputOrigin) const
@@ -22,15 +22,12 @@ namespace Soul
 		String controlString(controlName);
 		String inputString(inputOrigin);
 
-		m_Controls.DebugPrintMap();
-		m_Controls.Get(controlString)->DebugPrintMap();
-
 		return *(m_Controls.Get(controlString)->Get(inputString));
 	}
 
 	void ControlsFile::WriteMapToFile()
 	{
-
+		// TODO: Implement
 	}
 
 	void ControlsFile::ReadToMap()

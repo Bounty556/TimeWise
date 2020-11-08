@@ -24,7 +24,7 @@ namespace Soul
 
 		m_FileContents = Partition(String, (unsigned int)fileSize.QuadPart);
 
-		DWORD bytesRead;
+		DWORD bytesRead = 15;
 		// TODO: Provide alternative?
 		Assert(ReadFile(fileHandle, m_FileContents->GetBufferStart(), (DWORD)fileSize.QuadPart, &bytesRead, 0));
 		m_FileContents->SetLength((unsigned int)bytesRead);
@@ -43,6 +43,14 @@ namespace Soul
 		otherFile.m_FileContents = nullptr;
 	}
 
+	TextFile::~TextFile()
+	{
+		if (m_FileContents)
+		{
+			MemoryManager::FreeMemory(m_FileContents);
+		}
+	}
+
 	void TextFile::WriteStringToFile()
 	{
 		DeleteFileA(m_FilePath);
@@ -56,14 +64,6 @@ namespace Soul
 		Assert(WriteFile(fileHandle, m_FileContents->GetCString(), m_FileContents->Length(), &bytesWritten, 0));
 
 		CloseHandle(fileHandle);
-	}
-
-	TextFile::~TextFile()
-	{
-		if (m_FileContents)
-		{
-			m_FileContents->~String();
-		}
 	}
 
 	const char* TextFile::GetCString() const

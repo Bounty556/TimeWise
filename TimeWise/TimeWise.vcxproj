@@ -170,7 +170,10 @@
     <ClInclude Include="src\Soul\Input\InputManager.h" />
     <ClInclude Include="src\Soul\Logging\Logger.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
-    <ClInclude Include="src\Soul\Tests.h" />
+    <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
+    <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
+    <ClInclude Include="src\Soul\Tests\MapTests.h" />
+    <ClInclude Include="src\Soul\Tests\TextFileTests.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
     <ClInclude Include="src\Soul\Memory\MemoryManager.h" />

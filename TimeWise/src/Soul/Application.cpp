@@ -14,8 +14,6 @@
 #include <Utility/Vector.h>
 #include <Memory/MemoryManager.h>
 
-#include <Tests.h>
-
 namespace Soul
 {
 	Application::Application() :
@@ -70,6 +68,7 @@ namespace Soul
 		// Clean up
 		MemoryManager::FreeMemory(m_Window);
 		InputManager::CleanUp();
+		MemoryManager::DrawMemory();
 		MemoryManager::Deallocate();
 	}
 

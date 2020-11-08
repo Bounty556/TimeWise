@@ -2,6 +2,8 @@
 
 #include "Soul/Application.h"
 
+// TODO: Organize the unit testing
+// TODO: Fix memory leak when adding new controllers to InputManager
 // TODO: InputManager class
 // TODO: Event queue/event processing
 // TODO: layers

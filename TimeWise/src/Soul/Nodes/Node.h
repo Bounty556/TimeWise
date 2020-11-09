@@ -42,7 +42,7 @@ namespace Soul
 		/*
 		Overridden from sf::Drawable. Draws this node as well is this node's children.
 		*/
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const final override;
 
 	private:
 		/*

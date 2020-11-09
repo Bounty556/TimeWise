@@ -69,7 +69,7 @@ namespace Soul
 				// Updating
 				LayerManager::Update(6.94f);
 
-				m_AccumulatedMilliseconds -= 06.94f;
+				m_AccumulatedMilliseconds -= 6.94f;
 			}
 
 			// Rendering

@@ -19,7 +19,7 @@ namespace Soul
 		m_DidLoad = m_Music->openFromFile(fileName);
 	}
 
-	void MusicManager::Start()
+	void MusicManager::Play()
 	{
 		if (m_DidLoad)
 		{

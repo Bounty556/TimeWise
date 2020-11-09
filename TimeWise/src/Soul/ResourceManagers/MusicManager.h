@@ -30,7 +30,7 @@ namespace Soul
 		/*
 		Starts the loaded music file there is any.
 		*/
-		static void Start();
+		static void Play();
 		
 		/*
 		Stops the loaded music file there is any.

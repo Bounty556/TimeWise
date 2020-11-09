@@ -44,6 +44,27 @@ namespace Soul
 		m_ElapsedPerformanceCounts = 0;
 	}
 
+	float Timer::GetDeltaTime()
+	{
+		if (m_IsRunning)
+		{
+			LARGE_INTEGER performanceCount;
+			QueryPerformanceCounter(&performanceCount);
+			m_ElapsedPerformanceCounts += performanceCount.QuadPart - m_LastCounterCheckpoint;
+			m_LastCounterCheckpoint = performanceCount.QuadPart;
+		}
+
+		LARGE_INTEGER performanceFrequency;
+		QueryPerformanceFrequency(&performanceFrequency);
+		performanceFrequency.QuadPart /= 1000; // We want this in milliseconds, not seconds
+
+		float elapsedTime = (float)m_ElapsedPerformanceCounts / (float)performanceFrequency.QuadPart;
+
+		Reset();
+
+		return elapsedTime;
+	}
+
 	long long Timer::GetElapsedMilliseconds()
 	{
 		if (m_IsRunning)
@@ -57,6 +78,23 @@ namespace Soul
 		LARGE_INTEGER performanceFrequency;
 		QueryPerformanceFrequency(&performanceFrequency);
 		performanceFrequency.QuadPart /= 1000; // We want this in milliseconds, not seconds
+
+		return m_ElapsedPerformanceCounts / performanceFrequency.QuadPart;
+	}
+
+	long long Timer::GetElapsedMicroseconds()
+	{
+		if (m_IsRunning)
+		{
+			LARGE_INTEGER performanceCount;
+			QueryPerformanceCounter(&performanceCount);
+			m_ElapsedPerformanceCounts += performanceCount.QuadPart - m_LastCounterCheckpoint;
+			m_LastCounterCheckpoint = performanceCount.QuadPart;
+		}
+
+		LARGE_INTEGER performanceFrequency;
+		QueryPerformanceFrequency(&performanceFrequency);
+		performanceFrequency.QuadPart /= 1000000; // We want this in milliseconds, not seconds
 
 		return m_ElapsedPerformanceCounts / performanceFrequency.QuadPart;
 	}

@@ -14,13 +14,36 @@ namespace Soul
 	public:
 		Timer();
 
+		/*
+		Starts the timer.
+		*/
 		void Start();
 
+		/*
+		Stops the timer.
+		*/
 		void Stop();
 
+		/*
+		Sets the current accumulated performance counts to 0.
+		*/
 		void Reset();
 
+		/*
+		Returns the length of time this timer has been running in (floating point) milliseconds
+		and resets the counter to 0.
+		*/
+		float GetDeltaTime();
+
+		/*
+		Returns the length of time this timer has been running in milliseconds.
+		*/
 		long long GetElapsedMilliseconds();
+
+		/*
+		Returns the length of time this timer has been running in microseconds.
+		*/
+		long long GetElapsedMicroseconds();
 
 	private:
 		/*

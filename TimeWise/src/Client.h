@@ -2,7 +2,9 @@
 
 #include "Soul/Application.h"
 
+// TODO: Setup Delta Timer
 // TODO: Layers
+// TODO: Rectangle Nodes
 // TODO: Event queue/event processing
 // TODO: World Layer
 // TODO: Spatial tree of some sort

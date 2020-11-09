@@ -27,21 +27,35 @@ namespace Soul
 		free((void*)m_Memory);
 	}
 
-	// TODO: We should be finding the smallest free block possible and partitioning there 
-	//       first, saving the bigger blocks for larger partitions
 	void* MemoryManager::PartitionMemory(unsigned int bytes, unsigned int count)
 	{
 		MemoryNode* currentNode = (MemoryNode*)m_StableMemoryStart;
+		MemoryNode* smallestValidNode = nullptr;
 
 		// Need more bytes to store the header for the partition we're making
 		unsigned int actualBytes = (bytes * count) + sizeof(PartitionHeader); 
 
 		while (currentNode)
 		{
-			// If we were to store memory here, can we keep our node?
-			if (currentNode->BlockSize - sizeof(MemoryNode*) >= actualBytes)
+			// If this node is big enough to contain the partition and is smaller than the
+			// smallest node already found, or if this node is big enough to contain the
+			// partition and we have not found a node yet
+			if (currentNode->BlockSize >= actualBytes)
 			{
-				void* location = ((unsigned char*)currentNode) + (currentNode->BlockSize - actualBytes);
+				if ((smallestValidNode && currentNode->BlockSize <= smallestValidNode->BlockSize) || !smallestValidNode)
+				{
+					smallestValidNode = currentNode;
+				}
+			}
+			currentNode = currentNode->NextNode;
+		}
+
+		if (smallestValidNode)
+		{
+			// If we were to store memory here, can we keep our node?
+			if (smallestValidNode->BlockSize - sizeof(MemoryNode*) >= actualBytes)
+			{
+				void* location = ((unsigned char*)smallestValidNode) + (smallestValidNode->BlockSize - actualBytes);
 
 				// Initialize newly partitioned memory to 0
 				memset(location, 0, actualBytes);
@@ -51,32 +65,29 @@ namespace Soul
 				header->Count = count;
 				location = (unsigned char*)location + sizeof(PartitionHeader);
 
-				currentNode->BlockSize -= actualBytes;
+				smallestValidNode->BlockSize -= actualBytes;
 
 				return location;
 			}
 			// In this scenario, we can't keep our node - repair nodes afterwards
-			else if (currentNode->BlockSize >= actualBytes)
+			else if (smallestValidNode->BlockSize >= actualBytes)
 			{
 				// If we try to remove our 0th node everything will break...
-				Assert(currentNode != m_StableMemoryStart);
+				Assert(smallestValidNode != m_StableMemoryStart);
 
-				RemoveNode(currentNode);
+				void* location = smallestValidNode;
+				unsigned int blockSize = smallestValidNode->BlockSize;
 
-				void* location = currentNode;
-
-				// Initialize newly partitioned memory to 0
-				memset(location, 0, currentNode->BlockSize);
+				RemoveNode(smallestValidNode);
+				memset(location, 0, smallestValidNode->BlockSize);
 
 				PartitionHeader* header = (PartitionHeader*)location;
-				header->Bytes = currentNode->BlockSize;
+				header->Bytes = blockSize;
 				header->Count = count;
 				location = (unsigned char*)location + sizeof(PartitionHeader);
 
 				return location;
 			}
-
-			currentNode = currentNode->NextNode;
 		}
 
 		// We couldn't find a valid memory block
@@ -125,12 +136,18 @@ namespace Soul
 
 	void MemoryManager::RemoveNode(MemoryNode* removedNode)
 	{
-		MemoryNode* startNode = (MemoryNode*)m_StableMemoryStart;
+		MemoryNode* currentNode = (MemoryNode*)m_StableMemoryStart;
 
-		while (startNode->NextNode != nullptr)
+		while (currentNode->NextNode != nullptr)
 		{
-			if (startNode->NextNode == removedNode)
-				startNode->NextNode = removedNode->NextNode;
+			if (currentNode->NextNode == removedNode)
+			{
+				currentNode->NextNode = removedNode->NextNode;
+			}
+			else
+			{
+				currentNode = currentNode->NextNode;
+			}
 		}
 	}
 

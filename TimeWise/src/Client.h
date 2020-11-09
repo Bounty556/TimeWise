@@ -2,7 +2,6 @@
 
 #include "Soul/Application.h"
 
-// TODO: MusicManager
 // TODO: Layers
 // TODO: Event queue/event processing
 // TODO: World Layer

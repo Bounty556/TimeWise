@@ -44,6 +44,9 @@ namespace Soul
 
 		InputManager::SetAcceptingNewControllers(true);
 
+		sf::Sprite sprite;
+		sprite.setTexture(*(TextureManager::RequestTexture("res/opa.jpg")));
+
 		// Main game loop
 		while (m_Running)
 		{
@@ -58,6 +61,9 @@ namespace Soul
 
 			// Rendering
 			m_Window->clear();
+			
+			m_Window->draw(sprite);
+
 			m_Window->display();
 		}
 	}

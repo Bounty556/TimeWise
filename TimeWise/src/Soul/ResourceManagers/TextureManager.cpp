@@ -20,13 +20,14 @@ namespace Soul
 
 		if (result)
 		{
+			// If so, find the already allocated one and increase its reference count
 			int& referenceCount = *(m_TextureReferenceMap->Get(textureName));
 			++referenceCount;
 			return *result;
 		}
 		else
 		{
-			// TODO: Allocate new texture here
+			// If not, allocated a new one and return
 			sf::Texture* texture = Partition(sf::Texture);
 			if (!texture->loadFromFile(textureName))
 			{
@@ -44,18 +45,16 @@ namespace Soul
 
 	void TextureManager::RemoveTextureReference(const char* textureName)
 	{
-		String textureString(textureName);
-
-		int& referenceCount = *(m_TextureReferenceMap->Get(textureString));
+		int& referenceCount = *(m_TextureReferenceMap->Get(textureName));
 		--referenceCount;
 
 		if (referenceCount <= 0)
 		{
 			// Delete from both the texture and texture reference maps.
-			MemoryManager::FreeMemory(*(m_TextureMap->Get(textureString)));
+			MemoryManager::FreeMemory(*(m_TextureMap->Get(textureName)));
 
-			m_TextureMap->RemovePair(textureString);
-			m_TextureReferenceMap->RemovePair(textureString);
+			m_TextureMap->RemovePair(textureName);
+			m_TextureReferenceMap->RemovePair(textureName);
 		}
 	}
 

@@ -62,6 +62,9 @@ namespace Soul
 		static void CleanUp();
 
 	private:
+		/*
+		The stack(vector> of layers that this LayerManager manages.
+		*/
 		static Vector<Layer*>* m_Layers;
 	};
 }

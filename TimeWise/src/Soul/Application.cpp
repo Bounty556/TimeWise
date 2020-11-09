@@ -8,6 +8,7 @@
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
 #include <Nodes/Node.h>
+#include <ResourceManagers/FontManager.h>
 #include <ResourceManagers/TextureManager.h>
 #include <ResourceManagers/SoundManager.h>
 #include <ResourceManagers/MusicManager.h>
@@ -32,6 +33,7 @@ namespace Soul
 		InputManager::Init();
 		TextureManager::Init();
 		SoundManager::Init();
+		FontManager::Init();
 		MusicManager::Init();
 		LayerManager::Init();
 	}
@@ -42,6 +44,7 @@ namespace Soul
 
 		LayerManager::CleanUp();
 		MusicManager::CleanUp();
+		FontManager::CleanUp();
 		SoundManager::CleanUp();
 		TextureManager::CleanUp();
 		InputManager::CleanUp();

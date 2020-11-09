@@ -177,6 +177,7 @@
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
     <ClInclude Include="src\Soul\Tests\MapTests.h" />
     <ClInclude Include="src\Soul\Tests\NodeTests.h" />
+    <ClInclude Include="src\Soul\Tests\SoundManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\TextFileTests.h" />
     <ClInclude Include="src\Soul\Tests\TextureManagerTests.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
@@ -288,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\guestControls.controls" />
+    <None Include="res\sound.ogg" />
     <None Include="res\test.controls" />
     <None Include="res\test2.controls" />
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl" />
@@ -333,6 +335,9 @@
     <ClCompile Include="src\Soul\Utility\Math.cpp" />
     <ClCompile Include="src\Soul\Strings\String.cpp" />
     <ClCompile Include="src\Soul\Utility\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\opa.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

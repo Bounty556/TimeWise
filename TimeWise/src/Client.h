@@ -2,7 +2,6 @@
 
 #include "Soul/Application.h"
 
-// TODO: SoundManager
 // TODO: MusicManager
 // TODO: Layers
 // TODO: Event queue/event processing

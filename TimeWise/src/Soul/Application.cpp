@@ -8,6 +8,7 @@
 #include <Memory/MemoryManager.h>
 #include <Nodes/Node.h>
 #include <ResourceManagers/TextureManager.h>
+#include <ResourceManagers/SoundManager.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
 #include <Utility/Map.h>
@@ -15,6 +16,8 @@
 #include <Strings/StringReader.h>
 #include <Utility/Timer.h>
 #include <Utility/Vector.h>
+
+#include <SFML/Audio/Sound.hpp>
 
 namespace Soul
 {
@@ -26,12 +29,14 @@ namespace Soul
 
 		InputManager::Init();
 		TextureManager::Init();
+		SoundManager::Init();
 	}
 
 	Application::~Application()
 	{
 		MemoryManager::FreeMemory(m_Window);
 
+		SoundManager::CleanUp();
 		TextureManager::CleanUp();
 		InputManager::CleanUp();
 
@@ -46,6 +51,11 @@ namespace Soul
 
 		sf::Sprite sprite;
 		sprite.setTexture(*(TextureManager::RequestTexture("res/opa.jpg")));
+
+		sf::Sound sound;
+		sound.setBuffer(*(SoundManager::RequestSound("res/sound.ogg")));
+
+		sound.play();
 
 		// Main game loop
 		while (m_Running)

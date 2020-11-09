@@ -2,7 +2,8 @@
 
 #include "Soul/Application.h"
 
-// TODO: layers
+// TODO: Entities
+// TODO: Layers
 // TODO: Event queue/event processing
 // TODO: World Layer
 // TODO: Spatial tree of some sort

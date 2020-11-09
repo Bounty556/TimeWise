@@ -14,6 +14,8 @@
 #include <Utility/Vector.h>
 #include <Memory/MemoryManager.h>
 
+#include <Tests/NodeTests.h>
+
 namespace Soul
 {
 	Application::Application() :
@@ -38,6 +40,8 @@ namespace Soul
 
 		InputManager::SetAcceptingNewControllers(true);
 
+		NodeTests::RunAllTests();
+
 		// Main game loop
 		while (m_Running)
 		{
@@ -48,16 +52,6 @@ namespace Soul
 			if (InputManager::GetInputInfo(0, "Jump").State & ControlsMap::Pressed)
 			{
 				SoulLogInfo("Player 1 Jumped!");
-			}
-
-			if (InputManager::GetInputInfo(1, "Jump").State & ControlsMap::Pressed)
-			{
-				SoulLogInfo("Player 2 Jumped!");
-			}
-
-			if (InputManager::GetInputInfo(2, "Jump").State & ControlsMap::Pressed)
-			{
-				SoulLogInfo("Player 3 Jumped!");
 			}
 
 			// Rendering

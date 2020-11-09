@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="src\Client.h" />
     <ClInclude Include="src\Soul\Application.h" />
+    <ClInclude Include="src\Soul\Nodes\Node.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
     <ClInclude Include="src\Soul\Files\TextFile.h" />
     <ClInclude Include="src\Soul\Input\Controller.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
     <ClInclude Include="src\Soul\Tests\MapTests.h" />
+    <ClInclude Include="src\Soul\Tests\NodeTests.h" />
     <ClInclude Include="src\Soul\Tests\TextFileTests.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
@@ -312,6 +314,7 @@
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
+    <ClCompile Include="src\Soul\Nodes\Node.cpp" />
     <ClCompile Include="src\Soul\Files\ControlsFile.cpp" />
     <ClCompile Include="src\Soul\Files\TextFile.cpp" />
     <ClCompile Include="src\Soul\Input\Controller.cpp" />

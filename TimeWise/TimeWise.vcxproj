@@ -163,6 +163,8 @@
   <ItemGroup>
     <ClInclude Include="src\Client.h" />
     <ClInclude Include="src\Soul\Application.h" />
+    <ClInclude Include="src\Soul\Layers\Layer.h" />
+    <ClInclude Include="src\Soul\Layers\LayerManager.h" />
     <ClInclude Include="src\Soul\Nodes\Node.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
     <ClInclude Include="src\Soul\Files\TextFile.h" />
@@ -176,6 +178,7 @@
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
+    <ClInclude Include="src\Soul\Tests\LayerManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\MapTests.h" />
     <ClInclude Include="src\Soul\Tests\MemoryManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\NodeTests.h" />
@@ -322,6 +325,8 @@
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
+    <ClCompile Include="src\Soul\Layers\Layer.cpp" />
+    <ClCompile Include="src\Soul\Layers\LayerManager.cpp" />
     <ClCompile Include="src\Soul\Nodes\Node.cpp" />
     <ClCompile Include="src\Soul\Files\ControlsFile.cpp" />
     <ClCompile Include="src\Soul\Files\TextFile.cpp" />

@@ -21,7 +21,5 @@ namespace Soul
 		bool m_Running;
 		Timer m_Timer;
 		float m_AccumulatedMilliseconds;
-		int m_FramesPerSecond;
-		float m_FramesPerSecondMilliseconds;
 	};
 }

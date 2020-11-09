@@ -4,6 +4,7 @@
 #include <Files/TextFile.h>
 #include <Input/ControlsMap.h>
 #include <Input/InputManager.h>
+#include <Layers/LayerManager.h>
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
 #include <Nodes/Node.h>
@@ -24,9 +25,7 @@ namespace Soul
 		m_Window(nullptr),
 		m_Running(true),
 		m_Timer(),
-		m_AccumulatedMilliseconds(0.0f),
-		m_FramesPerSecond(0),
-		m_FramesPerSecondMilliseconds(0.0f)
+		m_AccumulatedMilliseconds(0.0f)
 	{
 		MemoryManager::Allocate(Gigabytes(1));
 
@@ -34,12 +33,14 @@ namespace Soul
 		TextureManager::Init();
 		SoundManager::Init();
 		MusicManager::Init();
+		LayerManager::Init();
 	}
 
 	Application::~Application()
 	{
 		MemoryManager::FreeMemory(m_Window);
 
+		LayerManager::CleanUp();
 		MusicManager::CleanUp();
 		SoundManager::CleanUp();
 		TextureManager::CleanUp();
@@ -58,9 +59,7 @@ namespace Soul
 		while (m_Running)
 		{
 			// TODO: Make FPS customizable?
-			float dt = m_Timer.GetDeltaTime();
-			m_AccumulatedMilliseconds += dt;
-			m_FramesPerSecondMilliseconds += dt;
+			m_AccumulatedMilliseconds += m_Timer.GetDeltaTime();
 			while (m_AccumulatedMilliseconds >= 06.94f) // 144 FPS
 			{
 				// Event processing
@@ -71,13 +70,6 @@ namespace Soul
 				// Update here
 
 				m_AccumulatedMilliseconds -= 06.94f;
-				++m_FramesPerSecond;
-			}
-
-			if (m_FramesPerSecondMilliseconds >= 1000.0f)
-			{
-				m_FramesPerSecondMilliseconds -= 1000.0f;
-				m_FramesPerSecond = 0;
 			}
 
 			// Rendering

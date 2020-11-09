@@ -8,6 +8,7 @@
 // TODO: Get mouse pos InputManager
 // TODO: DebugInfo layer
 // TODO: Event queue/event processing
+// TODO: Make queues work with layers
 // TODO: World Layer
 // TODO: Spatial tree of some sort
 // TODO: Basic character

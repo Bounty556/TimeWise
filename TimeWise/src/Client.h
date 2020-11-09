@@ -2,11 +2,12 @@
 
 #include "Soul/Application.h"
 
+// TODO: SoundManager
+// TODO: MusicManager
 // TODO: Layers
 // TODO: Event queue/event processing
 // TODO: World Layer
 // TODO: Spatial tree of some sort
-// TODO: Add Resource Manager (Textures, Sounds, Music)
 // TODO: Basic character
 // TODO: UI
 // TODO: Volatile memory management

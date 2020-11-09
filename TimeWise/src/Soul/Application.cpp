@@ -5,6 +5,9 @@
 #include <Input/ControlsMap.h>
 #include <Input/InputManager.h>
 #include <Logging/Logger.h>
+#include <Memory/MemoryManager.h>
+#include <Nodes/Node.h>
+#include <ResourceManagers/TextureManager.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
 #include <Utility/Map.h>
@@ -12,9 +15,6 @@
 #include <Strings/StringReader.h>
 #include <Utility/Timer.h>
 #include <Utility/Vector.h>
-#include <Memory/MemoryManager.h>
-
-#include <Tests/NodeTests.h>
 
 namespace Soul
 {
@@ -22,25 +22,27 @@ namespace Soul
 		m_Window(nullptr),
 		m_Running(true)
 	{
+		MemoryManager::Allocate(Gigabytes(1));
 
+		InputManager::Init();
+		TextureManager::Init();
 	}
 
 	Application::~Application()
 	{
+		MemoryManager::FreeMemory(m_Window);
 
+		TextureManager::CleanUp();
+		InputManager::CleanUp();
+
+		MemoryManager::Deallocate();
 	}
 
 	void Application::Run()
 	{
-		// Initialization
-		MemoryManager::Allocate(Gigabytes(1));
-		InputManager::Init();
-		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
 		InputManager::SetAcceptingNewControllers(true);
-
-		NodeTests::RunAllTests();
 
 		// Main game loop
 		while (m_Running)
@@ -58,12 +60,6 @@ namespace Soul
 			m_Window->clear();
 			m_Window->display();
 		}
-
-		// Clean up
-		MemoryManager::FreeMemory(m_Window);
-		InputManager::CleanUp();
-		MemoryManager::DrawMemory();
-		MemoryManager::Deallocate();
 	}
 
 	void Application::ProcessEvents()

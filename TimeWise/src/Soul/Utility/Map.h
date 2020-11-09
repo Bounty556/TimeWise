@@ -91,6 +91,11 @@ namespace Soul
 		*/
 		Vector<V*> GetValues() const;
 
+		/*
+		Finds the element with the provided key, removes it from the map, and clears its memory.
+		*/
+		void RemovePair(const K& key);
+
 	private:
 		/*
 		Repartitions this map to have the desired capacity.
@@ -164,7 +169,7 @@ namespace Soul
 		}
 
 		// Find the location to place this pair
-		unsigned int hash = Hash(key);
+		unsigned long long hash = Hash(key);
 		unsigned int location = hash % m_Capacity;
 
 		unsigned int attempts = 0;
@@ -343,7 +348,14 @@ namespace Soul
 			location = (location + (attempts * attempts)) % m_Capacity;
 		}
 
-		return &(m_Memory[location].Value);
+		if (!m_Memory[location].IsInitialized)
+		{
+			return nullptr;
+		}
+		else
+		{
+			return &(m_Memory[location].Value);
+		}
 	}
 
 	template <class K, class V>
@@ -397,6 +409,35 @@ namespace Soul
 		}
 
 		return values;
+	}
+
+	template <class K, class V>
+	void MapType::RemovePair(const K& key)
+	{
+		// Find the location to place this pair
+		unsigned long long hash = Hash(key);
+		unsigned int location = hash % m_Capacity;
+
+		unsigned int attempts = 0;
+		unsigned int maxAttempts = m_Capacity / 2;
+
+		// Check to see if there is an object at that location
+		while ((m_Memory[location].IsInitialized && m_Memory[location].Key != key))
+		{
+			// We couldn't find a spot
+			if (attempts++ >= maxAttempts)
+			{
+				SoulLogWarning("Could not find value with hash: %lld", hash);
+				return;
+			}
+
+			location = (location + (attempts * attempts)) % m_Capacity;
+		}
+
+		// Assume we found the location where the pair resides
+		m_Memory[location].Key.~K();
+		m_Memory[location].Value.~V();
+		memset(&m_Memory[location], 0, sizeof(SetType));
 	}
 
 	template <class K, class V>

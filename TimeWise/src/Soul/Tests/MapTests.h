@@ -17,6 +17,7 @@ namespace Soul
 			RunTest(IntHashing);
 			RunTest(GetKeys);
 			RunTest(MapMoveConstructors);
+			RunTest(MapElementDelete);
 		}
 
 	private:
@@ -134,6 +135,47 @@ namespace Soul
 			testMap.AddPair(String("FirstMap"), std::move(innerMap1));
 			testMap.AddPair(String("SecondMap"), std::move(innerMap2));
 			Map<String, Map<String, int>> testMap2(std::move(testMap));
+		}
+
+		static void MapElementDelete()
+		{
+			Map<String, int> map;
+			map.AddPair("1", 1);
+			map.AddPair("2", 2);
+			map.AddPair("3", 3);
+			map.AddPair("4", 4);
+
+			map.RemovePair("1");
+			Assert(map.Get("1") == nullptr);
+			Assert(*(map.Get("2")) == 2);
+			Assert(*(map.Get("3")) == 3);
+			Assert(*(map.Get("4")) == 4);
+
+			Map<String, int> resizedMap;
+			resizedMap.AddPair("1", 1);
+			resizedMap.AddPair("2", 2);
+			resizedMap.AddPair("3", 3);
+			resizedMap.AddPair("4", 4);
+			resizedMap.AddPair("5", 5);
+			resizedMap.AddPair("6", 6);
+			resizedMap.AddPair("7", 7);
+			resizedMap.AddPair("8", 8);
+			resizedMap.AddPair("9", 9);
+			resizedMap.AddPair("0", 0);
+
+			resizedMap.RemovePair("6");
+			resizedMap.RemovePair("9");
+
+			Assert(*(resizedMap.Get("1")) == 1);
+			Assert(*(resizedMap.Get("2")) == 2);
+			Assert(*(resizedMap.Get("3")) == 3);
+			Assert(*(resizedMap.Get("4")) == 4);
+			Assert(*(resizedMap.Get("5")) == 5);
+			Assert(resizedMap.Get("6") == nullptr);
+			Assert(*(resizedMap.Get("7")) == 7);
+			Assert(*(resizedMap.Get("8")) == 8);
+			Assert(resizedMap.Get("9") == nullptr);
+			Assert(*(resizedMap.Get("0")) == 0);
 		}
 	};
 }

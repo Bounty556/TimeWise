@@ -28,20 +28,8 @@ namespace Soul
 
 	void Node::AddChild(Node* child)
 	{
-		// Check to make sure the child doesn't already have a parent. And if so, remove it.
-		if (child->m_Parent)
-		{
-			child->m_Parent->MoveChild(child);
-		}
-
+		child->m_Parent = this;
 		m_Children.Push(child);
-	}
-
-	void Node::RemoveChild(Node* child)
-	{
-		//m_Children->Remove(child); // TODO: Allow vectors to remove elements
-
-		MemoryManager::FreeMemory(child);
 	}
 
 	void Node::Update(float dt)
@@ -54,11 +42,6 @@ namespace Soul
 	{
 		DrawSelf(target, states);
 		DrawChildren(target, states);
-	}
-
-	void Node::MoveChild(Node* child)
-	{
-		//m_Children->Remove(child); // TODO: Allow vectors to remove elements
 	}
 
 	void Node::UpdateChildren(float dt)

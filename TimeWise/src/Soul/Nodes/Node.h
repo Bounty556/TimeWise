@@ -6,6 +6,8 @@
 
 #include <Utility/Vector.h>
 
+// TODO: Make children removable?
+
 namespace Soul
 {
 	/*
@@ -33,12 +35,6 @@ namespace Soul
 		void AddChild(Node* child);
 
 		/*
-		Removes the node at the given location from this node's list of children and frees its
-		memory.
-		*/
-		void RemoveChild(Node* child);
-
-		/*
 		Updates this node as well as this node's children.
 		*/
 		void Update(float dt);
@@ -49,12 +45,6 @@ namespace Soul
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
-		/*
-		Removes the node at the given location from this node's list of children, but does not free
-		its memory.
-		*/
-		void MoveChild(Node* child);
-
 		/*
 		Sends an update signal to all of this node's children.
 		*/

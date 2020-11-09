@@ -178,7 +178,6 @@
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
-    <ClInclude Include="src\Soul\Tests\LayerManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\MapTests.h" />
     <ClInclude Include="src\Soul\Tests\MemoryManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\NodeTests.h" />

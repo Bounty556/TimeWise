@@ -19,20 +19,46 @@ namespace Soul
 	public:
 		LayerManager() = delete;
 
+		/*
+		Partitions the required memory for this LayerManager. Must be called before using.
+		*/
 		static void Init();
 
+		/*
+		Adds the provided layer to the layer stack. Must already have been allocated via the
+		MemoryManager.
+		*/
 		static void PushLayer(Layer* layer);
 
+		/*
+		Removes the top-most layer from the layer stack and frees its memory.
+		*/
 		static void PopLayer();
 
+		/*
+		Removes all layers from the layer stack and frees all memory.
+		*/
 		static void ClearLayers();
 
+		/*
+		Returns whether this LayerManager has any layers in the layer stack.
+		*/
 		static bool HasLayers();
 
+		/*
+		Sends and update signal to all layers stored in this LayerManager's layer stack.
+		*/
 		static void Update(float dt);
 
+		/*
+		Sends a draw signal to all layers stored in this LayerManager's layer stack.
+		*/
 		static void Draw(sf::RenderTarget& target, sf::RenderStates states);
 
+		/*
+		Frees any allocated memory this LayerManager has accumulated, as well as the memory of
+		all of the Layers in this manager.
+		*/
 		static void CleanUp();
 
 	private:

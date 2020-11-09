@@ -60,14 +60,14 @@ namespace Soul
 		{
 			// TODO: Make FPS customizable?
 			m_AccumulatedMilliseconds += m_Timer.GetDeltaTime();
-			while (m_AccumulatedMilliseconds >= 06.94f) // 144 FPS
+			while (m_AccumulatedMilliseconds >= 6.94f) // 144 FPS
 			{
 				// Event processing
 				ProcessEvents();
 				InputManager::Update();
 
 				// Updating
-				// Update here
+				LayerManager::Update(6.94f);
 
 				m_AccumulatedMilliseconds -= 06.94f;
 			}
@@ -75,6 +75,8 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
+			LayerManager::Draw(*m_Window, sf::RenderStates());
+
 			m_Window->display();
 		}
 	}

@@ -2,11 +2,11 @@
 
 #include "Soul/Application.h"
 
-// TODO: Layers
+// TODO: Test LayerManager
+// TODO: DebugInfo layer
 // TODO: Rectangle Node
 // TODO: Text Node
 // TODO: Get mouse pos InputManager
-// TODO: DebugInfo layer
 // TODO: Event queue/event processing
 // TODO: Make queues work with layers
 // TODO: World Layer

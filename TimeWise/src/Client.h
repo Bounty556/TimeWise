@@ -2,7 +2,6 @@
 
 #include "Soul/Application.h"
 
-// TODO: Rectangle Node
 // TODO: Text Node
 // TODO: Test LayerManager
 // TODO: DebugInfo layer

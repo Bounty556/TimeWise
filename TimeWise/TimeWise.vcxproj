@@ -173,6 +173,7 @@
     <ClInclude Include="src\Soul\Input\InputManager.h" />
     <ClInclude Include="src\Soul\Logging\Logger.h" />
     <ClInclude Include="src\Soul\Nodes\RectangleNode.h" />
+    <ClInclude Include="src\Soul\Nodes\TextNode.h" />
     <ClInclude Include="src\Soul\ResourceManagers\FontManager.h" />
     <ClInclude Include="src\Soul\ResourceManagers\MusicManager.h" />
     <ClInclude Include="src\Soul\ResourceManagers\SoundManager.h" />
@@ -338,6 +339,7 @@
     <ClCompile Include="src\Soul\Logging\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />
     <ClCompile Include="src\Soul\Nodes\RectangleNode.cpp" />
+    <ClCompile Include="src\Soul\Nodes\TextNode.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\FontManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\MusicManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\SoundManager.cpp" />

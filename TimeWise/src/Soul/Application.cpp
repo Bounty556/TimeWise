@@ -20,6 +20,8 @@
 #include <Utility/Timer.h>
 #include <Utility/Vector.h>
 
+#include <Nodes/TextNode.h>
+
 namespace Soul
 {
 	Application::Application() :
@@ -57,6 +59,11 @@ namespace Soul
 	{
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
+		TextNode text;
+		text.SetText("This is a test!");
+		text.SetColor(sf::Color::White);
+		text.SetFont("res/font.otf");
+
 		// Main game loop
 		m_Timer.Start();
 		while (m_Running)
@@ -79,6 +86,7 @@ namespace Soul
 			m_Window->clear();
 			
 			LayerManager::Draw(*m_Window, sf::RenderStates());
+			m_Window->draw(text);
 
 			m_Window->display();
 		}

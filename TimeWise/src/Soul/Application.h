@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <Utility/Timer.h>
+
 namespace Soul
 {
 	class Application
@@ -17,5 +19,9 @@ namespace Soul
 	private:
 		sf::RenderWindow* m_Window;
 		bool m_Running;
+		Timer m_Timer;
+		float m_AccumulatedMilliseconds;
+		int m_FramesPerSecond;
+		float m_FramesPerSecondMilliseconds;
 	};
 }

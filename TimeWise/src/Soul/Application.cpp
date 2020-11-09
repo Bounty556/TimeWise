@@ -22,7 +22,11 @@ namespace Soul
 {
 	Application::Application() :
 		m_Window(nullptr),
-		m_Running(true)
+		m_Running(true),
+		m_Timer(),
+		m_AccumulatedMilliseconds(0.0f),
+		m_FramesPerSecond(0),
+		m_FramesPerSecondMilliseconds(0.0f)
 	{
 		MemoryManager::Allocate(Gigabytes(1));
 
@@ -49,18 +53,31 @@ namespace Soul
 	{
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		InputManager::SetAcceptingNewControllers(true);
-
 		// Main game loop
+		m_Timer.Start();
 		while (m_Running)
 		{
-			// Event processing
-			ProcessEvents();
-			InputManager::Update();
-
-			if (InputManager::GetInputInfo(0, "Jump").State & ControlsMap::Pressed)
+			// TODO: Make FPS customizable?
+			float dt = m_Timer.GetDeltaTime();
+			m_AccumulatedMilliseconds += dt;
+			m_FramesPerSecondMilliseconds += dt;
+			while (m_AccumulatedMilliseconds >= 06.94f) // 144 FPS
 			{
-				SoulLogInfo("Player 1 Jumped!");
+				// Event processing
+				ProcessEvents();
+				InputManager::Update();
+
+				// Updating
+				// Update here
+
+				m_AccumulatedMilliseconds -= 06.94f;
+				++m_FramesPerSecond;
+			}
+
+			if (m_FramesPerSecondMilliseconds >= 1000.0f)
+			{
+				m_FramesPerSecondMilliseconds -= 1000.0f;
+				m_FramesPerSecond = 0;
 			}
 
 			// Rendering

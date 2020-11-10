@@ -1,5 +1,8 @@
 #pragma once
 
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+
 namespace Soul
 {
 	/*
@@ -14,12 +17,12 @@ namespace Soul
 		/*
 		Draws this layer.
 		*/
-		virtual void Draw() const = 0;
+		virtual void Draw(sf::RenderTarget& target, sf::RenderStates) const = 0;
 
 		/*
 		Updates this layer.
 		*/
-		virtual void Update() const = 0;
+		virtual void Update(float dt) = 0;
 
 		/*
 		Returns whether layers below this layer in the LayerManager should be updated.

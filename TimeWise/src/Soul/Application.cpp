@@ -1,26 +1,21 @@
 #include "Application.h"
 
-#include <Files/ControlsFile.h>
-#include <Files/TextFile.h>
 #include <Input/ControlsMap.h>
 #include <Input/InputManager.h>
 #include <Layers/LayerManager.h>
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
-#include <Nodes/Node.h>
 #include <ResourceManagers/FontManager.h>
 #include <ResourceManagers/TextureManager.h>
 #include <ResourceManagers/SoundManager.h>
 #include <ResourceManagers/MusicManager.h>
 #include <Utility/Macros.h>
-#include <Utility/Math.h>
-#include <Utility/Map.h>
 #include <Strings/String.h>
-#include <Strings/StringReader.h>
 #include <Utility/Timer.h>
-#include <Utility/Vector.h>
 
-#include <Nodes/TextNode.h>
+#include <Layers/DebugInfoLayer.h>
+
+#include <Utility/Vector.h>
 
 namespace Soul
 {
@@ -59,10 +54,7 @@ namespace Soul
 	{
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		TextNode text;
-		text.SetText("This is a test!");
-		text.SetColor(sf::Color::White);
-		text.SetFont("res/font.otf");
+		LayerManager::PushLayer(Partition(DebugInfoLayer));
 
 		// Main game loop
 		m_Timer.Start();
@@ -85,8 +77,7 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
-			LayerManager::Draw(*m_Window, sf::RenderStates());
-			m_Window->draw(text);
+			LayerManager::Draw(*m_Window, sf::RenderStates::Default);
 
 			m_Window->display();
 		}

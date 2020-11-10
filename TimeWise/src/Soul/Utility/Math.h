@@ -35,5 +35,10 @@ namespace Soul
 		Returns the absolute value of this number.
 		*/
 		float Abs(float number);
+
+		/*
+		Rounds the provided float to the nearest integer.
+		*/
+		int Round(float number);
 	}
 }

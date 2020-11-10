@@ -83,5 +83,19 @@ namespace Soul
 			}
 			return number;
 		}
+
+		int Round(float number)
+		{
+			float num = number - (int)number;
+
+			if (num > 0.5f)
+			{
+				return (int)(number + 1.0f);
+			}
+			else
+			{
+				return (int)(number);
+			}
+		}
 	}
 }

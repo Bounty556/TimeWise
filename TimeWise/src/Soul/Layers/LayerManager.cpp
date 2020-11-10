@@ -54,7 +54,7 @@ namespace Soul
 
 		for (unsigned int i = lowestLayer; i < m_Layers->Length(); ++i)
 		{
-			(*m_Layers)[i]->Update();
+			(*m_Layers)[i]->Update(dt);
 		}
 	}
 
@@ -73,7 +73,7 @@ namespace Soul
 
 		for (unsigned int i = lowestLayer; i < m_Layers->Length(); ++i)
 		{
-			(*m_Layers)[i]->Draw();
+			(*m_Layers)[i]->Draw(target, states);
 		}
 	}
 

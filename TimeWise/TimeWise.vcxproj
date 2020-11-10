@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="src\Client.h" />
     <ClInclude Include="src\Soul\Application.h" />
+    <ClInclude Include="src\Soul\Layers\DebugInfoLayer.h" />
     <ClInclude Include="src\Soul\Layers\Layer.h" />
     <ClInclude Include="src\Soul\Layers\LayerManager.h" />
     <ClInclude Include="src\Soul\Nodes\Node.h" />
@@ -328,6 +329,7 @@
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
+    <ClCompile Include="src\Soul\Layers\DebugInfoLayer.cpp" />
     <ClCompile Include="src\Soul\Layers\Layer.cpp" />
     <ClCompile Include="src\Soul\Layers\LayerManager.cpp" />
     <ClCompile Include="src\Soul\Nodes\Node.cpp" />

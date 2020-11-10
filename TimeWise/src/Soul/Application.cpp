@@ -15,8 +15,6 @@
 
 #include <Layers/DebugInfoLayer.h>
 
-#include <Utility/Vector.h>
-
 namespace Soul
 {
 	Application::Application() :
@@ -25,7 +23,7 @@ namespace Soul
 		m_Timer(),
 		m_AccumulatedMilliseconds(0.0f)
 	{
-		MemoryManager::Allocate(Gigabytes(1));
+		MemoryManager::Allocate(Megabytes(16));
 
 		InputManager::Init();
 		TextureManager::Init();

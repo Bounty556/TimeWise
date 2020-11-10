@@ -13,6 +13,7 @@ namespace Soul
 	{
 	public:
 		Layer(bool passUpdate = true, bool passDraw = true);
+		virtual ~Layer();
 
 		/*
 		Draws this layer.

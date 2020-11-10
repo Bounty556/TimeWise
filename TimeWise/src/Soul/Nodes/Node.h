@@ -22,7 +22,7 @@ namespace Soul
 	public:
 		Node(Node* parent = nullptr);
 
-		~Node();
+		virtual ~Node();
 
 		/*
 		Returns the node that this node is a child of.

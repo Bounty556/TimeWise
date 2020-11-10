@@ -9,6 +9,11 @@ namespace Soul
 
 	}
 
+	Layer::~Layer()
+	{
+
+	}
+
 	bool Layer::PassUpdate()
 	{
 		return m_PassUpdate;

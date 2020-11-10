@@ -10,6 +10,7 @@ namespace Soul
 		m_UpdateTimer(5000.0f),
 		m_GraphWidth(512.0f)
 	{
+		
 		m_PartitionedMemoryText.SetFont("res/font.otf");
 		m_PartitionedMemoryText.SetSize(14);
 		m_FreeMemoryText.SetFont("res/font.otf");

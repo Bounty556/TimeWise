@@ -29,8 +29,13 @@ namespace Soul
 	private:
 		TextNode m_PartitionedMemoryText;
 		TextNode m_FreeMemoryText;
+		TextNode m_FrameText;
 		Vector<RectangleNode*> m_MemoryBlocks;
 		float m_UpdateTimer;
 		float m_GraphWidth;
+		float m_GraphHeight;
+		float m_GraphYStart;
+		unsigned int m_FrameCount;
+		bool m_IsDrawn;
 	};
 }

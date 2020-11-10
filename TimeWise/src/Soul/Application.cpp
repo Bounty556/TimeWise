@@ -52,7 +52,11 @@ namespace Soul
 	{
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
+		InputManager::SetAcceptingNewControllers(true);
 		LayerManager::PushLayer(Partition(DebugInfoLayer));
+
+		sf::Sprite sprite;
+		sprite.setTexture(*TextureManager::RequestTexture("res/opa.jpg"));
 
 		// Main game loop
 		m_Timer.Start();
@@ -75,6 +79,7 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
+			m_Window->draw(sprite);
 			LayerManager::Draw(*m_Window, sf::RenderStates::Default);
 
 			m_Window->display();

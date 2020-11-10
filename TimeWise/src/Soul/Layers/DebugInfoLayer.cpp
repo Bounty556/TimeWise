@@ -1,5 +1,6 @@
 #include "DebugInfoLayer.h"
 
+#include <Input/InputManager.h>
 #include <Strings/String.h>
 #include <Utility/Math.h>
 
@@ -7,8 +8,12 @@ namespace Soul
 {
 	DebugInfoLayer::DebugInfoLayer() :
 		Layer(true, true),
-		m_UpdateTimer(5000.0f),
-		m_GraphWidth(512.0f)
+		m_UpdateTimer(1000.0f),
+		m_GraphWidth(512.0f),
+		m_GraphHeight(128.0f),
+		m_GraphYStart(32.0f),
+		m_FrameCount(144),
+		m_IsDrawn(true)
 	{
 		
 		m_PartitionedMemoryText.SetFont("res/font.otf");
@@ -16,6 +21,9 @@ namespace Soul
 		m_FreeMemoryText.SetFont("res/font.otf");
 		m_FreeMemoryText.SetSize(14);
 		m_FreeMemoryText.setPosition(0.0f, 16.0f);
+		m_FrameText.SetFont("res/font.otf");
+		m_FrameText.SetSize(14);
+		m_FrameText.setPosition(325.0f, 0.0f);
 	}
 
 	DebugInfoLayer::~DebugInfoLayer()
@@ -28,24 +36,37 @@ namespace Soul
 
 	void DebugInfoLayer::Draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(m_PartitionedMemoryText, states);
-		target.draw(m_FreeMemoryText, states);
-
-		for (unsigned int i = 0; i < m_MemoryBlocks.Length(); ++i)
+		if (m_IsDrawn)
 		{
-			target.draw(*(m_MemoryBlocks[i]), states);
+			target.draw(m_PartitionedMemoryText, states);
+			target.draw(m_FreeMemoryText, states);
+			target.draw(m_FrameText, states);
+
+			for (unsigned int i = 0; i < m_MemoryBlocks.Length(); ++i)
+			{
+				target.draw(*(m_MemoryBlocks[i]), states);
+			}
 		}
 	}
 
 	void DebugInfoLayer::Update(float dt)
 	{
-		m_UpdateTimer += dt;
-
-		if (m_UpdateTimer >= 5000.0f)
+		if (InputManager::GetInputInfo(0, "Console").State & ControlsMap::ButtonState::Pressed)
 		{
-			m_UpdateTimer -= 5000.0f;
+			m_IsDrawn = !m_IsDrawn;
+		}
+
+		++m_FrameCount;
+		m_UpdateTimer += dt;
+		if (m_UpdateTimer >= 1000.0f)
+		{
+			m_UpdateTimer -= 1000.0f;
 
 			// Update text
+			
+			String fpsText("FPS: ");
+			fpsText += String::IntToString(m_FrameCount);
+			m_FrameCount = 0;
 
 			String partitionedMemory("Partitioned memory: ");
 			partitionedMemory += String::IntToString(MemoryManager::GetTotalPartitionedMemory());
@@ -54,6 +75,7 @@ namespace Soul
 			freeMemory += String::IntToString(MemoryManager::GetTotalFreeMemory());
 			freeMemory += " bytes";
 
+			m_FrameText.SetText(fpsText.GetCString());
 			m_PartitionedMemoryText.SetText(partitionedMemory.GetCString());
 			m_FreeMemoryText.SetText(freeMemory.GetCString());
 
@@ -75,8 +97,8 @@ namespace Soul
 				float xPos = (float)ByteDistance(MemoryManager::m_StableMemoryStart, currentNode) / (float)totalMemory * m_GraphWidth;
 				float width = (float)currentNode->BlockSize / (float)totalMemory * m_GraphWidth;
 
-				RectangleNode* node = Partition(RectangleNode, width, 128, sf::Color::Blue);
-				node->setPosition(xPos, 30.0f);
+				RectangleNode* node = Partition(RectangleNode, width, m_GraphHeight, sf::Color(71, 92, 108));
+				node->setPosition(xPos, m_GraphYStart);
 
 				m_MemoryBlocks.Push(node);
 
@@ -97,8 +119,8 @@ namespace Soul
 						width = (float)usedBytes / (float)totalMemory * m_GraphWidth;
 					}
 
-					node = Partition(RectangleNode, width, 128, sf::Color::Red);
-					node->setPosition(xPos, 30.0f);
+					node = Partition(RectangleNode, width, m_GraphHeight, sf::Color(205, 139, 98));
+					node->setPosition(xPos, m_GraphYStart);
 
 					m_MemoryBlocks.Push(node);
 				}

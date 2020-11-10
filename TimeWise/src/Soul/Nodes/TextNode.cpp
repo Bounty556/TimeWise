@@ -33,8 +33,6 @@ namespace Soul
 
 	void TextNode::DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		states.transform *= getTransform();
-
 		target.draw(m_Text, states);
 	}
 }

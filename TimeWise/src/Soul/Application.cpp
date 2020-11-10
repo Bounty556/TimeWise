@@ -43,7 +43,7 @@ namespace Soul
 		TextureManager::CleanUp();
 		InputManager::CleanUp();
 
-		MemoryManager::DrawMemory();
+		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();
 	}
 
@@ -51,7 +51,6 @@ namespace Soul
 	{
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		InputManager::SetAcceptingNewControllers(true);
 		LayerManager::PushLayer(Partition(DebugInfoLayer));
 
 		// Main game loop

@@ -65,7 +65,9 @@ namespace Soul
 		Returns an InputInfo struct containing the button information for the desired control
 		for a given player.
 		*/
-		static Controller::InputInfo GetInputInfo(unsigned int player, const char* controlString);
+		static Controller::InputInfo GetPlayerInputInfo(unsigned int player, const char* controlString);
+
+		static Controller::InputInfo GetControllerInputInfo(int controller, const char* controlString);
 
 	private:
 		/*

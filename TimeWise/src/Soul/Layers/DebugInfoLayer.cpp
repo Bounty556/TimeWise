@@ -13,7 +13,7 @@ namespace Soul
 		m_GraphHeight(128.0f),
 		m_GraphYStart(32.0f),
 		m_FrameCount(144),
-		m_IsDrawn(true)
+		m_IsDrawn(false)
 	{
 		
 		m_PartitionedMemoryText.SetFont("res/font.otf");
@@ -51,7 +51,7 @@ namespace Soul
 
 	void DebugInfoLayer::Update(float dt)
 	{
-		if (InputManager::GetInputInfo(0, "Console").State & ControlsMap::ButtonState::Pressed)
+		if (InputManager::GetControllerInputInfo(-1, "Console").State & ControlsMap::ButtonState::Pressed)
 		{
 			m_IsDrawn = !m_IsDrawn;
 		}

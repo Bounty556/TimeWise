@@ -40,6 +40,8 @@ namespace Soul
 
 	void Node::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
+		states.transform *= getTransform();
+
 		DrawSelf(target, states);
 		DrawChildren(target, states);
 	}
@@ -59,8 +61,6 @@ namespace Soul
 
 	void Node::DrawChildren(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		states.transform *= getTransform();
-
 		for (unsigned int i = 0; i < m_Children.Length(); ++i)
 		{
 			m_Children[i]->draw(target, states);

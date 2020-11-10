@@ -18,7 +18,6 @@ namespace Soul
 
 	private:
 		sf::RenderWindow* m_Window;
-		bool m_Running;
 		Timer m_Timer;
 		float m_AccumulatedMilliseconds;
 	};

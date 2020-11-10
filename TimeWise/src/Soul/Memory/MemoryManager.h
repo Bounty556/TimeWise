@@ -3,9 +3,9 @@
 #include <Logging/Logger.h>
 
 // Takes in the type of the object and calls its constructor
-#define Partition(type, ...) (new (MemoryManager::PartitionMemory(sizeof(type))) type(__VA_ARGS__))
+#define Partition(type, ...) (new (Soul::MemoryManager::PartitionMemory(sizeof(type))) type(__VA_ARGS__))
 
-#define PartitionArray(type, count) ((type*)(MemoryManager::PartitionMemory(sizeof(type), count)))
+#define PartitionArray(type, count) ((type*)(Soul::MemoryManager::PartitionMemory(sizeof(type), count)))
 
 namespace Soul
 {

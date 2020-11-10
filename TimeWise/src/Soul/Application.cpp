@@ -19,7 +19,6 @@ namespace Soul
 {
 	Application::Application() :
 		m_Window(nullptr),
-		m_Running(true),
 		m_Timer(),
 		m_AccumulatedMilliseconds(0.0f)
 	{
@@ -55,12 +54,9 @@ namespace Soul
 		InputManager::SetAcceptingNewControllers(true);
 		LayerManager::PushLayer(Partition(DebugInfoLayer));
 
-		sf::Sprite sprite;
-		sprite.setTexture(*TextureManager::RequestTexture("res/opa.jpg"));
-
 		// Main game loop
 		m_Timer.Start();
-		while (m_Running)
+		while (LayerManager::HasLayers())
 		{
 			// TODO: Make FPS customizable?
 			m_AccumulatedMilliseconds += m_Timer.GetDeltaTime();
@@ -79,7 +75,6 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
-			m_Window->draw(sprite);
 			LayerManager::Draw(*m_Window, sf::RenderStates::Default);
 
 			m_Window->display();
@@ -95,14 +90,14 @@ namespace Soul
 			{
 				case sf::Event::Closed:
 				{
-					m_Running = false;
+					LayerManager::ClearLayers();
 				} break;
 			
 				case sf::Event::KeyPressed:
 				{
 					if (e.key.code == sf::Keyboard::Escape)
 					{
-						m_Running = false;
+						LayerManager::ClearLayers();
 					}
 				} break;
 			}

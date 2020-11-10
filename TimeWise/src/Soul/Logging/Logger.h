@@ -63,6 +63,6 @@ namespace Soul
 	};
 }
 
-#define SoulLogError(message, ...) (Logger::LogError("[Error]: " message "\n", ##__VA_ARGS__))
-#define SoulLogWarning(message, ...) (Logger::LogWarning("[Warning]: " message "\n", ##__VA_ARGS__))
-#define SoulLogInfo(message, ...) (Logger::LogInfo("[Info]: " message "\n", ##__VA_ARGS__))
+#define SoulLogError(message, ...) (Soul::Logger::LogError("[Error]: " message "\n", ##__VA_ARGS__))
+#define SoulLogWarning(message, ...) (Soul::Logger::LogWarning("[Warning]: " message "\n", ##__VA_ARGS__))
+#define SoulLogInfo(message, ...) (Soul::Logger::LogInfo("[Info]: " message "\n", ##__VA_ARGS__))

@@ -1,10 +1,6 @@
-#include <Soul.h>
+#include "Application.h"
 
-#include "Client.h"
-#include "Layers/WorldLayer.h"
-
-// TODO: World Layer
-// TODO: Basic character
+// TODO: Context class
 // TODO: Camera
 // TODO: UI
 // TODO: Spatial tree of some sort
@@ -17,9 +13,6 @@
 
 int main()
 {
-	Soul::Application* app = new Client();
-	Soul::InputManager::SetAcceptingNewControllers(true);
-	Soul::LayerManager::PushLayer(Partition(WorldLayer));
-	app->Run();
-	delete app;
+	Soul::Application app;
+	app.Run();
 }

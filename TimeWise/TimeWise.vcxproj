@@ -173,9 +173,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game\Client.h" />
-    <ClInclude Include="src\Game\Layers\WorldLayer.h" />
-    <ClInclude Include="src\Game\Nodes\PlayerNode.h" />
     <ClInclude Include="src\Soul\Application.h" />
     <ClInclude Include="src\Soul\Layers\DebugInfoLayer.h" />
     <ClInclude Include="src\Soul\Layers\Layer.h" />
@@ -350,9 +347,7 @@
     <Library Include="vendor\SFML\lib\sfml-window.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Game\EntryPoint.cpp" />
-    <ClCompile Include="src\Game\Layers\WorldLayer.cpp" />
-    <ClCompile Include="src\Game\Nodes\PlayerNode.cpp" />
+    <ClCompile Include="src\Soul\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
     <ClCompile Include="src\Soul\Layers\DebugInfoLayer.cpp" />
     <ClCompile Include="src\Soul\Layers\Layer.cpp" />

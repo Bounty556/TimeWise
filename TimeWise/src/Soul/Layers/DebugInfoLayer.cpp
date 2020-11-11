@@ -47,16 +47,19 @@ namespace Soul
 
 	void DebugInfoLayer::Update(float dt)
 	{
+		bool shouldUpdate = false;
+
 		if (InputManager::GetControllerInputInfo(-1, "Console").State & ControlsMap::ButtonState::Pressed)
 		{
+			shouldUpdate = !m_IsDrawn;
 			m_IsDrawn = !m_IsDrawn;
 		}
 
 		++m_FrameCount;
 		m_UpdateTimer += dt;
-		if (m_UpdateTimer >= 1000.0f)
+		if ((m_UpdateTimer >= 1000.0f || shouldUpdate) && m_IsDrawn)
 		{
-			m_UpdateTimer -= 1000.0f;
+			m_UpdateTimer = 0.0f;
 
 			// Update text
 			
@@ -78,17 +81,13 @@ namespace Soul
 			// Update graph
 
 			m_MemoryBlocks.EmptyPool();
-			SoulLogInfo("Used objects: %d", m_MemoryBlocks.Count());
 
 			unsigned int totalMemory = (unsigned int)MemoryManager::m_StableMemoryEnd - (unsigned int)MemoryManager::m_StableMemoryStart;
-
 			MemoryManager::MemoryNode* currentNode = (MemoryManager::MemoryNode*)MemoryManager::m_StableMemoryStart;
-
 
 			while (currentNode)
 			{
 				RectangleNode* requestedRectangle = m_MemoryBlocks.RequestObject();
-				SoulLogInfo("Used objects: %d", m_MemoryBlocks.Count());
 
 				if (requestedRectangle)
 				{
@@ -104,7 +103,6 @@ namespace Soul
 				// Add used memory block
 				if (currentNode->BlockSize > 0 && (requestedRectangle = m_MemoryBlocks.RequestObject()))
 				{
-					SoulLogInfo("Used objects: %d", m_MemoryBlocks.Count());
 					float xPos = (float)ByteDistance(MemoryManager::m_StableMemoryStart, (unsigned char*)currentNode + currentNode->BlockSize) / (float)totalMemory * m_GraphWidth;
 
 					float width;

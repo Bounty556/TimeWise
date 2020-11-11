@@ -71,14 +71,11 @@ namespace Soul
 			RectangleNode* two = pool.RequestObject();
 			RectangleNode* three = pool.RequestObject();
 
-			/*pool.FreeObject(one);
-			pool.FreeObject(two);
-			pool.FreeObject(three);*/
 			pool.EmptyPool();
 
-			pool.RequestObject();
-			pool.RequestObject();
-			pool.RequestObject();
+			Assert(one == pool.RequestObject());
+			Assert(two == pool.RequestObject());
+			Assert(three == pool.RequestObject());
 		}
 	};
 }

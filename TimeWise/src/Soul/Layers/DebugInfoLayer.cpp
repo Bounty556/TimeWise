@@ -47,8 +47,6 @@ namespace Soul
 
 	void DebugInfoLayer::Update(float dt)
 	{
-		return;
-
 		if (InputManager::GetControllerInputInfo(-1, "Console").State & ControlsMap::ButtonState::Pressed)
 		{
 			m_IsDrawn = !m_IsDrawn;

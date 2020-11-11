@@ -4,8 +4,8 @@
 #include "Layers/WorldLayer.h"
 
 // TODO: World Layer
-// TODO: Camera
 // TODO: Basic character
+// TODO: Camera
 // TODO: UI
 // TODO: Spatial tree of some sort
 // TODO: Volatile memory management

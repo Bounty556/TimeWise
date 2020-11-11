@@ -15,6 +15,8 @@
 
 #include <Layers/DebugInfoLayer.h>
 
+#include <Tests/ObjectPoolTests.h>
+
 namespace Soul
 {
 	Application::Application() :
@@ -52,6 +54,8 @@ namespace Soul
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
 		LayerManager::PushLayer(Partition(DebugInfoLayer));
+
+		ObjectPoolTests::RunAllTests();
 
 		// Main game loop
 		m_Timer.Start();

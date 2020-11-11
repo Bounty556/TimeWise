@@ -8,6 +8,7 @@ namespace Soul
 {
 	DebugInfoLayer::DebugInfoLayer() :
 		Layer(true, true),
+		m_MemoryBlocks(32),
 		m_UpdateTimer(1000.0f),
 		m_GraphWidth(512.0f),
 		m_GraphHeight(128.0f),
@@ -26,14 +27,6 @@ namespace Soul
 		m_FrameText.setPosition(325.0f, 0.0f);
 	}
 
-	DebugInfoLayer::~DebugInfoLayer()
-	{
-		for (unsigned int i = 0; i < m_MemoryBlocks.Length(); ++i)
-		{
-			MemoryManager::FreeMemory(m_MemoryBlocks[i]);
-		}
-	}
-
 	void DebugInfoLayer::Draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		if (m_IsDrawn)
@@ -42,15 +35,20 @@ namespace Soul
 			target.draw(m_FreeMemoryText, states);
 			target.draw(m_FrameText, states);
 
-			for (unsigned int i = 0; i < m_MemoryBlocks.Length(); ++i)
+			for (unsigned int i = 0; i < m_MemoryBlocks.Capacity(); ++i)
 			{
-				target.draw(*(m_MemoryBlocks[i]), states);
+				if (m_MemoryBlocks[i].IsLive)
+				{
+					target.draw(m_MemoryBlocks[i].Element, states);
+				}
 			}
 		}
 	}
 
 	void DebugInfoLayer::Update(float dt)
 	{
+		return;
+
 		if (InputManager::GetControllerInputInfo(-1, "Console").State & ControlsMap::ButtonState::Pressed)
 		{
 			m_IsDrawn = !m_IsDrawn;
@@ -81,31 +79,37 @@ namespace Soul
 
 			// Update graph
 
-			while (m_MemoryBlocks.Length() > 0)
-			{
-				MemoryManager::FreeMemory(m_MemoryBlocks[m_MemoryBlocks.Length() - 1]);
-				m_MemoryBlocks.Pop();
-			}
+			m_MemoryBlocks.EmptyPool();
+			SoulLogInfo("Used objects: %d", m_MemoryBlocks.Count());
 
 			unsigned int totalMemory = (unsigned int)MemoryManager::m_StableMemoryEnd - (unsigned int)MemoryManager::m_StableMemoryStart;
 
 			MemoryManager::MemoryNode* currentNode = (MemoryManager::MemoryNode*)MemoryManager::m_StableMemoryStart;
 
+
 			while (currentNode)
 			{
-				// Add free memory block
-				float xPos = (float)ByteDistance(MemoryManager::m_StableMemoryStart, currentNode) / (float)totalMemory * m_GraphWidth;
-				float width = (float)currentNode->BlockSize / (float)totalMemory * m_GraphWidth;
+				RectangleNode* requestedRectangle = m_MemoryBlocks.RequestObject();
+				SoulLogInfo("Used objects: %d", m_MemoryBlocks.Count());
 
-				RectangleNode* node = Partition(RectangleNode, width, m_GraphHeight, sf::Color(71, 92, 108));
-				node->setPosition(xPos, m_GraphYStart);
-
-				m_MemoryBlocks.Push(node);
-
-				//// Add used memory block
-				if (currentNode->BlockSize > 0)
+				if (requestedRectangle)
 				{
-					xPos = (float)ByteDistance(MemoryManager::m_StableMemoryStart, (unsigned char*)currentNode + currentNode->BlockSize) / (float)totalMemory * m_GraphWidth;
+					// Add free memory block
+					float xPos = (float)ByteDistance(MemoryManager::m_StableMemoryStart, currentNode) / (float)totalMemory * m_GraphWidth;
+					float width = (float)currentNode->BlockSize / (float)totalMemory * m_GraphWidth;
+
+					requestedRectangle->GetRect().setSize(sf::Vector2f(width, m_GraphHeight));
+					requestedRectangle->GetRect().setFillColor(sf::Color(71, 92, 108));
+					requestedRectangle->GetRect().setPosition(xPos, m_GraphYStart);
+				}
+
+				// Add used memory block
+				if (currentNode->BlockSize > 0 && (requestedRectangle = m_MemoryBlocks.RequestObject()))
+				{
+					SoulLogInfo("Used objects: %d", m_MemoryBlocks.Count());
+					float xPos = (float)ByteDistance(MemoryManager::m_StableMemoryStart, (unsigned char*)currentNode + currentNode->BlockSize) / (float)totalMemory * m_GraphWidth;
+
+					float width;
 
 					if (currentNode->NextNode)
 					{
@@ -119,10 +123,9 @@ namespace Soul
 						width = (float)usedBytes / (float)totalMemory * m_GraphWidth;
 					}
 
-					node = Partition(RectangleNode, width, m_GraphHeight, sf::Color(205, 139, 98));
-					node->setPosition(xPos, m_GraphYStart);
-
-					m_MemoryBlocks.Push(node);
+					requestedRectangle->GetRect().setSize(sf::Vector2f(width, m_GraphHeight));
+					requestedRectangle->GetRect().setFillColor(sf::Color(205, 139, 98));
+					requestedRectangle->GetRect().setPosition(xPos, m_GraphYStart);
 				}
 
 				currentNode = currentNode->NextNode;

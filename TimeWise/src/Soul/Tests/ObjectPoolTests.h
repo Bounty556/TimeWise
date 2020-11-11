@@ -16,6 +16,7 @@ namespace Soul
 			RunTest(RectangleNodePool);
 			RunTest(PoolClearCount);
 			RunTest(ArrayOperator);
+			RunTest(HalfFullPool);
 		}
 
 	private:
@@ -60,6 +61,24 @@ namespace Soul
 			{
 				Assert(pool[i].IsLive);
 			}
+		}
+
+		static void HalfFullPool()
+		{
+			ObjectPool<RectangleNode> pool(32);
+
+			RectangleNode* one = pool.RequestObject();
+			RectangleNode* two = pool.RequestObject();
+			RectangleNode* three = pool.RequestObject();
+
+			/*pool.FreeObject(one);
+			pool.FreeObject(two);
+			pool.FreeObject(three);*/
+			pool.EmptyPool();
+
+			pool.RequestObject();
+			pool.RequestObject();
+			pool.RequestObject();
 		}
 	};
 }

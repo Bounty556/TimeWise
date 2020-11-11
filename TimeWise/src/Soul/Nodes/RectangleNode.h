@@ -12,6 +12,8 @@ namespace Soul
 	public:
 		RectangleNode(float width = 0, float height = 0, sf::Color color = sf::Color::White);
 
+		sf::RectangleShape& GetRect();
+
 	private:
 		virtual void DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const override;
 

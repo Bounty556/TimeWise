@@ -10,6 +10,11 @@ namespace Soul
 		m_Rect.setFillColor(color);
 	}
 
+	sf::RectangleShape& RectangleNode::GetRect()
+	{
+		return m_Rect;
+	}
+
 	void RectangleNode::DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(m_Rect, states);

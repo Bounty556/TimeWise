@@ -3,7 +3,7 @@
 #include <Layers/Layer.h>
 #include <Nodes/RectangleNode.h>
 #include <Nodes/TextNode.h>
-#include <Utility/Vector.h>
+#include <Structures/ObjectPool.h>
 
 namespace Soul
 {
@@ -14,7 +14,6 @@ namespace Soul
 	{
 	public:
 		DebugInfoLayer();
-		~DebugInfoLayer();
 
 		/*
 		Draws this layer.
@@ -30,7 +29,7 @@ namespace Soul
 		TextNode m_PartitionedMemoryText;
 		TextNode m_FreeMemoryText;
 		TextNode m_FrameText;
-		Vector<RectangleNode*> m_MemoryBlocks;
+		ObjectPool<RectangleNode> m_MemoryBlocks;
 		float m_UpdateTimer;
 		float m_GraphWidth;
 		float m_GraphHeight;

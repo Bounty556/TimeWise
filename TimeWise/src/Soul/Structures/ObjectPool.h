@@ -58,6 +58,11 @@ namespace Soul
 		unsigned int Count() const;
 
 		/*
+		Gets the maximum number of objects that can be in the pool.
+		*/
+		unsigned int Capacity() const;
+
+		/*
 		Returns a pointer to a new object in the pool if there is any room for one. Otherwise,
 		returns nullptr.
 		*/
@@ -137,6 +142,12 @@ namespace Soul
 	}
 
 	template <class T>
+	unsigned int ObjectPool<T>::Capacity() const
+	{
+		return m_ObjectCapacity;
+	}
+
+	template <class T>
 	T* ObjectPool<T>::RequestObject()
 	{
 		if (m_FreeList)
@@ -163,6 +174,7 @@ namespace Soul
 			if (&m_ObjectPool[i].Element == element && m_ObjectPool[i].IsLive)
 			{
 				m_ObjectPool[i].Element.~T();
+				memset(&(m_ObjectPool[i].Element), 0, sizeof(T));
 				m_ObjectPool[i].IsLive = false;
 				m_ObjectPool[i].NextFree = m_FreeList;
 				m_FreeList = &m_ObjectPool[i];
@@ -180,11 +192,12 @@ namespace Soul
 			if (m_ObjectPool[i].IsLive)
 			{
 				m_ObjectPool[i].Element.~T();
+				memset(&(m_ObjectPool[i].Element), 0, sizeof(T));
 				m_ObjectPool[i].IsLive = false;
 			}
 			if (i < m_ObjectCapacity - 1)
 			{
-				m_ObjectPool[i].NextFree = m_FreeList;
+				m_ObjectPool[i].NextFree = &m_ObjectPool[i + 1];
 			}
 			else
 			{

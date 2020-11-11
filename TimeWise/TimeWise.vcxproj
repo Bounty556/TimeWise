@@ -194,12 +194,20 @@
     <ClInclude Include="src\Soul\ResourceManagers\SoundManager.h" />
     <ClInclude Include="src\Soul\ResourceManagers\TextureManager.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
+    <ClInclude Include="src\Soul\Structures\ObjectPool.h" />
+    <ClInclude Include="src\Soul\Structures\Queue.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
     <ClInclude Include="src\Soul\Tests\FontManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\MapTests.h" />
     <ClInclude Include="src\Soul\Tests\MemoryManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\NodeTests.h" />
+    <ClInclude Include="src\Soul\Tests\QueueTests.h" />
     <ClInclude Include="src\Soul\Tests\SoundManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\TextFileTests.h" />
     <ClInclude Include="src\Soul\Tests\TextureManagerTests.h" />
@@ -363,6 +371,7 @@
     <ClCompile Include="src\Soul\ResourceManagers\SoundManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\TextureManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />
+    <ClCompile Include="src\Soul\Structures\ObjectPool.cpp" />
     <ClCompile Include="src\Soul\Utility\Hashes.cpp" />
     <ClCompile Include="src\Soul\Utility\Vector.h" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />

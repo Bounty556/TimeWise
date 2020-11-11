@@ -102,7 +102,7 @@ namespace Soul
 
 				m_MemoryBlocks.Push(node);
 
-				// Add used memory block
+				//// Add used memory block
 				if (currentNode->BlockSize > 0)
 				{
 					xPos = (float)ByteDistance(MemoryManager::m_StableMemoryStart, (unsigned char*)currentNode + currentNode->BlockSize) / (float)totalMemory * m_GraphWidth;

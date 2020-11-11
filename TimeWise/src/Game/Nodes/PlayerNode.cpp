@@ -39,11 +39,11 @@ void PlayerNode::UpdateSelf(float dt)
 		movement.x = xAxisPos / 100.0f;
 	}
 
-	float yAxisPos = Soul::InputManager::GetControllerInputInfo(0, "Up").AxisPosition;
+	/*float yAxisPos = Soul::InputManager::GetControllerInputInfo(0, "Up").AxisPosition;
 	if (Soul::Math::Abs(yAxisPos) > 50.0f)
 	{
 		movement.y = yAxisPos / 100.0f;
-	}
+	}*/
 
 	move(movement * m_MoveSpeed * dt);
 }

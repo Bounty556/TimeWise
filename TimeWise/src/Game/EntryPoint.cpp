@@ -18,8 +18,8 @@
 int main()
 {
 	Soul::Application* app = new Client();
-	Soul::InputManager::SetAcceptingNewControllers(true);
-	Soul::LayerManager::PushLayer(Partition(WorldLayer));
+	//Soul::InputManager::SetAcceptingNewControllers(true);
+	//Soul::LayerManager::PushLayer(Partition(WorldLayer));
 	app->Run();
 	delete app;
 }

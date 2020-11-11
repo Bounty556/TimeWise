@@ -53,7 +53,7 @@ namespace Soul
 		if (smallestValidNode)
 		{
 			// If we were to store memory here, can we keep our node?
-			if (smallestValidNode->BlockSize - sizeof(MemoryNode*) >= actualBytes)
+			if (smallestValidNode->BlockSize - sizeof(MemoryNode) >= actualBytes)
 			{
 				void* location = ((unsigned char*)smallestValidNode) + (smallestValidNode->BlockSize - actualBytes);
 

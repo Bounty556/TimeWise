@@ -9,17 +9,26 @@
 namespace Soul
 {
 	Application::Application() :
-		m_Window(nullptr),
 		m_Running(true),
 		m_Timer(),
 		m_AccumulatedMilliseconds(0.0f)
 	{
 		MemoryManager::Allocate(Megabytes(16));
+		
+		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
+
+		m_FontManager = Partition(FontManager, 5);
+		m_SoundManager = Partition(SoundManager, 32);
+		m_TextureManager = Partition(TextureManager, 64);
 	}
 
 	Application::~Application()
 	{
 		MemoryManager::FreeMemory(m_Window);
+
+		MemoryManager::FreeMemory(m_FontManager);
+		MemoryManager::FreeMemory(m_SoundManager);
+		MemoryManager::FreeMemory(m_TextureManager);
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();
@@ -27,9 +36,9 @@ namespace Soul
 
 	void Application::Run()
 	{
-		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
+		sf::Sprite sprite;
+		sprite.setTexture(*m_TextureManager->RequestTexture("res/player.png"));
 
-		// Main game loop
 		m_Timer.Start();
 		while (m_Running)
 		{
@@ -41,6 +50,7 @@ namespace Soul
 				ProcessEvents();
 
 				// Updating
+				// UPDATE HERE
 
 				m_AccumulatedMilliseconds -= 6.94f;
 			}
@@ -48,6 +58,8 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
+			m_Window->draw(sprite);
+
 			m_Window->display();
 		}
 	}

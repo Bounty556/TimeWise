@@ -5,7 +5,7 @@
 #include <Strings/String.h>
 #include <Structures/Map.h>
 
-#define TextureMap Map<String, sf::Texture>
+#define TextureMap Map<String, sf::Texture*>
 
 namespace Soul
 {
@@ -24,6 +24,8 @@ namespace Soul
 		TextureManager(const TextureManager&) = delete;
 		TextureManager(TextureManager&&) = delete;
 		
+		~TextureManager();
+
 		TextureManager& operator=(const TextureManager&) = delete;
 
 		/*

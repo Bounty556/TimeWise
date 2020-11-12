@@ -11,7 +11,8 @@ namespace Soul
 	Application::Application() :
 		m_Running(true),
 		m_Timer(),
-		m_AccumulatedMilliseconds(0.0f)
+		m_AccumulatedMilliseconds(0.0f),
+		m_TargetFrameRateMilliseconds(6.94f) // 144 FPS
 	{
 		MemoryManager::Allocate(Megabytes(16));
 		
@@ -39,33 +40,52 @@ namespace Soul
 	void Application::Run()
 	{
 		m_InputManager->AddController(-1);
+
 		sf::Sprite sprite;
 		sprite.setTexture(*m_TextureManager->RequestTexture("res/player.png"));
+
+		sf::View camera;
+		camera.reset(sf::FloatRect(0, 0, 1280, 720));
 
 		m_Timer.Start();
 		while (m_Running)
 		{
 			// TODO: Make FPS customizable?
 			m_AccumulatedMilliseconds += m_Timer.GetDeltaTime();
-			while (m_AccumulatedMilliseconds >= 6.94f) // 144 FPS
+			while (m_AccumulatedMilliseconds >= m_TargetFrameRateMilliseconds) // 144 FPS
 			{
 				// Event processing
 				ProcessEvents();
 
 				// Updating
 				m_InputManager->Update();
-				if (m_InputManager->WasButtonPressed(-1, "Right"))
+				if (m_InputManager->IsButtonDown(-1, "Right"))
 				{
-					SoulLogInfo("Cool!");
+					camera.move(1.0f * m_TargetFrameRateMilliseconds, 0.0f);
+				}
+				else if (m_InputManager->IsButtonDown(-1, "Left"))
+				{
+					camera.move(-1.0f * m_TargetFrameRateMilliseconds, 0.0f);
 				}
 
-				m_AccumulatedMilliseconds -= 6.94f;
+				if (m_InputManager->IsButtonDown(-1, "Down"))
+				{
+					camera.move(0.0f, 1.0f * m_TargetFrameRateMilliseconds);
+				}
+				else if (m_InputManager->IsButtonDown(-1, "Up"))
+				{
+					camera.move(0.0f, -1.0f * m_TargetFrameRateMilliseconds);
+				}
+
+				m_AccumulatedMilliseconds -= m_TargetFrameRateMilliseconds;
 			}
 
 			// Rendering
 			m_Window->clear();
 			
+			m_Window->setView(camera);
 			m_Window->draw(sprite);
+			m_Window->setView(m_Window->getDefaultView());
 
 			m_Window->display();
 		}

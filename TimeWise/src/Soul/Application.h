@@ -43,5 +43,7 @@ namespace Soul
 		bool m_Running;
 		Timer m_Timer;
 		float m_AccumulatedMilliseconds;
+
+		float m_TargetFrameRateMilliseconds;
 	};
 }

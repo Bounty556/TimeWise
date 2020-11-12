@@ -1,7 +1,5 @@
 #include "Application.h"
 
-// TODO: Context class
-// TODO: Camera
 // TODO: UI
 // TODO: Spatial tree of some sort
 // TODO: Volatile memory management

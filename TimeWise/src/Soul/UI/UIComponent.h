@@ -63,12 +63,8 @@ namespace Soul
 
 		void AddConnection(const char* control, UIComponent* connectedComponent);
 
-		bool IsCapturingInput();
-
 	private:
-		Vector<UIComponent> m_Children;
 		Map<String, UIComponent*> m_Connections;
-		bool m_CapturesInput;
 		UIState m_UIState;
 	};
 }

@@ -3,9 +3,7 @@
 namespace Soul
 {
 	UIComponent::UIComponent() :
-		m_Children(),
 		m_Connections(),
-		m_CapturesInput(false),
 		m_UIState(UIState::Neutral)
 	{
 
@@ -74,10 +72,5 @@ namespace Soul
 	void UIComponent::AddConnection(const char* control, UIComponent* connectedComponent)
 	{
 		m_Connections.AddPair(control, connectedComponent);
-	}
-
-	bool UIComponent::IsCapturingInput()
-	{
-		return m_CapturesInput;
 	}
 }

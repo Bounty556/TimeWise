@@ -20,6 +20,7 @@ namespace Soul
 		m_FontManager = Partition(FontManager, 5);
 		m_SoundManager = Partition(SoundManager, 32);
 		m_TextureManager = Partition(TextureManager, 64);
+		m_InputManager = Partition(InputManager, 2);
 	}
 
 	Application::~Application()
@@ -29,6 +30,7 @@ namespace Soul
 		MemoryManager::FreeMemory(m_FontManager);
 		MemoryManager::FreeMemory(m_SoundManager);
 		MemoryManager::FreeMemory(m_TextureManager);
+		MemoryManager::FreeMemory(m_InputManager);
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();
@@ -36,6 +38,7 @@ namespace Soul
 
 	void Application::Run()
 	{
+		m_InputManager->AddController(-1);
 		sf::Sprite sprite;
 		sprite.setTexture(*m_TextureManager->RequestTexture("res/player.png"));
 
@@ -50,7 +53,11 @@ namespace Soul
 				ProcessEvents();
 
 				// Updating
-				// UPDATE HERE
+				m_InputManager->Update();
+				if (m_InputManager->WasButtonPressed(-1, "Right"))
+				{
+					SoulLogInfo("Cool!");
+				}
 
 				m_AccumulatedMilliseconds -= 6.94f;
 			}

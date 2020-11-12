@@ -19,12 +19,12 @@ namespace Soul
 
 	Ex:
 	InputManager manager;
-	manager.SetAcceptingNewControllers(true);
+	manager.AddController(-1);
 
 	// Game loop
 	while (...)
 	{
-		if (manager.GetInputInfo(0, "Jump").State & ControlsMap::Pressed)
+		if (Manager.WasButtonPressed(0, "Jump"))
 		{
 			SoulLogInfo("Player 1 Jumped!");
 		}
@@ -48,46 +48,22 @@ namespace Soul
 		void AddController(int controllerId);
 
 		/*
-		Returns an InputInfo struct containing the button information for the desired control
-		for a given player.
+		Helper functions.
 		*/
-		Controller::InputInfo GetPlayerInputInfo(unsigned int player, const char* controlString) const;
+		bool IsButtonDown(int controller, const char* controlString);
+		bool WasButtonPressed(int controller, const char* controlString);
+		bool WasButtonReleased(int controller, const char* controlString);
+		float AxisPosition(int controller, const char* controlString);
 
 		/*
-		Returns an InputInfo struct containing the button information for the desired control
-		for a given controller id.
-		*/
-		Controller::InputInfo GetControllerInputInfo(int controller, const char* controlString) const;
-
-		/*
-		Gets the number of currently connected controllers.
+		Getters
 		*/
 		unsigned int GetConnectedControllers() const;
-
-		/*
-		Gets the number of maximum number of allowed controllers.
-		*/
 		unsigned int GetMaxControllers() const;
 
 	private:
-		/*
-		Vector storing all of the controller information for the connected controllers.
-		*/
 		Controller* m_Controllers;
-		
-		/*
-		The maximum number of controllers this manager can support.
-		*/
 		unsigned int m_MaxControllers;
-
-		/*
-		Number of currently connected controllers.
-		*/
 		unsigned int m_ConnectedControllers;
-
-		/*
-		Whether we should detect and accept newly connected controllers.
-		*/
-		bool m_AcceptingNewControllers;
 	};
 }

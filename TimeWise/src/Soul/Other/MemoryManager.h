@@ -142,9 +142,6 @@ namespace Soul
 		static unsigned char* m_Memory; // Our entire allocated memory byte array
 		static void* m_StableMemoryStart; // The location of the start of our stable memory block
 		static void* m_StableMemoryEnd; // The location of the end of our stable memory block
-
-	private:
-		friend class DebugInfoLayer;
 	};
 
 	template<class T>

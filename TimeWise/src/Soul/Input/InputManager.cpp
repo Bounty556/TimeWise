@@ -7,8 +7,7 @@ namespace Soul
 	InputManager::InputManager(unsigned int maxControllerCount) :
 		m_Controllers(PartitionArray(Controller, maxControllerCount)),
 		m_MaxControllers(maxControllerCount),
-		m_ConnectedControllers(0),
-		m_AcceptingNewControllers(false)
+		m_ConnectedControllers(0)
 	{
 
 	}
@@ -45,33 +44,56 @@ namespace Soul
 		++m_ConnectedControllers;
 	}
 
-	Controller::InputInfo InputManager::GetPlayerInputInfo(unsigned int player, const char* controlString) const
-	{
-		if (player < 0 || player >= m_ConnectedControllers)
-		{
-			Controller::InputInfo inputInfo;
-			inputInfo.State = ControlsMap::ButtonState::None;
-			inputInfo.AxisPosition = 0.0f;
-			return inputInfo;
-		}
-
-		return m_Controllers[player].GetInputInfo(controlString);
-	}
-
-	Controller::InputInfo InputManager::GetControllerInputInfo(int controller, const char* controlString) const
+	bool InputManager::IsButtonDown(int controller, const char* controlString)
 	{
 		for (unsigned int i = 0; i < m_ConnectedControllers; ++i)
 		{
 			if (m_Controllers[i].GetControllerId() == controller)
 			{
-				return m_Controllers[i].GetInputInfo(controlString);
+				return m_Controllers[i].GetInputInfo(controlString).State & ControlsMap::ButtonState::Held;
 			}
 		}
 
-		Controller::InputInfo inputInfo;
-		inputInfo.State = ControlsMap::ButtonState::None;
-		inputInfo.AxisPosition = 0.0f;
-		return inputInfo;
+		return false;
+	}
+
+	bool InputManager::WasButtonPressed(int controller, const char* controlString)
+	{
+		for (unsigned int i = 0; i < m_ConnectedControllers; ++i)
+		{
+			if (m_Controllers[i].GetControllerId() == controller)
+			{
+				return m_Controllers[i].GetInputInfo(controlString).State & ControlsMap::ButtonState::Pressed;
+			}
+		}
+
+		return false;
+	}
+
+	bool InputManager::WasButtonReleased(int controller, const char* controlString)
+	{
+		for (unsigned int i = 0; i < m_ConnectedControllers; ++i)
+		{
+			if (m_Controllers[i].GetControllerId() == controller)
+			{
+				return m_Controllers[i].GetInputInfo(controlString).State & ControlsMap::ButtonState::Released;
+			}
+		}
+
+		return false;
+	}
+
+	float InputManager::AxisPosition(int controller, const char* controlString)
+	{
+		for (unsigned int i = 0; i < m_ConnectedControllers; ++i)
+		{
+			if (m_Controllers[i].GetControllerId() == controller)
+			{
+				return m_Controllers[i].GetInputInfo(controlString).AxisPosition;
+			}
+		}
+
+		return 0.0f;
 	}
 
 	unsigned int InputManager::GetConnectedControllers() const

@@ -1,6 +1,6 @@
 #include "InputManager.h"
 
-#include <Memory/MemoryManager.h>
+#include <Other/MemoryManager.h>
 
 namespace Soul
 {

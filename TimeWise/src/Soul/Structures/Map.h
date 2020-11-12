@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Memory/MemoryManager.h>
+#include <Other/MemoryManager.h>
 #include <Utility/Hashes.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>

@@ -1,7 +1,7 @@
 #include "TextFile.h"
 
-#include <Logging/Logger.h>
-#include <Memory/MemoryManager.h>
+#include <Other/Logger.h>
+#include <Other/MemoryManager.h>
 #include <Utility/Macros.h>
 
 #include <new>

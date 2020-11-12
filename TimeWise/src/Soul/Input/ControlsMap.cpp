@@ -2,8 +2,8 @@
 
 #include <new>
 
-#include <Logging/Logger.h>
-#include <Memory/MemoryManager.h>
+#include <Other/Logger.h>
+#include <Other/MemoryManager.h>
 #include <Utility/Macros.h>
 
 namespace Soul

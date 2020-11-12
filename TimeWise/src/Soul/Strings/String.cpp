@@ -1,6 +1,6 @@
 #include "String.h"
 
-#include <Memory/MemoryManager.h>
+#include <Other/MemoryManager.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
 

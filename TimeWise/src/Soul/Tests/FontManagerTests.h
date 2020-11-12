@@ -14,25 +14,37 @@ namespace Soul
 		{
 			RunTest(RequestInvalidFont);
 			RunTest(RequestValidFont);
+			RunTest(ClearAllFonts);
 		}
 
 	private:
 		static void RequestInvalidFont()
 		{
-			const sf::Font* result = FontManager::RequestFont("fakeFont");
+			FontManager manager(3);
+
+			const sf::Font* result = manager.RequestFont("fakeFont");
 
 			Assert(result == nullptr);
 		}
 
 		static void RequestValidFont()
 		{
-			const sf::Font* result = FontManager::RequestFont("res/font.otf");
-			const sf::Font* otherTexture = FontManager::RequestFont("res/font.otf");
+			FontManager manager(3);
+			const sf::Font* result = manager.RequestFont("res/font.otf");
+			const sf::Font* otherFont = manager.RequestFont("res/font.otf");
 
+			Assert(manager.Count() == 1);
 			Assert(result != nullptr);
-			Assert(otherTexture == result);
+			Assert(otherFont == result);
+		}
 
-			FontManager::ClearFonts();
+		static void ClearAllFonts()
+		{
+			FontManager manager(3);
+			manager.RequestFont("res/font.otf");
+			Assert(manager.Count() == 1);
+			manager.ClearAllFonts();
+			Assert(manager.Count() == 0);
 		}
 	};
 }

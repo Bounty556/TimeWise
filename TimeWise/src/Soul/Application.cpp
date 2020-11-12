@@ -3,7 +3,6 @@
 #include <Layers/LayerManager.h>
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
-#include <ResourceManagers/FontManager.h>
 #include <Utility/Macros.h>
 #include <Strings/String.h>
 #include <Utility/Timer.h>
@@ -18,7 +17,6 @@ namespace Soul
 	{
 		MemoryManager::Allocate(Megabytes(16));
 
-		FontManager::Init();
 		LayerManager::Init();
 	}
 
@@ -27,7 +25,6 @@ namespace Soul
 		MemoryManager::FreeMemory(m_Window);
 
 		LayerManager::CleanUp();
-		FontManager::CleanUp();
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();

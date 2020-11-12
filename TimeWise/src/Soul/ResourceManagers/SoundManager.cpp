@@ -1,7 +1,5 @@
 #include "SoundManager.h"
 
-#include <Utility/Macros.h>
-
 namespace Soul
 {
 	SoundManager::SoundManager(unsigned int capacity) :
@@ -22,12 +20,11 @@ namespace Soul
 
 	const sf::SoundBuffer* SoundManager::RequestSound(const char* soundName)
 	{
-		// Check to see if the texture is already allocated.
+		// Check to see if the sound is already allocated.
 		sf::SoundBuffer** result = m_SoundMap.Get(soundName);
 
 		if (result)
 		{
-			// If so, find the already allocated one and increase its reference count
 			return *result;
 		}
 		else

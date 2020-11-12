@@ -2,58 +2,69 @@
 
 namespace Soul
 {
-	FontMap* FontManager::m_FontMap;
-
-	void FontManager::Init()
+	FontManager::FontManager(unsigned int capacity) :
+		m_FontMap(capacity + 1),
+		m_Capacity(m_FontMap.GetCapacity() - 1)
 	{
-		m_FontMap = Partition(FontMap);
+
+	}
+
+	FontManager::~FontManager()
+	{
+		Vector<sf::Font**> fonts = m_FontMap.GetValues();
+		for (unsigned int i = 0; i < fonts.Length(); ++i)
+		{
+			MemoryManager::FreeMemory(*(fonts[i]));
+		}
 	}
 
 	const sf::Font* FontManager::RequestFont(const char* fontName)
 	{
-		sf::Font** result = m_FontMap->Get(fontName);
+		// Check to see if the sound is already allocated.
+		sf::Font** result = m_FontMap.Get(fontName);
 
-		if (!result)
+		if (result)
 		{
-			sf::Font* font = Partition(sf::Font);
-
-			if (!font->loadFromFile(fontName))
+			return *result;
+		}
+		else
+		{
+			// Check to make sure we're not full
+			if (m_FontMap.GetCount() < m_Capacity)
 			{
+				sf::Font* font = Partition(sf::Font);
+				// If not, allocate a new one and return
+				if (font->loadFromFile(fontName))
+				{
+					m_FontMap.AddPair(fontName, font);
+					return *(m_FontMap.Get(fontName));
+				}
+
 				MemoryManager::FreeMemory(font);
-				return nullptr;
 			}
-
-			m_FontMap->AddPair(fontName, font);
-
-			return font;
 		}
 
-		return *result;
+		return nullptr;
 	}
 
-	void FontManager::ClearFonts()
+	void FontManager::ClearAllFonts()
 	{
-		// We need to manually clean up our fonts map because we stored pointers in them rather
-		// than the actual objects.
-		Vector<sf::Font**> fonts = m_FontMap->GetValues();
+		Vector<sf::Font**> fonts = m_FontMap.GetValues();
 		for (unsigned int i = 0; i < fonts.Length(); ++i)
 		{
-			MemoryManager::FreeMemory(*fonts[i]);
+			MemoryManager::FreeMemory(*(fonts[i]));
 		}
 
-		m_FontMap->Clear();
+		m_FontMap.Clear();
 	}
 
-	void FontManager::CleanUp()
+	unsigned int FontManager::Count() const
 	{
-		// We need to manually clean up our fonts map because we stored pointers in them rather
-		// than the actual objects.
-		Vector<sf::Font**> fonts = m_FontMap->GetValues();
-		for (unsigned int i = 0; i < fonts.Length(); ++i)
-		{
-			MemoryManager::FreeMemory(*fonts[i]);
-		}
+		return m_FontMap.GetCount();
+	}
 
-		MemoryManager::FreeMemory(m_FontMap);
+	unsigned int FontManager::Capacity() const
+	{
+		return m_Capacity;
 	}
 }

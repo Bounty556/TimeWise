@@ -12,33 +12,45 @@ namespace Soul
 	class FontManager
 	{
 	public:
-		FontManager() = delete;
+		FontManager(unsigned int capacity = 32);
+		FontManager(const FontManager&) = delete;
+		FontManager(FontManager&&) = delete;
+
+		~FontManager();
+
+		FontManager& operator=(const FontManager&) = delete;
 
 		/*
-		Partitions memory for our font map.
+		Tries to return an already-loaded Font file if it exists. If it does not exist, the
+		provided Font file will attempt to be loaded into memory. If this manager is already
+		full of Fonts, this will return nullptr.
 		*/
-		static void Init();
+		const sf::Font* RequestFont(const char* fontName);
 
 		/*
-		Tries to return an already-loaded font file if it exists. If it does not exist, the
-		provided font file will attempt to be loaded into memory.
+		Clears out all currently stored Fonts.
 		*/
-		static const sf::Font* RequestFont(const char* fontName);
+		void ClearAllFonts();
 
 		/*
-		Frees all currently loaded fonts.
+		Gets the current number of Fonts that are stored in this manager.
 		*/
-		static void ClearFonts();
+		unsigned int Count() const;
 
 		/*
-		Frees the all of the loaded fonts, as well as the font map.
+		Gets the maximum number of Fonts that can be stored in this manager.
 		*/
-		static void CleanUp();
+		unsigned int Capacity() const;
 
 	private:
 		/*
-		A map of String-Font pairs which stores all currently loaded fonts.
+		A map of String-Font pairs which stores all currently loaded Fonts.
 		*/
-		static FontMap* m_FontMap;
+		FontMap m_FontMap;
+
+		/*
+		The maximum number of Fonts that can be stored in this Font Map.
+		*/
+		unsigned int m_Capacity;
 	};
 }

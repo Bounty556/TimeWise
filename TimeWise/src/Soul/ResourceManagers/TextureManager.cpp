@@ -1,7 +1,5 @@
 #include "TextureManager.h"
 
-#include <Utility/Macros.h>
-
 namespace Soul
 {
 	TextureManager::TextureManager(unsigned int capacity) :
@@ -18,7 +16,6 @@ namespace Soul
 
 		if (result)
 		{
-			// If so, find the already allocated one and increase its reference count
 			return result;
 		}
 		else

@@ -13,18 +13,16 @@
 #include <Strings/String.h>
 #include <Utility/Timer.h>
 
-#include <Layers/DebugInfoLayer.h>
-
 namespace Soul
 {
 	Application::Application() :
 		m_Window(nullptr),
+		m_Running(true),
 		m_Timer(),
 		m_AccumulatedMilliseconds(0.0f)
 	{
 		MemoryManager::Allocate(Megabytes(16));
 
-		InputManager::Init();
 		TextureManager::Init();
 		SoundManager::Init();
 		FontManager::Init();
@@ -41,7 +39,6 @@ namespace Soul
 		FontManager::CleanUp();
 		SoundManager::CleanUp();
 		TextureManager::CleanUp();
-		InputManager::CleanUp();
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();
@@ -51,12 +48,9 @@ namespace Soul
 	{
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		LayerManager::PushLayer(Partition(DebugInfoLayer));
-		InputManager::SetAcceptingNewControllers(true);
-
 		// Main game loop
 		m_Timer.Start();
-		while (LayerManager::HasLayers())
+		while (m_Running)
 		{
 			// TODO: Make FPS customizable?
 			m_AccumulatedMilliseconds += m_Timer.GetDeltaTime();
@@ -64,7 +58,6 @@ namespace Soul
 			{
 				// Event processing
 				ProcessEvents();
-				InputManager::Update();
 
 				// Updating
 				LayerManager::Update(6.94f);
@@ -90,18 +83,17 @@ namespace Soul
 			{
 				case sf::Event::Closed:
 				{
-					LayerManager::ClearLayers();
+					m_Running = false;
 				} break;
 			
 				case sf::Event::KeyPressed:
 				{
 					if (e.key.code == sf::Keyboard::Escape)
 					{
-						LayerManager::ClearLayers();
+						m_Running = false;
 					}
 				} break;
 			}
-			InputManager::ProcessInput(e);
 		}
 	}
 }

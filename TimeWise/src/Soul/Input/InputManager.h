@@ -4,8 +4,6 @@
 
 #include <Input/Controller.h>
 
-// TODO: Docs
-
 namespace Soul
 {
 	/*
@@ -20,12 +18,13 @@ namespace Soul
 	added to the controllers list, starting at 0.
 
 	Ex:
-	InputManager::SetAcceptingNewControllers(true);
+	InputManager manager;
+	manager.SetAcceptingNewControllers(true);
 
 	// Game loop
 	while (...)
 	{
-		if (InputManager::GetInputInfo(0, "Jump").State & ControlsMap::Pressed)
+		if (manager.GetInputInfo(0, "Jump").State & ControlsMap::Pressed)
 		{
 			SoulLogInfo("Player 1 Jumped!");
 		}
@@ -34,50 +33,61 @@ namespace Soul
 	class InputManager
 	{
 	public:
-		InputManager() = delete;
+		InputManager(unsigned int maxControllerCount = 5);
 		
-		/*
-		Partitions necessary memory for storing controller information.
-		*/
-		static void Init();
+		~InputManager();
 
 		/*
 		Updates the button states and axis information for all connected controllers.
 		*/
-		static void Update();
+		void Update();
 
 		/*
-		Used for determining whether a new controller has connected.
+		Adds a new controller to this manager as long as there is room for one.
 		*/
-		static void ProcessInput(sf::Event& e);
-
-		/*
-		Frees all necessary memory used for storing controller information.
-		*/
-		static void CleanUp();
-
-		/*
-		Allows the input manager to detect and add newly connected controllers.
-		*/
-		static void SetAcceptingNewControllers(bool value);
+		void AddController(int controllerId);
 
 		/*
 		Returns an InputInfo struct containing the button information for the desired control
 		for a given player.
 		*/
-		static Controller::InputInfo GetPlayerInputInfo(unsigned int player, const char* controlString);
+		Controller::InputInfo GetPlayerInputInfo(unsigned int player, const char* controlString) const;
 
-		static Controller::InputInfo GetControllerInputInfo(int controller, const char* controlString);
+		/*
+		Returns an InputInfo struct containing the button information for the desired control
+		for a given controller id.
+		*/
+		Controller::InputInfo GetControllerInputInfo(int controller, const char* controlString) const;
+
+		/*
+		Gets the number of currently connected controllers.
+		*/
+		unsigned int GetConnectedControllers() const;
+
+		/*
+		Gets the number of maximum number of allowed controllers.
+		*/
+		unsigned int GetMaxControllers() const;
 
 	private:
 		/*
 		Vector storing all of the controller information for the connected controllers.
 		*/
-		static Vector<Controller>* m_Controllers;
+		Controller* m_Controllers;
+		
+		/*
+		The maximum number of controllers this manager can support.
+		*/
+		unsigned int m_MaxControllers;
 
 		/*
-		Whether the InputManager should detect and accept newly connected controllers.
+		Number of currently connected controllers.
 		*/
-		static bool m_AcceptingNewControllers;
+		unsigned int m_ConnectedControllers;
+
+		/*
+		Whether we should detect and accept newly connected controllers.
+		*/
+		bool m_AcceptingNewControllers;
 	};
 }

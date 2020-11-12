@@ -49,11 +49,11 @@ namespace Soul
 	{
 		bool shouldUpdate = false;
 
-		if (InputManager::GetControllerInputInfo(-1, "Console").State & ControlsMap::ButtonState::Pressed)
+		/*if (InputManager::GetControllerInputInfo(-1, "Console").State & ControlsMap::ButtonState::Pressed)
 		{
 			shouldUpdate = !m_IsDrawn;
 			m_IsDrawn = !m_IsDrawn;
-		}
+		}*/ // TODO: Fix
 
 		++m_FrameCount;
 		m_UpdateTimer += dt;

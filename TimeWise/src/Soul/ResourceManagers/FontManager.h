@@ -3,7 +3,7 @@
 #include <SFML/Graphics/Font.hpp>
 
 #include <Strings/String.h>
-#include <Utility/Map.h>
+#include <Structures/Map.h>
 
 #define FontMap Map<String, sf::Font*>
 

@@ -4,7 +4,7 @@
 #include <Utility/Hashes.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
-#include <Utility/Vector.h>
+#include <Structures/Vector.h>
 
 #include <memory>
 

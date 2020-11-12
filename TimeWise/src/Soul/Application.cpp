@@ -1,6 +1,5 @@
 #include "Application.h"
 
-#include <Layers/LayerManager.h>
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
 #include <Utility/Macros.h>
@@ -16,15 +15,11 @@ namespace Soul
 		m_AccumulatedMilliseconds(0.0f)
 	{
 		MemoryManager::Allocate(Megabytes(16));
-
-		LayerManager::Init();
 	}
 
 	Application::~Application()
 	{
 		MemoryManager::FreeMemory(m_Window);
-
-		LayerManager::CleanUp();
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();
@@ -46,7 +41,6 @@ namespace Soul
 				ProcessEvents();
 
 				// Updating
-				LayerManager::Update(6.94f);
 
 				m_AccumulatedMilliseconds -= 6.94f;
 			}
@@ -54,8 +48,6 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
-			LayerManager::Draw(*m_Window, sf::RenderStates::Default);
-
 			m_Window->display();
 		}
 	}

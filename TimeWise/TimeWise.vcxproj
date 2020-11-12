@@ -174,8 +174,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Soul\Application.h" />
-    <ClInclude Include="src\Soul\Layers\Layer.h" />
-    <ClInclude Include="src\Soul\Layers\LayerManager.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
     <ClInclude Include="src\Soul\Files\TextFile.h" />
     <ClInclude Include="src\Soul\Input\Controller.h" />
@@ -208,8 +206,7 @@
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
     <ClInclude Include="src\Soul\Memory\MemoryManager.h" />
-    <ClInclude Include="src\Soul\Soul.h" />
-    <ClInclude Include="src\Soul\Utility\Map.h" />
+    <ClInclude Include="src\Soul\Structures\Map.h" />
     <ClInclude Include="src\Soul\Utility\Math.h" />
     <ClInclude Include="src\Soul\Strings\String.h" />
     <ClInclude Include="src\Soul\Utility\Timer.h" />
@@ -345,8 +342,6 @@
   <ItemGroup>
     <ClCompile Include="src\Soul\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
-    <ClCompile Include="src\Soul\Layers\Layer.cpp" />
-    <ClCompile Include="src\Soul\Layers\LayerManager.cpp" />
     <ClCompile Include="src\Soul\Files\ControlsFile.cpp" />
     <ClCompile Include="src\Soul\Files\TextFile.cpp" />
     <ClCompile Include="src\Soul\Input\Controller.cpp" />
@@ -359,7 +354,7 @@
     <ClCompile Include="src\Soul\ResourceManagers\TextureManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />
     <ClCompile Include="src\Soul\Utility\Hashes.cpp" />
-    <ClCompile Include="src\Soul\Utility\Vector.h" />
+    <ClCompile Include="src\Soul\Structures\Vector.h" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />
     <ClCompile Include="src\Soul\Strings\String.cpp" />
     <ClCompile Include="src\Soul\Utility\Timer.cpp" />

@@ -3,7 +3,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include <Strings/String.h>
-#include <Utility/Map.h>
+#include <Structures/Map.h>
 
 #define TextureMap Map<String, sf::Texture>
 

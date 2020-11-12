@@ -3,7 +3,7 @@
 #include <SFML/Audio/SoundBuffer.hpp>
 
 #include <Strings/String.h>
-#include <Utility/Map.h>
+#include <Structures/Map.h>
 
 #define SoundMap Map<String, sf::SoundBuffer*>
 

@@ -6,62 +6,58 @@
 #include <Utility/Map.h>
 
 #define SoundMap Map<String, sf::SoundBuffer*>
-#define SoundReferenceMap Map<String, int>
-
-// TODO: Combine sound and reference maps into one?
 
 namespace Soul
 {
 	/*
-	A resource manager class that takes care of loading and unloading sounds as they are
-	needed or no longer used.
+	A resource manager class that takes care of loading and unloading Sounds as they are needed.
 
 	Sounds can be requested via RequestSound(...) which will try to return an already-loaded
-	sound file if it exists. If it does not exist, the provided sound file will attempt to be
-	loaded into memory. A successful sound request will increase the number of references to
-	that sound. Sounds will be automatically unloaded once there are no more references to
-	that sound.
-
-	References to a sound can be decreased via RemoveSoundReference(...).
+	sound file if it exists. If it does not exist, the provided sound file will attempt to
+	be loaded into memory.
 	*/
 	class SoundManager
 	{
 	public:
-		SoundManager() = delete;
+		SoundManager(unsigned int capacity = 32);
+		SoundManager(const SoundManager&) = delete;
+		SoundManager(SoundManager&&) = delete;
 
-		/*
-		Partitions memory for our sound and sound reference maps.
-		*/
-		static void Init();
+		~SoundManager();
+
+		SoundManager& operator=(const SoundManager&) = delete;
 
 		/*
 		Tries to return an already-loaded sound file if it exists. If it does not exist, the
-		provided sound file will attempt to be loaded into memory. A successful sound
-		request will increase the number of references to that sound.
+		provided sound file will attempt to be loaded into memory. If this manager is already
+		full of sounds, this will return nullptr.
 		*/
-		static const sf::SoundBuffer* RequestSound(const char* soundName);
+		const sf::SoundBuffer* RequestSound(const char* soundName);
 
 		/*
-		Removes a reference to a sound. Sounds will be automatically unloaded once there are
-		no more references to that sound.
+		Clears out all currently stored sounds.
 		*/
-		static void RemoveSoundReference(const char* soundName);
+		void ClearAllSounds();
 
 		/*
-		Frees the memory that all of the loaded sounds have occupied, as well as the sound and
-		sound reference maps.
+		Gets the current number of sounds that are stored in this manager.
 		*/
-		static void CleanUp();
+		unsigned int Count() const;
+
+		/*
+		Gets the maximum number of sounds that can be stored in this manager.
+		*/
+		unsigned int Capacity() const;
 
 	private:
 		/*
-		A map of String-Sound pairs which stores all currently loaded sounds.
+		A map of String-SoundBuffer pairs which stores all currently loaded sounds.
 		*/
-		static SoundMap* m_SoundMap;
+		SoundMap m_SoundMap;
 
 		/*
-		A map of String-int pairs which keeps reference counts to all currently loaded sounds.
+		The maximum number of sounds that can be stored in this Sound Map.
 		*/
-		static SoundReferenceMap* m_SoundReferenceMap;
+		unsigned int m_Capacity;
 	};
 }

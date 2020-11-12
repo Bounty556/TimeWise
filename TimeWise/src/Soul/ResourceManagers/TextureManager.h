@@ -7,14 +7,11 @@
 
 #define TextureMap Map<String, sf::Texture>
 
-// TODO: Combine texture and reference maps into one?
-
 namespace Soul
 {
 	/*
 	A resource manager class that takes care of loading and unloading textures as they are
-	needed
-	or no longer used.
+	needed.
 
 	Textures can be requested via RequestTexture(...) which will try to return an already-loaded
 	texture file if it exists. If it does not exist, the provided texture file will attempt to
@@ -23,7 +20,7 @@ namespace Soul
 	class TextureManager
 	{
 	public:
-		TextureManager(unsigned int maxTextures = 64);
+		TextureManager(unsigned int capacity = 32);
 		TextureManager(const TextureManager&) = delete;
 		TextureManager(TextureManager&&) = delete;
 		
@@ -45,12 +42,12 @@ namespace Soul
 		/*
 		Gets the current number of textures that are stored in this manager.
 		*/
-		unsigned int TextureCount() const;
+		unsigned int Count() const;
 
 		/*
 		Gets the maximum number of textures that can be stored in this manager.
 		*/
-		unsigned int MaxTextures() const;
+		unsigned int Capacity() const;
 
 	private:
 		/*
@@ -61,6 +58,6 @@ namespace Soul
 		/*
 		The maximum number of textures that can be stored in this Texture Map.
 		*/
-		unsigned int m_MaxTextures;
+		unsigned int m_Capacity;
 	};
 }

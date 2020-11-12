@@ -33,7 +33,7 @@ namespace Soul
 			const sf::Texture* result = manager.RequestTexture("res/player.png");
 			const sf::Texture* otherTexture = manager.RequestTexture("res/player.png");
 
-			Assert(manager.TextureCount() == 1);
+			Assert(manager.Count() == 1);
 			Assert(result != nullptr);
 			Assert(otherTexture == result);
 		}
@@ -42,9 +42,9 @@ namespace Soul
 		{
 			TextureManager manager(3);
 			manager.RequestTexture("res/player.png");
-			Assert(manager.TextureCount() == 1);
+			Assert(manager.Count() == 1);
 			manager.ClearAllTextures();
-			Assert(manager.TextureCount() == 0);
+			Assert(manager.Count() == 0);
 		}
 	};
 }

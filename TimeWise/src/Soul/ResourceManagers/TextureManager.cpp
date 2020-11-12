@@ -4,9 +4,9 @@
 
 namespace Soul
 {
-	TextureManager::TextureManager(unsigned int maxTextures) :
-		m_TextureMap(maxTextures + 1),
-		m_MaxTextures(m_TextureMap.GetCapacity() - 1)
+	TextureManager::TextureManager(unsigned int capacity) :
+		m_TextureMap(capacity + 1),
+		m_Capacity(m_TextureMap.GetCapacity() - 1)
 	{
 
 	}
@@ -24,7 +24,7 @@ namespace Soul
 		else
 		{
 			// Check to make sure we're not full
-			if (m_TextureMap.GetCount() < m_MaxTextures)
+			if (m_TextureMap.GetCount() < m_Capacity)
 			{
 				sf::Texture texture;
 				// If not, allocate a new one and return
@@ -44,13 +44,13 @@ namespace Soul
 		m_TextureMap.Clear();
 	}
 
-	unsigned int TextureManager::TextureCount() const
+	unsigned int TextureManager::Count() const
 	{
 		return m_TextureMap.GetCount();
 	}
 
-	unsigned int TextureManager::MaxTextures() const
+	unsigned int TextureManager::Capacity() const
 	{
-		return m_MaxTextures;
+		return m_Capacity;
 	}
 }

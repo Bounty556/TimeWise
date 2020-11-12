@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SFML/Audio/SoundBuffer.hpp>
-
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
 #include <ResourceManagers/SoundManager.h>
@@ -16,26 +14,37 @@ namespace Soul
 		{
 			RunTest(RequestInvalidSound);
 			RunTest(RequestValidSound);
+			RunTest(ClearAllSounds);
 		}
 
 	private:
 		static void RequestInvalidSound()
 		{
-			const sf::SoundBuffer* result = SoundManager::RequestSound("fakeSound");
+			SoundManager manager(3);
+
+			const sf::SoundBuffer* result = manager.RequestSound("fakeSound");
 
 			Assert(result == nullptr);
 		}
 
 		static void RequestValidSound()
 		{
-			const sf::SoundBuffer* result = SoundManager::RequestSound("res/sound.ogg");
-			const sf::SoundBuffer* otherSound = SoundManager::RequestSound("res/sound.ogg");
+			SoundManager manager(3);
+			const sf::SoundBuffer* result = manager.RequestSound("res/sound.ogg");
+			const sf::SoundBuffer* otherSound = manager.RequestSound("res/sound.ogg");
 
+			Assert(manager.Count() == 1);
 			Assert(result != nullptr);
 			Assert(otherSound == result);
+		}
 
-			SoundManager::RemoveSoundReference("res/sound.ogg");
-			SoundManager::RemoveSoundReference("res/sound.ogg");
+		static void ClearAllSounds()
+		{
+			SoundManager manager(3);
+			manager.RequestSound("res/sound.ogg");
+			Assert(manager.Count() == 1);
+			manager.ClearAllSounds();
+			Assert(manager.Count() == 0);
 		}
 	};
 }

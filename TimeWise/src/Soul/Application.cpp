@@ -1,13 +1,9 @@
 #include "Application.h"
 
-#include <Input/ControlsMap.h>
-#include <Input/InputManager.h>
 #include <Layers/LayerManager.h>
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
 #include <ResourceManagers/FontManager.h>
-#include <ResourceManagers/SoundManager.h>
-#include <ResourceManagers/MusicManager.h>
 #include <Utility/Macros.h>
 #include <Strings/String.h>
 #include <Utility/Timer.h>
@@ -22,9 +18,7 @@ namespace Soul
 	{
 		MemoryManager::Allocate(Megabytes(16));
 
-		SoundManager::Init();
 		FontManager::Init();
-		MusicManager::Init();
 		LayerManager::Init();
 	}
 
@@ -33,9 +27,7 @@ namespace Soul
 		MemoryManager::FreeMemory(m_Window);
 
 		LayerManager::CleanUp();
-		MusicManager::CleanUp();
 		FontManager::CleanUp();
-		SoundManager::CleanUp();
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();

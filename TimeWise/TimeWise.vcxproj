@@ -203,6 +203,8 @@
     <ClInclude Include="src\Soul\Tests\SoundManagerTests.h" />
     <ClInclude Include="src\Soul\Tests\TextFileTests.h" />
     <ClInclude Include="src\Soul\Tests\TextureManagerTests.h" />
+    <ClInclude Include="src\Soul\UI\UIComponent.h" />
+    <ClInclude Include="src\Soul\Utility\Context.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
     <ClInclude Include="src\Soul\Other\MemoryManager.h" />
@@ -353,6 +355,7 @@
     <ClCompile Include="src\Soul\ResourceManagers\SoundManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\TextureManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />
+    <ClCompile Include="src\Soul\UI\UIComponent.cpp" />
     <ClCompile Include="src\Soul\Utility\Hashes.cpp" />
     <ClCompile Include="src\Soul\Structures\Vector.h" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />

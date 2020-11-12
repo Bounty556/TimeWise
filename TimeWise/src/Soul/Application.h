@@ -13,18 +13,6 @@ namespace Soul
 	class Application
 	{
 	public:
-		struct Context
-		{
-			unsigned int WindowWidth;
-			unsigned int WindowHeight;
-
-			FontManager& FontManager;
-			SoundManager& SoundManager;
-			TextureManager& TextureManager;
-			InputManager& InputManager;
-		};
-
-	public:
 		Application();
 		virtual ~Application();
 

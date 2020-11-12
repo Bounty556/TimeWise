@@ -44,9 +44,6 @@ namespace Soul
 		sf::Sprite sprite;
 		sprite.setTexture(*m_TextureManager->RequestTexture("res/player.png"));
 
-		sf::View camera;
-		camera.reset(sf::FloatRect(0, 0, 1280, 720));
-
 		m_Timer.Start();
 		while (m_Running)
 		{
@@ -59,23 +56,6 @@ namespace Soul
 
 				// Updating
 				m_InputManager->Update();
-				if (m_InputManager->IsButtonDown(-1, "Right"))
-				{
-					camera.move(1.0f * m_TargetFrameRateMilliseconds, 0.0f);
-				}
-				else if (m_InputManager->IsButtonDown(-1, "Left"))
-				{
-					camera.move(-1.0f * m_TargetFrameRateMilliseconds, 0.0f);
-				}
-
-				if (m_InputManager->IsButtonDown(-1, "Down"))
-				{
-					camera.move(0.0f, 1.0f * m_TargetFrameRateMilliseconds);
-				}
-				else if (m_InputManager->IsButtonDown(-1, "Up"))
-				{
-					camera.move(0.0f, -1.0f * m_TargetFrameRateMilliseconds);
-				}
 
 				m_AccumulatedMilliseconds -= m_TargetFrameRateMilliseconds;
 			}
@@ -83,9 +63,7 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
-			m_Window->setView(camera);
 			m_Window->draw(sprite);
-			m_Window->setView(m_Window->getDefaultView());
 
 			m_Window->display();
 		}

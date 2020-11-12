@@ -96,6 +96,11 @@ namespace Soul
 		*/
 		void RemovePair(const K& key);
 
+		/*
+		Gets the maximum number of pairs that can be stored in this map.
+		*/
+		unsigned int GetCapacity() const;
+
 	private:
 		/*
 		Repartitions this map to have the desired capacity.
@@ -113,11 +118,6 @@ namespace Soul
 		should be prime for use with quadratic probing.
 		*/
 		unsigned int m_Capacity;
-
-		/*
-		The minimum number of sets this Map can have. This should always be a prime.
-		*/
-		const unsigned int m_MinimumCapacity = 7;
 
 		/*
 		The start of the memory 
@@ -438,6 +438,12 @@ namespace Soul
 		m_Memory[location].Key.~K();
 		m_Memory[location].Value.~V();
 		memset(&m_Memory[location], 0, sizeof(SetType));
+	}
+
+	template <class K, class V>
+	unsigned int MapType::GetCapacity() const
+	{
+		return m_Capacity;
 	}
 
 	template <class K, class V>

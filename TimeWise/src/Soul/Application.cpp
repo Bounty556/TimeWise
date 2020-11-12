@@ -6,7 +6,6 @@
 #include <Logging/Logger.h>
 #include <Memory/MemoryManager.h>
 #include <ResourceManagers/FontManager.h>
-#include <ResourceManagers/TextureManager.h>
 #include <ResourceManagers/SoundManager.h>
 #include <ResourceManagers/MusicManager.h>
 #include <Utility/Macros.h>
@@ -23,7 +22,6 @@ namespace Soul
 	{
 		MemoryManager::Allocate(Megabytes(16));
 
-		TextureManager::Init();
 		SoundManager::Init();
 		FontManager::Init();
 		MusicManager::Init();
@@ -38,7 +36,6 @@ namespace Soul
 		MusicManager::CleanUp();
 		FontManager::CleanUp();
 		SoundManager::CleanUp();
-		TextureManager::CleanUp();
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();

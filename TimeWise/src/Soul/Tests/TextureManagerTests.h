@@ -14,26 +14,37 @@ namespace Soul
 		{
 			RunTest(RequestInvalidTexture);
 			RunTest(RequestValidTexture);
+			RunTest(ClearAllTextures);
 		}
 
 	private:
 		static void RequestInvalidTexture()
 		{
-			const sf::Texture* result = TextureManager::RequestTexture("fakeTexture");
+			TextureManager manager(3);
+
+			const sf::Texture* result = manager.RequestTexture("fakeTexture");
 
 			Assert(result == nullptr);
 		}
 
 		static void RequestValidTexture()
 		{
-			const sf::Texture* result = TextureManager::RequestTexture("res/opa.jpg");
-			const sf::Texture* otherTexture = TextureManager::RequestTexture("res/opa.jpg");
+			TextureManager manager(3);
+			const sf::Texture* result = manager.RequestTexture("res/player.png");
+			const sf::Texture* otherTexture = manager.RequestTexture("res/player.png");
 
+			Assert(manager.TextureCount() == 1);
 			Assert(result != nullptr);
 			Assert(otherTexture == result);
+		}
 
-			TextureManager::RemoveTextureReference("res/opa.jpg");
-			TextureManager::RemoveTextureReference("res/opa.jpg");
+		static void ClearAllTextures()
+		{
+			TextureManager manager(3);
+			manager.RequestTexture("res/player.png");
+			Assert(manager.TextureCount() == 1);
+			manager.ClearAllTextures();
+			Assert(manager.TextureCount() == 0);
 		}
 	};
 }

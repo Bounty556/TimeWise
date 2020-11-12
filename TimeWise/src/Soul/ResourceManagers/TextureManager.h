@@ -5,8 +5,7 @@
 #include <Strings/String.h>
 #include <Utility/Map.h>
 
-#define TextureMap Map<String, sf::Texture*>
-#define TextureReferenceMap Map<String, int>
+#define TextureMap Map<String, sf::Texture>
 
 // TODO: Combine texture and reference maps into one?
 
@@ -19,50 +18,49 @@ namespace Soul
 
 	Textures can be requested via RequestTexture(...) which will try to return an already-loaded
 	texture file if it exists. If it does not exist, the provided texture file will attempt to
-	be loaded into memory. A successful texture request will increase the number of references
-	to that texture. Textures will be automatically unloaded once there are no more references
-	to that texture.
-
-	References to a texture can be decreased via RemoveTextureReference(...).
+	be loaded into memory.
 	*/
 	class TextureManager
 	{
 	public:
-		TextureManager() = delete;
-
-		/*
-		Partitions memory for our texture and texture reference maps.
-		*/
-		static void Init();
+		TextureManager(unsigned int maxTextures = 64);
+		TextureManager(const TextureManager&) = delete;
+		TextureManager(TextureManager&&) = delete;
+		
+		TextureManager& operator=(const TextureManager&) = delete;
 
 		/*
 		Tries to return an already-loaded texture file if it exists. If it does not exist, the
-		provided texture file will attempt to be loaded into memory. A successful texture
-		request will increase the number of references to that texture.
+		provided texture file will attempt to be loaded into memory. If this manager is already
+		full of textures, this will return nullptr.
 		*/
-		static const sf::Texture* RequestTexture(const char* textureName);
+		const sf::Texture* RequestTexture(const char* textureName);
 
 		/*
-		Removes a reference to a texture. Textures will be automatically unloaded once there are
-		no more references to that texture.
+		Clears out all currently stored textures, invalidating any sprites that were using any of
+		these textures.
 		*/
-		static void RemoveTextureReference(const char* textureName);
+		void ClearAllTextures();
 
 		/*
-		Frees the memory that all of the loaded textures have occupied, as well as the texture
-		and texture reference maps.
+		Gets the current number of textures that are stored in this manager.
 		*/
-		static void CleanUp();
+		unsigned int TextureCount() const;
+
+		/*
+		Gets the maximum number of textures that can be stored in this manager.
+		*/
+		unsigned int MaxTextures() const;
 
 	private:
 		/*
 		A map of String-Texture pairs which stores all currently loaded textures.
 		*/
-		static TextureMap* m_TextureMap;
+		TextureMap m_TextureMap;
 
 		/*
-		A map of String-int pairs which keeps reference counts to all currently loaded textures.
+		The maximum number of textures that can be stored in this Texture Map.
 		*/
-		static TextureReferenceMap* m_TextureReferenceMap;
+		unsigned int m_MaxTextures;
 	};
 }

@@ -377,6 +377,9 @@
   <ItemGroup>
     <Font Include="res\font.otf" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\player.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

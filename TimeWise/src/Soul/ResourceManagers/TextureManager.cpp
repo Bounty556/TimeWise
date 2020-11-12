@@ -4,71 +4,53 @@
 
 namespace Soul
 {
-	TextureMap* TextureManager::m_TextureMap;
-	TextureReferenceMap* TextureManager::m_TextureReferenceMap;
-
-	void TextureManager::Init()
+	TextureManager::TextureManager(unsigned int maxTextures) :
+		m_TextureMap(maxTextures + 1),
+		m_MaxTextures(m_TextureMap.GetCapacity() - 1)
 	{
-		m_TextureMap = Partition(TextureMap);
-		m_TextureReferenceMap = Partition(TextureReferenceMap);
+
 	}
 
 	const sf::Texture* TextureManager::RequestTexture(const char* textureName)
 	{
 		// Check to see if the texture is already allocated.
-		sf::Texture** result = m_TextureMap->Get(textureName);
+		sf::Texture* result = m_TextureMap.Get(textureName);
 
 		if (result)
 		{
 			// If so, find the already allocated one and increase its reference count
-			int& referenceCount = *(m_TextureReferenceMap->Get(textureName));
-			++referenceCount;
-			return *result;
+			return result;
 		}
 		else
 		{
-			// If not, allocated a new one and return
-			sf::Texture* texture = Partition(sf::Texture);
-			if (!texture->loadFromFile(textureName))
+			// Check to make sure we're not full
+			if (m_TextureMap.GetCount() < m_MaxTextures)
 			{
-				MemoryManager::FreeMemory(texture);
-				return nullptr;
-			}
-			else
-			{
-				m_TextureMap->AddPair(textureName, texture);
-				m_TextureReferenceMap->AddPair(textureName, 1);
-				return texture;
+				sf::Texture texture;
+				// If not, allocate a new one and return
+				if (texture.loadFromFile(textureName))
+				{
+					m_TextureMap.AddPair(textureName, std::move(texture));
+					return m_TextureMap.Get(textureName);
+				}
 			}
 		}
+
+		return nullptr;
 	}
 
-	void TextureManager::RemoveTextureReference(const char* textureName)
+	void TextureManager::ClearAllTextures()
 	{
-		int& referenceCount = *(m_TextureReferenceMap->Get(textureName));
-		--referenceCount;
-
-		if (referenceCount <= 0)
-		{
-			// Delete from both the texture and texture reference maps.
-			MemoryManager::FreeMemory(*(m_TextureMap->Get(textureName)));
-
-			m_TextureMap->RemovePair(textureName);
-			m_TextureReferenceMap->RemovePair(textureName);
-		}
+		m_TextureMap.Clear();
 	}
 
-	void TextureManager::CleanUp()
+	unsigned int TextureManager::TextureCount() const
 	{
-		// We need to manually clean up our texture and reference maps because we stored
-		// pointers in them rather than the actual objects.
-		Vector<sf::Texture**> textureKeys = m_TextureMap->GetValues();
-		for (unsigned int i = 0; i < textureKeys.Length(); ++i)
-		{
-			MemoryManager::FreeMemory(*textureKeys[i]);
-		}
+		return m_TextureMap.GetCount();
+	}
 
-		MemoryManager::FreeMemory(m_TextureMap);
-		MemoryManager::FreeMemory(m_TextureReferenceMap);
+	unsigned int TextureManager::MaxTextures() const
+	{
+		return m_MaxTextures;
 	}
 }

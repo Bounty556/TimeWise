@@ -33,19 +33,19 @@ namespace Soul
 			m_HoveredComponent->Activate();
 		}
 
-		if (context.InputManager.WasButtonPressed(-1, "Left") && m_HoveredComponent)
+		if ((context.InputManager.WasButtonPressed(-1, "Left") || (context.InputManager.WasButtonPressed(0, "Left") && context.InputManager.AxisPosition(0, "Left") < 0)) && m_HoveredComponent)
 		{
 			SelectComponent(m_HoveredComponent->GetConnection(UIComponent::Left));
 		}
-		else if (context.InputManager.WasButtonPressed(-1, "Right") && m_HoveredComponent)
+		else if ((context.InputManager.WasButtonPressed(-1, "Right") || (context.InputManager.WasButtonPressed(0, "Right") && context.InputManager.AxisPosition(0, "Right") > 0)) && m_HoveredComponent)
 		{
 			SelectComponent(m_HoveredComponent->GetConnection(UIComponent::Right));
 		}
-		else if (context.InputManager.WasButtonPressed(-1, "Down") && m_HoveredComponent)
+		else if ((context.InputManager.WasButtonPressed(-1, "Down") || (context.InputManager.WasButtonPressed(0, "Down") && context.InputManager.AxisPosition(0, "Down") > 0)) && m_HoveredComponent)
 		{
 			SelectComponent(m_HoveredComponent->GetConnection(UIComponent::Down));
 		}
-		else if (context.InputManager.WasButtonPressed(-1, "Up") && m_HoveredComponent)
+		else if ((context.InputManager.WasButtonPressed(-1, "Up") || (context.InputManager.WasButtonPressed(0, "Up") && context.InputManager.AxisPosition(0, "Up") < 0)) && m_HoveredComponent)
 		{
 			SelectComponent(m_HoveredComponent->GetConnection(UIComponent::Up));
 		}

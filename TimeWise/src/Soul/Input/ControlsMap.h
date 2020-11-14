@@ -70,6 +70,7 @@ namespace Soul
 			int Axis;
 
 			ButtonState State;
+
 			float AxisPosition;
 		};
 

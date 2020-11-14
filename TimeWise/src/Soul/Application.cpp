@@ -45,6 +45,7 @@ namespace Soul
 	void Application::Run()
 	{
 		m_InputManager->AddController(-1);
+		m_InputManager->AddController(0);
 
 		Context context{ 1280, 720, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager };
 
@@ -52,10 +53,19 @@ namespace Soul
 
 		UIButton* button1 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello1"); });
 		UIButton* button2 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello2"); });
+		UIButton* button3 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello3"); });
+		UIButton* button4 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello4"); });
 		button2->setPosition(100, 0);
+		button3->setPosition(100, 100);
+		button4->setPosition(0, 100);
 		button1->AddConnection(UIComponent::Right, button2);
+		button2->AddConnection(UIComponent::Down, button3);
+		button3->AddConnection(UIComponent::Left, button4);
+		button4->AddConnection(UIComponent::Up, button1);
 		container.AddUIComponent(button1);
 		container.AddUIComponent(button2);
+		container.AddUIComponent(button3);
+		container.AddUIComponent(button4);
 
 		m_Timer.Start();
 		while (m_Running)

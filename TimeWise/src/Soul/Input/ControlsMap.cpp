@@ -43,13 +43,23 @@ namespace Soul
 		{
 			Input& input = *(inputs[i]);
 
+			if (input.Axis != -1 && m_ControllerId != -1)
+			{
+				input.AxisPosition = sf::Joystick::getAxisPosition(m_ControllerId, (sf::Joystick::Axis)input.Axis);
+			}
+			else
+			{
+				input.AxisPosition = 0;
+			}
+
 			// Are mouse, keyboard, or controller pressed
 			if ((input.KeyboardKey != -1 &&
 				sf::Keyboard::isKeyPressed((sf::Keyboard::Key)input.KeyboardKey) && m_ControllerId == -1) ||
 				(input.MouseButton != -1 &&
 				sf::Mouse::isButtonPressed((sf::Mouse::Button)input.MouseButton) && m_ControllerId == -1) ||
 				(input.ControllerButton != -1 &&
-				sf::Joystick::isButtonPressed(m_ControllerId, input.ControllerButton)))
+				sf::Joystick::isButtonPressed(m_ControllerId, input.ControllerButton)) ||
+				(input.Axis != -1 && Math::Abs(input.AxisPosition) > 70.0f))
 			{
 				if (input.State & ButtonState::None)
 				{
@@ -70,11 +80,6 @@ namespace Soul
 				{
 					input.State = ButtonState::None;
 				}
-			}
-			
-			if (input.Axis != -1)
-			{
-				input.AxisPosition = sf::Joystick::getAxisPosition(m_ControllerId, (sf::Joystick::Axis)input.Axis);
 			}
 		}
 	}

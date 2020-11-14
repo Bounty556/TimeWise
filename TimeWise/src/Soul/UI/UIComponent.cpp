@@ -2,75 +2,49 @@
 
 namespace Soul
 {
-	UIComponent::UIComponent() :
-		m_Connections(),
-		m_UIState(UIState::Neutral)
+	UIComponent::UIComponent(std::function<void()> activate) :
+		m_UIState(UIState::Neutral),
+		m_Activate(activate)
 	{
-
+		m_Connections[0] = nullptr;
+		m_Connections[1] = nullptr;
+		m_Connections[2] = nullptr;
+		m_Connections[3] = nullptr;
 	}
 
 	void UIComponent::Update(float dt, Context& context)
 	{
-		if (m_UIState == UIState::Hovered)
-		{
-			Vector<String*> inputs = m_Connections.GetKeys();
-			for (unsigned int i = 0; i < inputs.Length(); ++i)
-			{
-				if (context.InputManager.WasButtonPressed(-1, inputs[i]->GetCString()) || context.InputManager.WasButtonPressed(0, inputs[i]->GetCString()))
-				{
-					UIComponent* connectedComponent = *m_Connections.Get(*(inputs[i]));
-					if (connectedComponent->m_UIState == UIState::Neutral)
-					{
-						connectedComponent->SetState(UIState::Hovered);
-						m_UIState = UIState::Neutral;
-					}
-					break;
-				}
-			}
-		}
-
-		switch (m_UIState)
-		{
-			case UIState::Hovered:
-			{
-				HoveredUpdate(dt, context);
-			} break;
-
-			case UIState::Neutral:
-			{
-				NeutralUpdate(dt, context);
-			} break;
-		}
+		
 	}
 
 	void UIComponent::Draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		switch (m_UIState)
-		{
-			case UIState::Hovered:
-			{
-				HoveredDraw(target, states);
-			} break;
 
-			case UIState::Neutral:
-			{
-				NeutralDraw(target, states);
-			} break;
+	}
 
-			case UIState::Disabled:
-			{
-				DisabledDraw(target, states);
-			} break;
-		}
+	void UIComponent::Activate()
+	{
+		m_Activate();
+	}
+
+	void UIComponent::AddConnection(UIConnection direction, UIComponent* connectedComponent)
+	{
+		m_Connections[(int)direction] = connectedComponent;
+		connectedComponent->m_Connections[((int)direction + 2) % 4] = this;
+	}
+
+	UIComponent::UIState UIComponent::GetState() const
+	{
+		return m_UIState;
+	}
+
+	UIComponent* UIComponent::GetConnection(UIConnection connection) const
+	{
+		return m_Connections[(int)connection];
 	}
 
 	void UIComponent::SetState(UIState uiState)
 	{
 		m_UIState = uiState;
-	}
-
-	void UIComponent::AddConnection(const char* control, UIComponent* connectedComponent)
-	{
-		m_Connections.AddPair(control, connectedComponent);
 	}
 }

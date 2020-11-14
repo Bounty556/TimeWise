@@ -4,7 +4,12 @@
 #include <Other/MemoryManager.h>
 #include <Utility/Macros.h>
 #include <Strings/String.h>
+#include <Utility/Context.h>
 #include <Utility/Timer.h>
+
+#include <UI/UIContainer.h>
+#include <UI/UIComponent.h>
+#include <UI/UIButton.h>
 
 namespace Soul
 {
@@ -41,8 +46,16 @@ namespace Soul
 	{
 		m_InputManager->AddController(-1);
 
-		sf::Sprite sprite;
-		sprite.setTexture(*m_TextureManager->RequestTexture("res/player.png"));
+		Context context{ 1280, 720, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager };
+
+		UIContainer container;
+
+		UIButton* button1 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello1"); });
+		UIButton* button2 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello2"); });
+		button2->setPosition(100, 0);
+		button1->AddConnection(UIComponent::Right, button2);
+		container.AddUIComponent(button1);
+		container.AddUIComponent(button2);
 
 		m_Timer.Start();
 		while (m_Running)
@@ -56,6 +69,7 @@ namespace Soul
 
 				// Updating
 				m_InputManager->Update();
+				container.Update(m_TargetFrameRateMilliseconds, context);
 
 				m_AccumulatedMilliseconds -= m_TargetFrameRateMilliseconds;
 			}
@@ -63,7 +77,7 @@ namespace Soul
 			// Rendering
 			m_Window->clear();
 			
-			m_Window->draw(sprite);
+			container.Draw(*m_Window, sf::RenderStates::Default);
 
 			m_Window->display();
 		}

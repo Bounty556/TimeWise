@@ -8,6 +8,8 @@
 #include <Structures/Map.h>
 #include <Structures/Vector.h>
 
+#include <functional>
+
 namespace Soul
 {
 	/*
@@ -40,31 +42,42 @@ namespace Soul
 			Neutral
 		};
 
+		enum UIConnection
+		{
+			Up = 0,
+			Right = 1,
+			Down = 2,
+			Left = 3,
+			Count = 4
+		};
+
 	public:
-		UIComponent();
+		UIComponent(std::function<void()> activate);
 
-		virtual void HoveredUpdate(float dt, Context& context) = 0;
+		virtual void Update(float dt, Context& context);
 		
-		virtual void NeutralUpdate(float dt, Context& context) = 0;
-
-		virtual void HoveredDraw(sf::RenderTarget& target, sf::RenderStates) const = 0;
-
-		virtual void NeutralDraw(sf::RenderTarget& target, sf::RenderStates) const = 0;
-
-		virtual void DisabledDraw(sf::RenderTarget& target, sf::RenderStates) const = 0;
-
-		virtual void Activate() = 0;
-
-		void Update(float dt, Context& context);
+		virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		
-		void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void Activate();
 
+		void AddConnection(UIConnection direction, UIComponent* connectedComponent);
+
+		// Getters
+		
+		UIState GetState() const;
+
+		UIComponent* GetConnection(UIConnection connection) const;
+
+		// Setters
+		
 		void SetState(UIState uiState);
 
-		void AddConnection(const char* control, UIComponent* connectedComponent);
+	protected:
+		UIState m_UIState;
 
 	private:
-		Map<String, UIComponent*> m_Connections;
-		UIState m_UIState;
+		UIComponent* m_Connections[4];
+
+		std::function<void()> m_Activate;
 	};
 }

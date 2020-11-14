@@ -13,11 +13,12 @@ namespace Soul
 		~UIContainer();
 
 		void AddUIComponent(UIComponent* component);
-
 		void Update(float dt, Context& context);
 		void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void SelectComponent(UIComponent* component);
 
 	private:
 		Vector<UIComponent*> m_Components;
+		UIComponent* m_HoveredComponent;
 	};
 }

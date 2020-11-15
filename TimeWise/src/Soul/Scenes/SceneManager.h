@@ -20,8 +20,14 @@ namespace Soul
 
 		void ChangeScenes(Scene* nextScene);
 
+		void Quit();
+
+		bool HasScenes();
+
 	private:
 		Scene* m_CurrentScene;
 		Scene* m_NextScene;
+
+		bool m_QuitScene;
 	};
 }

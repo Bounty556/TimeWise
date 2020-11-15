@@ -30,7 +30,6 @@ namespace Soul
 		InputManager* m_InputManager;
 		SceneManager* m_SceneManager;
 
-		bool m_Running;
 		Timer m_Timer;
 		float m_AccumulatedMilliseconds;
 

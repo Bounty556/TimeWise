@@ -7,15 +7,12 @@
 #include <Utility/Context.h>
 #include <Utility/Timer.h>
 
-#include <UI/UIContainer.h>
-#include <UI/UIComponent.h>
-#include <UI/UIButton.h>
+#include <Scenes/MainMenuScene.h>
 
 // TODO: Make FPS customizable?
 namespace Soul
 {
 	Application::Application() :
-		m_Running(true),
 		m_Timer(),
 		m_AccumulatedMilliseconds(0.0f),
 		m_TargetFrameRateMilliseconds(6.94f) // 144 FPS
@@ -52,8 +49,10 @@ namespace Soul
 
 		Context context{ 1280, 720, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager, *m_SceneManager };
 
+		m_SceneManager->ChangeScenes(Partition(MainMenuScene, context));
+
 		m_Timer.Start();
-		while (m_Running)
+		while (m_SceneManager->HasScenes())
 		{
 			m_AccumulatedMilliseconds += m_Timer.GetDeltaTime();
 			while (m_AccumulatedMilliseconds >= m_TargetFrameRateMilliseconds)
@@ -86,14 +85,14 @@ namespace Soul
 			{
 				case sf::Event::Closed:
 				{
-					m_Running = false;
+					m_SceneManager->Quit();
 				} break;
 			
 				case sf::Event::KeyPressed:
 				{
 					if (e.key.code == sf::Keyboard::Escape)
 					{
-						m_Running = false;
+						m_SceneManager->Quit();
 					}
 				} break;
 			}

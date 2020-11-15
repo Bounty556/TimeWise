@@ -13,12 +13,12 @@ namespace Soul
 	void MemoryManager::Allocate(size_t bytes)
 	{
 		m_Memory = (unsigned char*)malloc(bytes);
-		m_StableMemoryStart = m_Memory + Megabytes(2);
+		m_StableMemoryStart = m_Memory; // + Megabytes(2);
 		m_StableMemoryEnd = m_Memory + bytes;
 
 		// Create our 0th node at the 2MB mark
 		MemoryNode* memoryNode = (MemoryNode*)m_StableMemoryStart;
-		memoryNode->BlockSize = bytes - Megabytes(2);
+		memoryNode->BlockSize = bytes; // - Megabytes(2);
 		memoryNode->NextNode = nullptr;
 	}
 

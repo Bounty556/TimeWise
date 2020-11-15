@@ -1,7 +1,9 @@
 #include "Application.h"
 
-// TODO: Scenes
-// TODO: Spatial tree of some sort
+// TODO: Add Entities
+// TODO: Add Player Entity
+// TODO: Add Platform Entity
+// TODO: Add basic physics
 // TODO: Volatile memory management
 // TODO: Networking
 // TODO: Multi-threading

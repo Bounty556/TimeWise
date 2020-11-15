@@ -6,6 +6,9 @@
 
 namespace Soul
 {
+	/*
+	The main menu.
+	*/
 	class MainMenuScene : public Scene
 	{
 	public:

@@ -6,6 +6,9 @@
 
 namespace Soul
 {
+	/*
+	The scene of the main play area.
+	*/
 	class GameScene : public Scene
 	{
 	public:

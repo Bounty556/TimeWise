@@ -21,15 +21,17 @@ namespace Soul
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		m_FontManager = Partition(FontManager, 5);
-		m_SoundManager = Partition(SoundManager, 32);
-		m_TextureManager = Partition(TextureManager, 64);
+		m_FontManager = Partition(FontManager, 4);
+		m_SoundManager = Partition(SoundManager, 8);
+		m_TextureManager = Partition(TextureManager, 16);
 		m_InputManager = Partition(InputManager, 2);
 		m_SceneManager = Partition(SceneManager);
 	}
 
 	Application::~Application()
 	{
+		MemoryManager::DrawMemory();
+
 		MemoryManager::FreeMemory(m_Window);
 
 		MemoryManager::FreeMemory(m_FontManager);

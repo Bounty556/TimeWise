@@ -7,6 +7,9 @@
 
 namespace Soul
 {
+	/*
+	An abstract base scene class. To be used in the SceneManager.
+	*/
 	class Scene
 	{
 	public:

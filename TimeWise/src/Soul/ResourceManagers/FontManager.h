@@ -9,10 +9,15 @@
 
 namespace Soul
 {
+	/*
+	Handles the loading and unloading of Font files which can be requested to be used by
+	any sf::Text object via RequestFont(...). Fonts can be cleared at any time via
+	ClearAllFonts().
+	*/
 	class FontManager
 	{
 	public:
-		FontManager(unsigned int capacity = 32);
+		FontManager(unsigned int capacity = 4);
 		FontManager(const FontManager&) = delete;
 		FontManager(FontManager&&) = delete;
 

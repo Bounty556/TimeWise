@@ -12,8 +12,8 @@ namespace Soul
 		UIButton* startButton = Partition(UIButton, "Start", context, [&] { context.SceneManager.ChangeScenes(Partition(GameScene, context)); });
 		UIButton* quitButton = Partition(UIButton, "Quit", context, [&] { context.SceneManager.Quit(); });
 
-		startButton->setPosition(context.WindowWidth / 2, context.WindowHeight / 2 - 20);
-		quitButton->setPosition(context.WindowWidth / 2, context.WindowHeight / 2 + 20);
+		startButton->setPosition(context.WindowWidth / 2.0f, context.WindowHeight / 2.0f - 20);
+		quitButton->setPosition(context.WindowWidth / 2.0f, context.WindowHeight / 2.0f + 20);
 		startButton->AddConnection(UIComponent::Down, quitButton);
 
 		m_UIContainer.AddUIComponent(startButton);

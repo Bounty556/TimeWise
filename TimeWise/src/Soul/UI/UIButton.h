@@ -7,6 +7,10 @@
 
 namespace Soul
 {
+	/*
+	A UI Button. This must be provided a callback function that gets called when the button is
+	activated.
+	*/
 	class UIButton : public UIComponent
 	{
 	public:

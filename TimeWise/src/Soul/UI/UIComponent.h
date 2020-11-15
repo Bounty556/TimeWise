@@ -53,6 +53,7 @@ namespace Soul
 
 	public:
 		UIComponent(std::function<void()> activate);
+		virtual ~UIComponent();
 
 		virtual void Update(float dt, Context& context);
 		

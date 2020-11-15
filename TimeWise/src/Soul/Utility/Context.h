@@ -1,12 +1,13 @@
 #pragma once
 
-#include <Input/InputManager.h>
-#include <ResourceManagers/FontManager.h>
-#include <ResourceManagers/SoundManager.h>
-#include <ResourceManagers/TextureManager.h>
-
 namespace Soul
 {
+	class FontManager;
+	class SoundManager;
+	class TextureManager;
+	class InputManager;
+	class SceneManager;
+
 	struct Context
 	{
 		unsigned int WindowWidth;
@@ -16,5 +17,6 @@ namespace Soul
 		SoundManager& SoundManager;
 		TextureManager& TextureManager;
 		InputManager& InputManager;
+		SceneManager& SceneManager;
 	};
 }

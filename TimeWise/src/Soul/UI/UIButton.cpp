@@ -1,5 +1,7 @@
 #include "UIButton.h"
 
+#include <ResourceManagers/FontManager.h>
+
 namespace Soul
 {
 	UIButton::UIButton(const char* buttonText, Context& context, std::function<void()> activate) :

@@ -12,6 +12,11 @@ namespace Soul
 		m_Connections[3] = nullptr;
 	}
 
+	UIComponent::~UIComponent()
+	{
+
+	}
+
 	void UIComponent::Update(float dt, Context& context)
 	{
 		

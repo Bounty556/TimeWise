@@ -2,10 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <Input/InputManager.h>
 #include <ResourceManagers/FontManager.h>
 #include <ResourceManagers/SoundManager.h>
 #include <ResourceManagers/TextureManager.h>
-#include <Input/InputManager.h>
+#include <Scenes/SceneManager.h>
 #include <Utility/Timer.h>
 
 namespace Soul
@@ -27,6 +28,7 @@ namespace Soul
 		SoundManager* m_SoundManager;
 		TextureManager* m_TextureManager;
 		InputManager* m_InputManager;
+		SceneManager* m_SceneManager;
 
 		bool m_Running;
 		Timer m_Timer;

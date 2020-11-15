@@ -11,6 +11,7 @@
 #include <UI/UIComponent.h>
 #include <UI/UIButton.h>
 
+// TODO: Make FPS customizable?
 namespace Soul
 {
 	Application::Application() :
@@ -27,6 +28,7 @@ namespace Soul
 		m_SoundManager = Partition(SoundManager, 32);
 		m_TextureManager = Partition(TextureManager, 64);
 		m_InputManager = Partition(InputManager, 2);
+		m_SceneManager = Partition(SceneManager);
 	}
 
 	Application::~Application()
@@ -37,6 +39,7 @@ namespace Soul
 		MemoryManager::FreeMemory(m_SoundManager);
 		MemoryManager::FreeMemory(m_TextureManager);
 		MemoryManager::FreeMemory(m_InputManager);
+		MemoryManager::FreeMemory(m_SceneManager);
 
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();
@@ -47,47 +50,28 @@ namespace Soul
 		m_InputManager->AddController(-1);
 		m_InputManager->AddController(0);
 
-		Context context{ 1280, 720, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager };
-
-		UIContainer container;
-
-		UIButton* button1 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello1"); });
-		UIButton* button2 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello2"); });
-		UIButton* button3 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello3"); });
-		UIButton* button4 = Partition(UIButton, "Test", context, [] { SoulLogInfo("Hello4"); });
-		button2->setPosition(100, 0);
-		button3->setPosition(100, 100);
-		button4->setPosition(0, 100);
-		button1->AddConnection(UIComponent::Right, button2);
-		button2->AddConnection(UIComponent::Down, button3);
-		button3->AddConnection(UIComponent::Left, button4);
-		button4->AddConnection(UIComponent::Up, button1);
-		container.AddUIComponent(button1);
-		container.AddUIComponent(button2);
-		container.AddUIComponent(button3);
-		container.AddUIComponent(button4);
+		Context context{ 1280, 720, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager, *m_SceneManager };
 
 		m_Timer.Start();
 		while (m_Running)
 		{
-			// TODO: Make FPS customizable?
 			m_AccumulatedMilliseconds += m_Timer.GetDeltaTime();
-			while (m_AccumulatedMilliseconds >= m_TargetFrameRateMilliseconds) // 144 FPS
+			while (m_AccumulatedMilliseconds >= m_TargetFrameRateMilliseconds)
 			{
 				// Event processing
 				ProcessEvents();
 
 				// Updating
 				m_InputManager->Update();
-				container.Update(m_TargetFrameRateMilliseconds, context);
+				m_SceneManager->Update(m_TargetFrameRateMilliseconds, context);
 
 				m_AccumulatedMilliseconds -= m_TargetFrameRateMilliseconds;
 			}
 
 			// Rendering
 			m_Window->clear();
-			
-			container.Draw(*m_Window, sf::RenderStates::Default);
+
+			m_SceneManager->Draw(*m_Window, sf::RenderStates::Default);
 
 			m_Window->display();
 		}

@@ -1,5 +1,7 @@
 #include "UIContainer.h"
 
+#include <Input/InputManager.h>
+
 namespace Soul
 {
 	UIContainer::UIContainer() :

@@ -183,6 +183,8 @@
     <ClInclude Include="src\Soul\ResourceManagers\FontManager.h" />
     <ClInclude Include="src\Soul\ResourceManagers\SoundManager.h" />
     <ClInclude Include="src\Soul\ResourceManagers\TextureManager.h" />
+    <ClInclude Include="src\Soul\Scenes\Scene.h" />
+    <ClInclude Include="src\Soul\Scenes\SceneManager.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Structures\ObjectPool.h" />
     <ClInclude Include="src\Soul\Structures\Queue.h">
@@ -356,6 +358,8 @@
     <ClCompile Include="src\Soul\ResourceManagers\FontManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\SoundManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\TextureManager.cpp" />
+    <ClCompile Include="src\Soul\Scenes\Scene.cpp" />
+    <ClCompile Include="src\Soul\Scenes\SceneManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />
     <ClCompile Include="src\Soul\UI\UIButton.cpp" />
     <ClCompile Include="src\Soul\UI\UIComponent.cpp" />

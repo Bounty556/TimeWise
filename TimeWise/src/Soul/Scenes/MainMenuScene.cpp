@@ -1,15 +1,15 @@
 #include "MainMenuScene.h"
 
+#include <Scenes/GameScene.h>
 #include <Scenes/SceneManager.h>
 #include <UI/UIButton.h>
-
 
 namespace Soul
 {
 	MainMenuScene::MainMenuScene(Context& context) :
 		m_UIContainer()
 	{
-		UIButton* startButton = Partition(UIButton, "Start", context, [] {});
+		UIButton* startButton = Partition(UIButton, "Start", context, [&] { context.SceneManager.ChangeScenes(Partition(GameScene, context)); });
 		UIButton* quitButton = Partition(UIButton, "Quit", context, [&] { context.SceneManager.Quit(); });
 
 		startButton->setPosition(context.WindowWidth / 2, context.WindowHeight / 2 - 20);

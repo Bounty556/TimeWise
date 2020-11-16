@@ -9,9 +9,9 @@ namespace Soul
 {
 	PlayerEntity::PlayerEntity(Context& context) :
 		m_Sprite(*(context.TextureManager.RequestTexture("res/player.png"))),
-		m_MoveSpeed(1.0f)
+		m_MoveSpeed(0.5f)
 	{
-		AddComponent(Partition(GravityComponent, this, 0.006f, 1.0f));
+		AddComponent(Partition(GravityComponent, this, 0.012f, 1.0f));
 	}
 
 	void PlayerEntity::UpdateSelf(float dt, Context& context)
@@ -29,8 +29,6 @@ namespace Soul
 
 	void PlayerEntity::DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		states.transform *= getTransform();
-
 		target.draw(m_Sprite, states);
 	}
 }

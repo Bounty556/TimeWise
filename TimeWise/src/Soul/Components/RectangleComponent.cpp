@@ -20,4 +20,9 @@ namespace Soul
 	{
 		target.draw(m_Rect, states);
 	}
+
+	const char* RectangleComponent::GetType() const
+	{
+		return "Rectangle";
+	}
 }

@@ -16,6 +16,8 @@ namespace Soul
 
 		virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		virtual const char* GetType() const override;
+
 	private:
 		sf::RectangleShape m_Rect;
 	};

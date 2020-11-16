@@ -14,13 +14,12 @@ namespace Soul
 		Component(Entity* entity);
 		virtual ~Component();
 
-		virtual void Update(float dt, Context& context) = 0;
-
-		virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-
 		virtual const char* GetType() const = 0;
+
+		unsigned long long GetHandle() const;
 
 	protected:
 		Entity* m_AffectedEntity;
+		unsigned long long m_Handle;
 	};
 }

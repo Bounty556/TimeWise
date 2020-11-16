@@ -175,6 +175,7 @@
   <ItemGroup>
     <ClInclude Include="src\Soul\Application.h" />
     <ClInclude Include="src\Soul\Components\Component.h" />
+    <ClInclude Include="src\Soul\Components\PhysicsComponent.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
     <ClInclude Include="src\Soul\Entities\PlayerEntity.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="src\Soul\UI\UIComponent.h" />
     <ClInclude Include="src\Soul\UI\UIContainer.h" />
     <ClInclude Include="src\Soul\Utility\Context.h" />
+    <ClInclude Include="src\Soul\Utility\Handle.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
     <ClInclude Include="src\Soul\Other\MemoryManager.h" />
@@ -354,6 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Soul\Components\Component.cpp" />
+    <ClCompile Include="src\Soul\Components\PhysicsComponent.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />
     <ClCompile Include="src\Soul\Entities\PlayerEntity.cpp" />
     <ClCompile Include="src\Soul\EntryPoint.cpp" />
@@ -377,6 +380,7 @@
     <ClCompile Include="src\Soul\UI\UIButton.cpp" />
     <ClCompile Include="src\Soul\UI\UIComponent.cpp" />
     <ClCompile Include="src\Soul\UI\UIContainer.cpp" />
+    <ClCompile Include="src\Soul\Utility\Handle.cpp" />
     <ClCompile Include="src\Soul\Utility\Hashes.cpp" />
     <ClCompile Include="src\Soul\Structures\Vector.h" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />

@@ -23,10 +23,6 @@ namespace Soul
 		void SetVelocity(float dx, float dy);
 		void Accelerate(float dx, float dy);
 
-		void AddComponent(Component* component);
-
-		Component* GetComponentOfType(const char* type) const;
-
 		const sf::Vector2f& GetVelocity() const;
 
 	private:
@@ -37,6 +33,5 @@ namespace Soul
 	
 	private:
 		sf::Vector2f m_Velocity;
-		Vector<Component*> m_Components;
 	};
 }

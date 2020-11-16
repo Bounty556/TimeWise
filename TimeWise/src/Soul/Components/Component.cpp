@@ -1,9 +1,12 @@
 #include "Component.h"
 
+#include <Utility/Handle.h>
+
 namespace Soul
 {
 	Component::Component(Entity* entity) :
-		m_AffectedEntity(entity)
+		m_AffectedEntity(entity),
+		m_Handle(GetUniqueHandle())
 	{
 
 	}
@@ -11,5 +14,10 @@ namespace Soul
 	Component::~Component()
 	{
 
+	}
+
+	unsigned long long Component::GetHandle() const
+	{
+		return m_Handle;
 	}
 }

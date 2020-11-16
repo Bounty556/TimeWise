@@ -24,7 +24,7 @@ namespace Soul
 
 		m_FileContents = Partition(String, (unsigned int)fileSize.QuadPart);
 
-		DWORD bytesRead = 15;
+		DWORD bytesRead;
 		// TODO: Provide alternative?
 		Assert(ReadFile(fileHandle, m_FileContents->GetBufferStart(), (DWORD)fileSize.QuadPart, &bytesRead, 0));
 		m_FileContents->SetLength((unsigned int)bytesRead);
@@ -35,20 +35,10 @@ namespace Soul
 		CloseHandle(fileHandle);
 	}
 
-	TextFile::TextFile(TextFile&& otherFile)
+	TextFile::TextFile(TextFile&& otherFile) :
+		m_FilePath(otherFile.m_FilePath),
+		m_FileContents(std::move(otherFile.m_FileContents))
 	{
-		m_FileContents = otherFile.m_FileContents;
-		m_FilePath = otherFile.m_FilePath;
-
-		otherFile.m_FileContents = nullptr;
-	}
-
-	TextFile::~TextFile()
-	{
-		if (m_FileContents)
-		{
-			MemoryManager::FreeMemory(m_FileContents);
-		}
 	}
 
 	void TextFile::WriteStringToFile()

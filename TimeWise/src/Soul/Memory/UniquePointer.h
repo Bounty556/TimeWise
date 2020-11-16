@@ -17,7 +17,7 @@ namespace Soul
 		UniquePointer<T>& operator=(UniquePointer<T>&& otherPointer);
 		UniquePointer<T>& operator=(T* otherPointer);
 
-		T& operator->() const;
+		T* operator->() const;
 		T& operator*() const;
 		T& operator[](unsigned int index) const;
 
@@ -76,9 +76,9 @@ namespace Soul
 	}
 
 	template <class T>
-	T& UniquePointer<T>::operator->() const
+	T* UniquePointer<T>::operator->() const
 	{
-		return *m_Pointer;
+		return m_Pointer;
 	}
 
 	template <class T>

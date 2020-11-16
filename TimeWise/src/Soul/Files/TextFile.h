@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Memory/UniquePointer.h>
 #include <Strings/String.h>
 
 namespace Soul
@@ -19,8 +20,6 @@ namespace Soul
 		TextFile() = delete;
 
 		TextFile(TextFile&& otherFile); // Move constructor
-		
-		~TextFile();
 
 		/*
 		Writes the contents of the underlying String to the same file that was read.
@@ -48,6 +47,6 @@ namespace Soul
 		has opened. A pointer is needed here for optimization, as we want to set the initial
 		capacity of the string to be the size of the opened file.
 		*/
-		String* m_FileContents;
+		UniquePointer<String> m_FileContents;
 	};
 }

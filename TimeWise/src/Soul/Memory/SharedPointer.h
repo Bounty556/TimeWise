@@ -17,7 +17,7 @@ namespace Soul
 		SharedPointer<T>& operator=(const SharedPointer<T>& otherPointer);
 		SharedPointer<T>& operator=(SharedPointer<T>&& otherPointer);
 
-		T& operator->() const;
+		T* operator->() const;
 		T& operator*() const;
 		T& operator[](unsigned int index) const;
 
@@ -101,9 +101,9 @@ namespace Soul
 	}
 
 	template <class T>
-	T& SharedPointer<T>::operator->() const
+	T* SharedPointer<T>::operator->() const
 	{
-		return *m_Pointer;
+		return m_Pointer;
 	}
 
 	template <class T>

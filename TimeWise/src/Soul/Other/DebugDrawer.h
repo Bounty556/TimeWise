@@ -17,8 +17,6 @@ namespace Soul
 
 		void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-		void CleanUp();
-	
 	private:
 		sf::RectangleShape* m_Shapes;
 

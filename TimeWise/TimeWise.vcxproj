@@ -174,11 +174,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Soul\Application.h" />
-    <ClInclude Include="src\Soul\Components\RectangleComponent.h" />
     <ClInclude Include="src\Soul\Components\Component.h" />
-    <ClInclude Include="src\Soul\Components\GravityComponent.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
-    <ClInclude Include="src\Soul\Entities\PlatformEntity.h" />
     <ClInclude Include="src\Soul\Entities\PlayerEntity.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
     <ClInclude Include="src\Soul\Files\TextFile.h" />
@@ -202,6 +199,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="src\Soul\Systems\PhysicsSystem.h" />
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
     <ClInclude Include="src\Soul\Tests\FontManagerTests.h" />
@@ -356,10 +354,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Soul\Components\Component.cpp" />
-    <ClCompile Include="src\Soul\Components\GravityComponent.cpp" />
-    <ClCompile Include="src\Soul\Components\RectangleComponent.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />
-    <ClCompile Include="src\Soul\Entities\PlatformEntity.cpp" />
     <ClCompile Include="src\Soul\Entities\PlayerEntity.cpp" />
     <ClCompile Include="src\Soul\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />

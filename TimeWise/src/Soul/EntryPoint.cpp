@@ -1,6 +1,8 @@
 #include "Application.h"
 
-// TODO: Add Debug Drawer
+// TODO: Add unique handles for components
+// TODO: Store list of handles in entities
+// TODO: Only update/draw/handle components through systems
 // TODO: Add basic physics
 // TODO: Volatile memory management
 // TODO: Networking

@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-#include <Components/GravityComponent.h>
 #include <Entities/Entity.h>
 
 namespace Soul

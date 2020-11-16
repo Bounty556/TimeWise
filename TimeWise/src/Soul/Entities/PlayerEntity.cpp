@@ -8,12 +8,13 @@
 namespace Soul
 {
 	PlayerEntity::PlayerEntity(Context& context) :
-		m_Sprite(*(context.TextureManager.RequestTexture("res/player.png")))
+		m_Sprite(*(context.TextureManager.RequestTexture("res/player.png"))),
+		m_Gravity(this, 0.006f, 1.0f)
 	{
 
 	}
 
-	void PlayerEntity::Update(float dt, Context& context)
+	void PlayerEntity::UpdateSelf(float dt, Context& context)
 	{
 		if (context.InputManager.IsButtonDown(-1, "Right"))
 		{
@@ -34,6 +35,8 @@ namespace Soul
 		{
 			move(0.0, -1.0f * dt);
 		}
+
+		m_Gravity.Update(dt, context);
 	}
 
 	void PlayerEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const

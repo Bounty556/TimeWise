@@ -21,6 +21,8 @@ namespace Soul
 		T& operator*() const;
 		T& operator[](unsigned int index) const;
 
+		const T* Raw() const;
+
 	private:
 		T* m_Pointer;
 	};
@@ -91,5 +93,11 @@ namespace Soul
 	T& UniquePointer<T>::operator[](unsigned int index) const
 	{
 		return m_Pointer[index];
+	}
+
+	template <class T>
+	const T* UniquePointer<T>::Raw() const
+	{
+		return m_Pointer;
 	}
 }

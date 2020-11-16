@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include <Memory/UniquePointer.h>
 #include <Scenes/Scene.h>
 #include <Utility/Context.h>
 
@@ -19,7 +20,6 @@ namespace Soul
 	{
 	public:
 		SceneManager();
-		~SceneManager();
 
 		void Update(float dt, Context& context);
 
@@ -42,8 +42,8 @@ namespace Soul
 		bool HasScenes();
 
 	private:
-		Scene* m_CurrentScene;
-		Scene* m_NextScene;
+		UniquePointer<Scene> m_CurrentScene;
+		UniquePointer<Scene> m_NextScene;
 
 		bool m_QuitScene;
 	};

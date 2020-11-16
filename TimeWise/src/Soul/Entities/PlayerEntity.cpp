@@ -11,7 +11,8 @@ namespace Soul
 {
 	PlayerEntity::PlayerEntity(Context& context) :
 		m_Sprite(*(context.TextureManager.RequestTexture("res/player.png"))),
-		m_MoveSpeed(0.5f)
+		m_MoveSpeed(0.5f),
+		m_JumpStrength(0.5f)
 	{
 		Rigidbody* rb = context.PhysicsSystem.CreatePhysicsComponent<Rigidbody>(this, sf::FloatRect(0.0f, 0.0f, 32.0f, 64.0f));
 		rb->SetStatic(false);
@@ -30,6 +31,11 @@ namespace Soul
 		if (context.InputManager.IsButtonDown(-1, "Left") || (context.InputManager.IsButtonDown(0, "Left") && context.InputManager.AxisPosition(0, "Left") < 0.0f))
 		{
 			move(-m_MoveSpeed * dt, 0.0f);
+		}
+
+		if (context.InputManager.WasButtonPressed(-1, "Jump") || context.InputManager.WasButtonPressed(0, "Jump"))
+		{
+			SetVelocity(GetVelocity().x, -m_JumpStrength);
 		}
 	}
 

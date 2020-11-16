@@ -1,6 +1,5 @@
 #include "Application.h"
 
-// TODO: Add shared and unique pointers
 // TODO: Remove components, switch to entities having bounding boxes and variables to check for
 //       collisions.
 // TODO: Add debug partition and free logging

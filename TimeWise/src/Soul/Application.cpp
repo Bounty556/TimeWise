@@ -15,7 +15,7 @@ namespace Soul
 	Application::Application() :
 		m_Timer(),
 		m_AccumulatedMilliseconds(0.0f),
-		m_TargetFrameRateMilliseconds(6.94f) // 144 FPS,
+		m_TargetFrameRateMilliseconds(6.94f) // 144 FPS
 	{
 		MemoryManager::Allocate(Megabytes(16));
 		
@@ -49,6 +49,7 @@ namespace Soul
 
 	void Application::Run()
 	{
+
 		m_InputManager->AddController(-1);
 		m_InputManager->AddController(0);
 

@@ -11,11 +11,7 @@ namespace Soul
 
 	TextureManager::~TextureManager()
 	{
-		Vector<sf::Texture**> textures = m_TextureMap.GetValues();
-		for (unsigned int i = 0; i < textures.Length(); ++i)
-		{
-			MemoryManager::FreeMemory(*(textures[i]));
-		}
+		ClearAllTextures();
 	}
 
 	const sf::Texture* TextureManager::RequestTexture(const char* textureName)

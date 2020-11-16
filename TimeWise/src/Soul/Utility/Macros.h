@@ -11,7 +11,7 @@ if (x) \
 	{} \
 else {*((int*)0) = 0;}
 
-#define RunTest(x) SoulLogInfo("Running test " #x); \
+#define RunTest(x, ...) SoulLogInfo("Running test " #x); \
 MemoryManager::DrawMemory(); \
-x(); \
+x(__VA_ARGS__); \
 MemoryManager::DrawMemory()

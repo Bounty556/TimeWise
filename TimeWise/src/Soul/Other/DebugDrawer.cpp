@@ -17,11 +17,6 @@ namespace Soul
 		}
 	}
 
-	DebugDrawer::~DebugDrawer()
-	{
-		MemoryManager::FreeMemory(m_Shapes);
-	}
-
 	void DebugDrawer::AddShape(sf::Vector2f position, sf::Vector2f size, float angle)
 	{
 		if (m_CurrentShapes != m_MaxShapes)

@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
+#include <Memory/UniquePointer.h>
+
 namespace Soul
 {
 	class DebugDrawer
@@ -9,8 +11,6 @@ namespace Soul
 	public:
 		DebugDrawer(unsigned int capacity);
 		
-		~DebugDrawer();
-
 		void AddShape(sf::Vector2f position, sf::Vector2f size, float angle);
 
 		void Clear();
@@ -18,7 +18,7 @@ namespace Soul
 		void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
-		sf::RectangleShape* m_Shapes;
+		UniquePointer<sf::RectangleShape> m_Shapes;
 
 		unsigned int m_MaxShapes;
 

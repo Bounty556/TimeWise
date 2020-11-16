@@ -1,0 +1,29 @@
+#pragma once
+
+#include <SFML/Graphics/RectangleShape.hpp>
+
+namespace Soul
+{
+	class DebugDrawer
+	{
+	public:
+		DebugDrawer(unsigned int capacity);
+		
+		~DebugDrawer();
+
+		void AddShape(sf::Vector2f position, sf::Vector2f size, float angle);
+
+		void Clear();
+
+		void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		void CleanUp();
+	
+	private:
+		sf::RectangleShape* m_Shapes;
+
+		unsigned int m_MaxShapes;
+
+		unsigned int m_CurrentShapes;
+	};
+}

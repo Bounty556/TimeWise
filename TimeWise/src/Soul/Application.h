@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <Input/InputManager.h>
+#include <Other/DebugDrawer.h>
 #include <ResourceManagers/FontManager.h>
 #include <ResourceManagers/SoundManager.h>
 #include <ResourceManagers/TextureManager.h>
@@ -24,6 +25,7 @@ namespace Soul
 	private:
 		sf::RenderWindow* m_Window;
 
+		DebugDrawer* m_DebugDrawer;
 		FontManager* m_FontManager;
 		SoundManager* m_SoundManager;
 		TextureManager* m_TextureManager;

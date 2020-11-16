@@ -2,6 +2,7 @@
 
 namespace Soul
 {
+	class DebugDrawer;
 	class FontManager;
 	class SoundManager;
 	class TextureManager;
@@ -13,6 +14,7 @@ namespace Soul
 		unsigned int WindowWidth;
 		unsigned int WindowHeight;
 
+		DebugDrawer& DebugDrawer;
 		FontManager& FontManager;
 		SoundManager& SoundManager;
 		TextureManager& TextureManager;

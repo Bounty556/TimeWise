@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Memory/MemoryManager.h>
+#include <Memory/UniquePointer.h>
 #include <Utility/Macros.h>
 
 #include <memory>
@@ -20,8 +21,6 @@ namespace Soul
 
 		Vector(const Vector<T>&) = delete; // No copy constructor
 		Vector(Vector<T>&& otherVector); // Move constructor
-
-		~Vector();
 
 		Vector& operator=(const Vector<T>&) = delete; // No copy assignment
 
@@ -65,7 +64,7 @@ namespace Soul
 		/*
 		The start of the memory block for this vector.
 		*/
-		T* m_Memory;
+		UniquePointer<T> m_Memory;
 
 		/*
 		The number of elements currently stored in this vector.
@@ -85,7 +84,8 @@ namespace Soul
 
 	template <class T>
 	Vector<T>::Vector(unsigned int capacity) :
-		m_Count(0)
+		m_Count(0),
+		m_Memory(nullptr)
 	{
 		if (capacity < m_MinimumCapacity)
 		{
@@ -97,22 +97,12 @@ namespace Soul
 	}
 
 	template <class T>
-	Vector<T>::Vector(Vector<T>&& otherVector)
+	Vector<T>::Vector(Vector<T>&& otherVector) :
+		m_Capacity(otherVector.m_Capacity),
+		m_Count(otherVector.m_Count),
+		m_Memory(std::move(otherVector.m_Memory))
 	{
-		m_Capacity = otherVector.m_Capacity;
-		m_Count = otherVector.m_Count;
-		m_Memory = otherVector.m_Memory;
 
-		otherVector.m_Memory = nullptr;
-	}
-
-	template <class T>
-	Vector<T>::~Vector()
-	{
-		if (m_Memory)
-		{
-			MemoryManager::FreeMemory(m_Memory);
-		}
 	}
 
 	template <class T>
@@ -205,7 +195,6 @@ namespace Soul
 			new (&newMemory[i]) T(std::move(m_Memory[i]));
 		}
 
-		MemoryManager::FreeMemory(m_Memory);
 		m_Memory = newMemory;
 		m_Capacity = newCapacity;
 	}

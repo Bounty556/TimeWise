@@ -1,22 +1,22 @@
 #pragma once
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System/Vector2.hpp>
+
 #include <Components/Component.h>
 
 namespace Soul
 {
-	class GravityComponent : public Component
+	class RectangleComponent : public Component
 	{
 	public:
-		GravityComponent(Entity* entity, float gravityStrength, float terminalVelocity);
+		RectangleComponent(Entity* entity, sf::Vector2f size);
 
 		virtual void Update(float dt, Context& context) override;
 
 		virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		virtual const char* GetType() const override;
-
 	private:
-		float m_GravityStrength;
-		float m_TerminalVelocity;
+		sf::RectangleShape m_Rect;
 	};
 }

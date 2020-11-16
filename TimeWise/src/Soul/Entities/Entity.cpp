@@ -14,7 +14,13 @@ namespace Soul
 
 	void Entity::Update(float dt, Context& context)
 	{
-		UpdateEntity(dt, context);
+		for (unsigned int i = 0; i < m_Components.Length(); ++i)
+		{
+			m_Components[i]->Update(dt, context);
+		}
+
+		move(m_Velocity * dt);
+
 		UpdateSelf(dt, context);
 	}
 
@@ -51,13 +57,15 @@ namespace Soul
 		return m_Velocity;
 	}
 
-	void Entity::UpdateEntity(float dt, Context& context)
+	void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
+		states.transform *= getTransform();
+
 		for (unsigned int i = 0; i < m_Components.Length(); ++i)
 		{
-			m_Components[i]->Update(dt, context);
+			m_Components[i]->Draw(target, states);
 		}
 
-		move(m_Velocity * dt);
+		DrawSelf(target, states);
 	}
 }

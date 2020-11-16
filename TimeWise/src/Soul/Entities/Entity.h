@@ -30,10 +30,10 @@ namespace Soul
 		const sf::Vector2f& GetVelocity() const;
 
 	private:
-		void UpdateEntity(float dt, Context& context);
 		virtual void UpdateSelf(float dt, Context& context) = 0;
 
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+		virtual void DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 	
 	private:
 		sf::Vector2f m_Velocity;

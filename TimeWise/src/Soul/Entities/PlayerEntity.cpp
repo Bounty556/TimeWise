@@ -27,7 +27,7 @@ namespace Soul
 		}
 	}
 
-	void PlayerEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void PlayerEntity::DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		states.transform *= getTransform();
 

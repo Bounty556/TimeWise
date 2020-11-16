@@ -22,6 +22,11 @@ namespace Soul
 		}
 	}
 
+	void GravityComponent::Draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+
+	}
+
 	const char* GravityComponent::GetType() const
 	{
 		return "Gravity";

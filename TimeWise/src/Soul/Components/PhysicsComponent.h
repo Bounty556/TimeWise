@@ -6,18 +6,21 @@
 
 namespace Soul
 {
+	class PhysicsSystem;
+
 	class PhysicsComponent : public Component
 	{
 	public:
-		PhysicsComponent(Entity* entity, sf::FloatRect bounds);
+		PhysicsComponent(Entity* entity, sf::FloatRect bounds, PhysicsSystem& system);
 		virtual ~PhysicsComponent();
 
 		virtual const char* GetType() const override = 0;
 
-		virtual void HandleCollision() = 0;
+		virtual void HandleCollision(float dt, Context& context) = 0;
 
-	private:
+	protected:
 		sf::FloatRect m_Bounds;
 		float m_Angle;
+		PhysicsSystem& m_System;
 	};
 }

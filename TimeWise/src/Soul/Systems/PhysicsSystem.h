@@ -11,7 +11,7 @@ namespace Soul
 		PhysicsSystem(unsigned int colliders);
 		~PhysicsSystem();
 
-		void Update(float dt);
+		void Update(float dt, Context& context);
 
 		template <class T>
 		T* CreatePhysicsComponent(Entity* entity, sf::FloatRect bounds);
@@ -26,9 +26,9 @@ namespace Soul
 	template <class T>
 	T* PhysicsSystem::CreatePhysicsComponent(Entity* entity, sf::FloatRect bounds)
 	{
-		T* component = Partition(T, entity, bounds);
+		T* component = Partition(T, entity, bounds, *this);
 
-		m_Components.Push(component);
+		m_Components.Push((PhysicsComponent*)component);
 
 		return component;
 	}
@@ -37,7 +37,5 @@ namespace Soul
 	void PhysicsSystem::RemovePhysicsComponent(T* component)
 	{
 		m_Components.Remove(component);
-
-		MemoryManager::FreeMemory(component);
 	}
 }

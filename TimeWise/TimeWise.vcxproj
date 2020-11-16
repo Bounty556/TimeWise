@@ -176,6 +176,7 @@
     <ClInclude Include="src\Soul\Application.h" />
     <ClInclude Include="src\Soul\Components\Component.h" />
     <ClInclude Include="src\Soul\Components\PhysicsComponent.h" />
+    <ClInclude Include="src\Soul\Components\Rigidbody.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
     <ClInclude Include="src\Soul\Entities\PlayerEntity.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
@@ -357,6 +358,7 @@
   <ItemGroup>
     <ClCompile Include="src\Soul\Components\Component.cpp" />
     <ClCompile Include="src\Soul\Components\PhysicsComponent.cpp" />
+    <ClCompile Include="src\Soul\Components\Rigidbody.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />
     <ClCompile Include="src\Soul\Entities\PlayerEntity.cpp" />
     <ClCompile Include="src\Soul\EntryPoint.cpp" />

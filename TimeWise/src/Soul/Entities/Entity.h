@@ -10,8 +10,8 @@
 namespace Soul
 {
 	/*
-	A base entity class. Entities can have components attached to them to modify or provide new
-	behavior to them.
+	A base entity class. Entities can have components attached to them to
+	modify or provide new behavior to them.
 	*/
 	class Entity : public sf::Drawable, public sf::Transformable
 	{
@@ -25,6 +25,8 @@ namespace Soul
 
 		const sf::Vector2f& GetVelocity() const;
 
+		void AddComponent(Component* component);
+
 	private:
 		virtual void UpdateSelf(float dt, Context& context) = 0;
 
@@ -33,5 +35,6 @@ namespace Soul
 	
 	private:
 		sf::Vector2f m_Velocity;
+		Vector<Component*> m_Components;
 	};
 }

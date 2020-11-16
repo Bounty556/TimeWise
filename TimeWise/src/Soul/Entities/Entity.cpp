@@ -6,6 +6,10 @@ namespace Soul
 {
 	Entity::~Entity()
 	{
+		for (unsigned int i = 0; i < m_Components.Length(); ++i)
+		{
+			MemoryManager::FreeMemory(m_Components[i]);
+		}
 	}
 
 	void Entity::Update(float dt, Context& context)
@@ -28,6 +32,11 @@ namespace Soul
 	const sf::Vector2f& Entity::GetVelocity() const
 	{
 		return m_Velocity;
+	}
+
+	void Entity::AddComponent(Component* component)
+	{
+		m_Components.Push(component);
 	}
 
 	void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -4,6 +4,8 @@
 
 #include <Input/InputManager.h>
 #include <ResourceManagers/TextureManager.h>
+#include <Systems/PhysicsSystem.h>
+#include <Components/Rigidbody.h>
 
 namespace Soul
 {
@@ -11,6 +13,7 @@ namespace Soul
 		m_Sprite(*(context.TextureManager.RequestTexture("res/player.png"))),
 		m_MoveSpeed(0.5f)
 	{
+		AddComponent(context.PhysicsSystem.CreatePhysicsComponent<Rigidbody>(this, sf::FloatRect(0.0f, 0.0f, 32.0f, 64.0f)));
 	}
 
 	void PlayerEntity::UpdateSelf(float dt, Context& context)

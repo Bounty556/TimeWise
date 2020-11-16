@@ -1,6 +1,5 @@
 #include "Application.h"
 
-// TODO: Add Platform Entity
 // TODO: Add basic physics
 // TODO: Volatile memory management
 // TODO: Networking

@@ -12,7 +12,6 @@ namespace Soul
 	public:
 		PlayerEntity(Context& context);
 
-
 	private:
 		virtual void UpdateSelf(float dt, Context& context) override;
 		

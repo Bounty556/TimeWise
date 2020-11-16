@@ -3,6 +3,7 @@
 #include <SFML/Window/Event.hpp>
 
 #include <Input/Controller.h>
+#include <Memory/UniquePointer.h>
 
 namespace Soul
 {
@@ -35,8 +36,6 @@ namespace Soul
 	public:
 		InputManager(unsigned int maxControllerCount = 5);
 		
-		~InputManager();
-
 		/*
 		Updates the button states and axis information for all connected controllers.
 		*/
@@ -62,7 +61,7 @@ namespace Soul
 		unsigned int GetMaxControllers() const;
 
 	private:
-		Controller* m_Controllers;
+		UniquePointer<Controller> m_Controllers;
 		unsigned int m_MaxControllers;
 		unsigned int m_ConnectedControllers;
 	};

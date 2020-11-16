@@ -12,11 +12,6 @@ namespace Soul
 
 	}
 
-	InputManager::~InputManager()
-	{
-		MemoryManager::FreeMemory(m_Controllers);
-	}
-
 	void InputManager::Update()
 	{
 		for (unsigned int i = 0; i < m_ConnectedControllers; ++i)

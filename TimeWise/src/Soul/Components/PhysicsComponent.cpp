@@ -16,4 +16,9 @@ namespace Soul
 	{
 		m_System.RemovePhysicsComponent(this);
 	}
+
+	const sf::FloatRect& PhysicsComponent::GetBounds() const
+	{
+		return m_Bounds;
+	}
 }

@@ -13,7 +13,11 @@ namespace Soul
 		m_Sprite(*(context.TextureManager.RequestTexture("res/player.png"))),
 		m_MoveSpeed(0.5f)
 	{
-		AddComponent(context.PhysicsSystem.CreatePhysicsComponent<Rigidbody>(this, sf::FloatRect(0.0f, 0.0f, 32.0f, 64.0f)));
+		Rigidbody* rb = context.PhysicsSystem.CreatePhysicsComponent<Rigidbody>(this, sf::FloatRect(0.0f, 0.0f, 32.0f, 64.0f));
+		rb->SetStatic(false);
+		rb->SetGravity(0.008f);
+		rb->SetTerminalVelocity(1.0f);
+		AddComponent(rb);
 	}
 
 	void PlayerEntity::UpdateSelf(float dt, Context& context)

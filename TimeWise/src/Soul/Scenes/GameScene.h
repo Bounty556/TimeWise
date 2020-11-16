@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include <Entities/PlayerEntity.h>
+#include <Entities/Obstacle.h>
 #include <Scenes/Scene.h>
 
 namespace Soul
@@ -21,5 +22,6 @@ namespace Soul
 
 	private:
 		PlayerEntity m_Player;
+		Obstacle m_Stage;
 	};
 }

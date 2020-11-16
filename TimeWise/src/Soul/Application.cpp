@@ -42,6 +42,7 @@ namespace Soul
 		MemoryManager::FreeMemory(m_InputManager);
 		MemoryManager::FreeMemory(m_SceneManager);
 
+		MemoryManager::DrawMemory();
 		Assert(MemoryManager::GetTotalPartitionedMemory() == 0);
 		MemoryManager::Deallocate();
 	}

@@ -14,6 +14,8 @@ namespace Soul
 		Component(Entity* entity);
 		virtual ~Component();
 
+		const Entity* GetEntity() const;
+
 		virtual const char* GetType() const = 0;
 
 		unsigned long long GetHandle() const;

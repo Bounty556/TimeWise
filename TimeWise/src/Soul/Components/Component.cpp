@@ -16,6 +16,11 @@ namespace Soul
 
 	}
 
+	const Entity* Component::GetEntity() const
+	{
+		return m_AffectedEntity;
+	}
+
 	unsigned long long Component::GetHandle() const
 	{
 		return m_Handle;

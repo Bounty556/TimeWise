@@ -9,7 +9,6 @@ namespace Soul
 	{
 	public:
 		PhysicsSystem(unsigned int colliders);
-		~PhysicsSystem();
 
 		void Update(float dt, Context& context);
 

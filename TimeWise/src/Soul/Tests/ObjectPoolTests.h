@@ -1,8 +1,7 @@
 #pragma once
 
-#include <Logging/Logger.h>
+#include <Other/Logger.h>
 #include <Memory/MemoryManager.h>
-#include <Nodes/RectangleNode.h>
 #include <Structures/ObjectPool.h>
 #include <Utility/Macros.h>
 
@@ -22,9 +21,9 @@ namespace Soul
 	private:
 		static void RectangleNodePool()
 		{
-			ObjectPool<RectangleNode> pool(16);
+			ObjectPool<String> pool(16);
 
-			RectangleNode* node;
+			String* node;
 			for (unsigned int i = 0; i < 1000; ++i)
 			{
 				node = pool.RequestObject();
@@ -35,7 +34,7 @@ namespace Soul
 
 		static void PoolClearCount()
 		{
-			ObjectPool<RectangleNode> pool(16);
+			ObjectPool<String> pool(16);
 			Assert(pool.Count() == 0);
 
 			while (pool.RequestObject());
@@ -48,7 +47,7 @@ namespace Soul
 
 		static void ArrayOperator()
 		{
-			ObjectPool<RectangleNode> pool(16);
+			ObjectPool<String> pool(16);
 
 			for (unsigned int i = 0; i < 16; ++i)
 			{
@@ -65,11 +64,11 @@ namespace Soul
 
 		static void HalfFullPool()
 		{
-			ObjectPool<RectangleNode> pool(32);
+			ObjectPool<String> pool(32);
 
-			RectangleNode* one = pool.RequestObject();
-			RectangleNode* two = pool.RequestObject();
-			RectangleNode* three = pool.RequestObject();
+			String* one = pool.RequestObject();
+			String* two = pool.RequestObject();
+			String* three = pool.RequestObject();
 
 			pool.EmptyPool();
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Memory/MemoryManager.h>
+#include <Memory/UniquePointer.h>
 
 namespace Soul
 {
@@ -43,7 +44,6 @@ namespace Soul
 		ObjectPool(unsigned int objectCount);
 		ObjectPool(const ObjectPool&) = delete;
 		ObjectPool(ObjectPool&& otherPool);
-		~ObjectPool();
 
 		ObjectPool& operator=(const ObjectPool&) = delete;
 
@@ -81,7 +81,7 @@ namespace Soul
 	private:
 		unsigned int m_ObjectCount;
 		unsigned int m_ObjectCapacity;
-		Object<T>* m_ObjectPool;
+		UniquePointer<Object<T>> m_ObjectPool;
 		Object<T>* m_FreeList;
 	};
 
@@ -90,7 +90,7 @@ namespace Soul
 		m_ObjectCount(0),
 		m_ObjectCapacity(capacity),
 		m_ObjectPool(PartitionArray(ObjectPool<T>::Object<T>, m_ObjectCapacity)),
-		m_FreeList(m_ObjectPool)
+		m_FreeList(m_ObjectPool.Raw())
 	{
 		for (unsigned int i = 0; i < m_ObjectCapacity; ++i)
 		{
@@ -110,17 +110,10 @@ namespace Soul
 	ObjectPool<T>::ObjectPool(ObjectPool&& otherPool) :
 		m_ObjectCapacity(otherPool.m_ObjectCapacity),
 		m_ObjectCount(otherPool.m_ObjectCount),
-		m_ObjectPool(otherPool.m_ObjectPool),
+		m_ObjectPool(std::move(otherPool.m_ObjectPool)),
 		m_FreeList(m_ObjectPool)
 	{
-		otherPool.m_ObjectPool = nullptr;
 		otherPool.m_FreeList = nullptr;
-	}
-
-	template <class T>
-	ObjectPool<T>::~ObjectPool()
-	{
-		MemoryManager::FreeMemory(m_ObjectPool);
 	}
 
 	template <class T>
@@ -205,6 +198,6 @@ namespace Soul
 			}
 		}
 		m_ObjectCount = 0;
-		m_FreeList = m_ObjectPool;
+		m_FreeList = m_ObjectPool.Raw();
 	}
 }

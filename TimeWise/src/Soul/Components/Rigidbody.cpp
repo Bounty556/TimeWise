@@ -53,6 +53,9 @@ namespace Soul
 
 	void Rigidbody::HandleCollision(float dt, Context& context)
 	{
-		SoulLogInfo("Colliding!");
+		if (!m_IsStatic)
+		{
+			m_AffectedEntity->SetVelocity(0.0f, 0.0f);
+		}
 	}
 }

@@ -1,8 +1,8 @@
 #include "Application.h"
 
-// TODO: Store list of handles in entities
-// TODO: Only update/draw/handle components through systems
-// TODO: Add basic physics
+// TODO: Add debug partition and free logging
+// TODO: Add jumping
+// TODO: Fix random memory leak when adding jumping
 // TODO: Volatile memory management
 // TODO: Networking
 // TODO: Multi-threading

@@ -2,7 +2,7 @@
 
 #include <Strings/String.h>
 #include <Utility/Macros.h>
-#include <Utility/Map.h>
+#include <Structures/Map.h>
 
 namespace Soul
 {

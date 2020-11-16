@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Memory/MemoryManager.h>
+#include <Memory/UniquePointer.h>
 #include <Utility/Hashes.h>
 #include <Utility/Macros.h>
 #include <Utility/Math.h>
@@ -38,8 +39,6 @@ namespace Soul
 		
 		Map& operator=(const MapType&) = delete; // No copy assignment
 
-		~Map();
-		
 		bool operator==(const MapType& otherMap);
 
 		/*
@@ -75,11 +74,6 @@ namespace Soul
 		Gets the number of sets stored in this map.
 		*/
 		unsigned int GetCount() const;
-
-		/*
-		Prints a debug drawing of this map.
-		*/
-		void DebugPrintMap() const;
 
 		/*
 		Returns a vector of all of the keys stored in this map.
@@ -122,7 +116,7 @@ namespace Soul
 		/*
 		The start of the memory 
 		*/
-		Set<K, V>* m_Memory;
+		UniquePointer<Set<K, V>> m_Memory;
 	};
 
 	template <class K, class V>
@@ -135,28 +129,18 @@ namespace Soul
 	}
 
 	template <class K, class V>
-	MapType::Map(MapType&& otherMap)
+	MapType::Map(MapType&& otherMap) :
+		m_Capacity(otherMap.m_Capacity),
+		m_Count(otherMap.m_Count),
+		m_Memory(std::move(otherMap.m_Memory))
 	{
-		m_Capacity = otherMap.m_Capacity;
-		m_Count = otherMap.m_Count;
-		m_Memory = otherMap.m_Memory;
 
-		otherMap.m_Memory = nullptr;
-	}
-
-	template <class K, class V>
-	MapType::~Map()
-	{
-		if (m_Memory)
-		{
-			MemoryManager::FreeMemory(m_Memory);
-		}
 	}
 
 	template <class K, class V>
 	bool MapType::operator==(const MapType& otherMap)
 	{
-		return (otherMap.m_Memory == m_Memory);
+		return (otherMap.m_Memory.Raw() == m_Memory.Raw());
 	}
 
 	template <class K, class V>
@@ -321,7 +305,7 @@ namespace Soul
 		}
 
 		// Clear all data
-		memset(m_Memory, 0, m_Capacity * sizeof(SetType));
+		memset(m_Memory.Raw(), 0, m_Capacity * sizeof(SetType));
 		m_Count = 0;
 	}
 
@@ -362,23 +346,6 @@ namespace Soul
 	unsigned int MapType::GetCount() const
 	{
 		return m_Count;
-	}
-
-	template <class K, class V>
-	void MapType::DebugPrintMap() const
-	{
-		for (unsigned int i = 0; i < m_Capacity; ++i)
-		{
-			if (m_Memory[i].IsInitialized)
-			{
-				SoulLogInfo("%s", m_Memory[i].Key.GetCString());
-			}
-			else
-			{
-				SoulLogInfo("0");
-			}
-		}
-		SoulLogInfo("\n\n\n");
 	}
 
 	template <class K, class V>
@@ -450,7 +417,7 @@ namespace Soul
 	void MapType::Resize(unsigned int newCapacity)
 	{
 		// Create a new memory block with the necessary size, move all previous elements into it
-		SetType* newMemory = PartitionArray(SetType, newCapacity);
+		UniquePointer<SetType> newMemory(PartitionArray(SetType, newCapacity));
 
 		for (unsigned int i = 0; i < m_Capacity; ++i)
 		{
@@ -483,8 +450,7 @@ namespace Soul
 		}
 
 		// Free the old memory and reassign
-		MemoryManager::FreeMemory(m_Memory);
+		m_Memory = std::move(newMemory);
 		m_Capacity = newCapacity;
-		m_Memory = newMemory;
 	}
 }

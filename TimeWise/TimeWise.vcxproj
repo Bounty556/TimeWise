@@ -185,6 +185,8 @@
     <ClInclude Include="src\Soul\Input\Controller.h" />
     <ClInclude Include="src\Soul\Input\ControlsMap.h" />
     <ClInclude Include="src\Soul\Input\InputManager.h" />
+    <ClInclude Include="src\Soul\Memory\ReferenceCounter.h" />
+    <ClInclude Include="src\Soul\Memory\SharedPointer.h" />
     <ClInclude Include="src\Soul\Memory\UniquePointer.h" />
     <ClInclude Include="src\Soul\Other\DebugDrawer.h" />
     <ClInclude Include="src\Soul\Other\Logger.h" />
@@ -372,6 +374,7 @@
     <ClCompile Include="src\Soul\Input\Controller.cpp" />
     <ClCompile Include="src\Soul\Input\ControlsMap.cpp" />
     <ClCompile Include="src\Soul\Input\InputManager.cpp" />
+    <ClCompile Include="src\Soul\Memory\ReferenceCounter.cpp" />
     <ClCompile Include="src\Soul\Other\DebugDrawer.cpp" />
     <ClCompile Include="src\Soul\Other\Logger.cpp" />
     <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />

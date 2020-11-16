@@ -13,7 +13,9 @@ namespace Soul
 		UniquePointer(UniquePointer<T>&& otherPointer);
 		~UniquePointer();
 
-		UniquePointer<T> operator=(const UniquePointer<T>&) = delete;
+		UniquePointer<T>& operator=(const UniquePointer<T>&) = delete;
+		UniquePointer<T>& operator=(UniquePointer<T>&& otherPointer);
+		UniquePointer<T>& operator=(T* otherPointer);
 
 		T& operator->() const;
 		T& operator*() const;
@@ -44,6 +46,33 @@ namespace Soul
 		{
 			MemoryManager::FreeMemory(m_Pointer);
 		}
+	}
+
+	template <class T>
+	UniquePointer<T>& UniquePointer<T>::operator=(UniquePointer<T>&& otherPointer)
+	{
+		if (m_Pointer)
+		{
+			MemoryManager::FreeMemory(m_Pointer);
+		}
+
+		m_Pointer = otherPointer.m_Pointer;
+		otherPointer.m_Pointer = nullptr;
+
+		return *this;
+	}
+
+	template <class T>
+	UniquePointer<T>& UniquePointer<T>::operator=(T* otherPointer)
+	{
+		if (m_Pointer)
+		{
+			MemoryManager::FreeMemory(m_Pointer);
+		}
+
+		m_Pointer = otherPointer;
+
+		return *this;
 	}
 
 	template <class T>

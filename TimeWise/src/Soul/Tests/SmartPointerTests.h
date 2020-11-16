@@ -29,6 +29,17 @@ namespace Soul
 			{
 				otherArray[i] = 2;
 			}
+
+			UniquePointer<int> moveTest(nullptr);
+
+			{
+				UniquePointer<int> newArray(PartitionArray(int, 50));
+				moveTest = std::move(newArray);
+			}
+
+			moveTest[0] = 1;
+
+			moveTest = nullptr;
 		}
 		
 		static void SharedPtr()

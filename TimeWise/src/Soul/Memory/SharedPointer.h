@@ -15,6 +15,7 @@ namespace Soul
 		~SharedPointer();
 
 		SharedPointer<T>& operator=(const SharedPointer<T>& otherPointer);
+		SharedPointer<T>& operator=(SharedPointer<T>&& otherPointer);
 
 		T& operator->() const;
 		T& operator*() const;
@@ -79,6 +80,24 @@ namespace Soul
 			m_References = otherPointer.m_References;
 			m_References->AddReference();
 		}
+
+		return *this;
+	}
+
+	template <class T>
+	SharedPointer<T>& SharedPointer<T>::operator=(SharedPointer<T>&& otherPointer)
+	{
+		if (m_Pointer && m_References->RemoveReference() == 0)
+		{
+			MemoryManager::FreeMemory(m_References);
+			MemoryManager::FreeMemory(m_Pointer);
+		}
+
+		m_Pointer = otherPointer.m_Pointer;
+		m_References = otherPointer.m_References;
+
+		otherPointer.m_Pointer = nullptr;
+		otherPointer.m_References = nullptr;
 	}
 
 	template <class T>

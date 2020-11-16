@@ -9,6 +9,8 @@
 
 #include <Scenes/MainMenuScene.h>
 
+#include <Tests/SmartPointerTests.h>
+
 // TODO: Make FPS customizable?
 namespace Soul
 {
@@ -49,6 +51,9 @@ namespace Soul
 
 	void Application::Run()
 	{
+		SmartPointerTests::RunAllTests();
+
+
 		m_InputManager->AddController(-1);
 		m_InputManager->AddController(0);
 

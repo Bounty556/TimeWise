@@ -1,5 +1,7 @@
 #include "GravityComponent.h"
 
+#include <Entities/Entity.h>
+
 namespace Soul
 {
 	GravityComponent::GravityComponent(Entity* entity, float gravityStrength, float terminalVelocity) :
@@ -18,5 +20,10 @@ namespace Soul
 		{
 			m_AffectedEntity->SetVelocity(m_AffectedEntity->GetVelocity().x, m_TerminalVelocity);
 		}
+	}
+
+	const char* GravityComponent::GetType() const
+	{
+		return "Gravity";
 	}
 }

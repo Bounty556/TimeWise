@@ -18,6 +18,6 @@ namespace Soul
 
 	private:
 		sf::Sprite m_Sprite;
-		GravityComponent m_Gravity;
+		float m_MoveSpeed;
 	};
 }

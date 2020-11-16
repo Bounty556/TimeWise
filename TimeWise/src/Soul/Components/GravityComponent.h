@@ -11,6 +11,8 @@ namespace Soul
 
 		virtual void Update(float dt, Context& context) override;
 
+		virtual const char* GetType() const override;
+
 	private:
 		float m_GravityStrength;
 		float m_TerminalVelocity;

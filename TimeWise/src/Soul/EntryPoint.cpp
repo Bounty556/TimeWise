@@ -1,7 +1,7 @@
 #include "Application.h"
 
-// TODO: Add Entities
-// TODO: Add Player Entity
+// TODO: Add linked list
+// TODO: Add component list on each entity
 // TODO: Add Platform Entity
 // TODO: Add basic physics
 // TODO: Volatile memory management

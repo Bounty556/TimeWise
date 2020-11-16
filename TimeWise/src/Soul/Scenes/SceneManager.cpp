@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 
-#include <Other/MemoryManager.h>
+#include <Memory/MemoryManager.h>
 #include <Utility/Context.h>
 
 namespace Soul

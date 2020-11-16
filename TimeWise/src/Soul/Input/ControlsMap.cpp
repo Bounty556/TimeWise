@@ -3,7 +3,7 @@
 #include <new>
 
 #include <Other/Logger.h>
-#include <Other/MemoryManager.h>
+#include <Memory/MemoryManager.h>
 #include <Utility/Macros.h>
 
 namespace Soul

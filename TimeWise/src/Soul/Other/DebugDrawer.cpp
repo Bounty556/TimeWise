@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include <Other/MemoryManager.h>
+#include <Memory/MemoryManager.h>
 
 namespace Soul
 {

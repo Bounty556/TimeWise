@@ -222,7 +222,7 @@
     <ClInclude Include="src\Soul\Utility\Handle.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
-    <ClInclude Include="src\Soul\Other\MemoryManager.h" />
+    <ClInclude Include="src\Soul\Memory\MemoryManager.h" />
     <ClInclude Include="src\Soul\Structures\Map.h" />
     <ClInclude Include="src\Soul\Utility\Math.h" />
     <ClInclude Include="src\Soul\Strings\String.h" />
@@ -372,7 +372,7 @@
     <ClCompile Include="src\Soul\Input\InputManager.cpp" />
     <ClCompile Include="src\Soul\Other\DebugDrawer.cpp" />
     <ClCompile Include="src\Soul\Other\Logger.cpp" />
-    <ClCompile Include="src\Soul\Other\MemoryManager.cpp" />
+    <ClCompile Include="src\Soul\Memory\MemoryManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\FontManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\SoundManager.cpp" />
     <ClCompile Include="src\Soul\ResourceManagers\TextureManager.cpp" />

@@ -1,7 +1,7 @@
 #include "Application.h"
 
 #include <Other/Logger.h>
-#include <Other/MemoryManager.h>
+#include <Memory/MemoryManager.h>
 #include <Utility/Macros.h>
 #include <Strings/String.h>
 #include <Utility/Context.h>

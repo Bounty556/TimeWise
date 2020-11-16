@@ -8,6 +8,7 @@ namespace Soul
 	class TextureManager;
 	class InputManager;
 	class SceneManager;
+	class PhysicsSystem;
 
 	struct Context
 	{
@@ -20,5 +21,6 @@ namespace Soul
 		TextureManager& TextureManager;
 		InputManager& InputManager;
 		SceneManager& SceneManager;
+		PhysicsSystem& PhysicsSystem;
 	};
 }

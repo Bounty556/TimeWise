@@ -1,6 +1,5 @@
 #include "Application.h"
 
-// TODO: Add unique handles for components
 // TODO: Store list of handles in entities
 // TODO: Only update/draw/handle components through systems
 // TODO: Add basic physics

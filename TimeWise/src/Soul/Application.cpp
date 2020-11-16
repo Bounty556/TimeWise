@@ -15,12 +15,13 @@ namespace Soul
 	Application::Application() :
 		m_Timer(),
 		m_AccumulatedMilliseconds(0.0f),
-		m_TargetFrameRateMilliseconds(6.94f) // 144 FPS
+		m_TargetFrameRateMilliseconds(6.94f) // 144 FPS,
 	{
 		MemoryManager::Allocate(Megabytes(16));
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
+		m_PhysicsSystem = Partition(PhysicsSystem, 32);
 		m_DebugDrawer = Partition(DebugDrawer, 16);
 		m_FontManager = Partition(FontManager, 4);
 		m_SoundManager = Partition(SoundManager, 8);
@@ -33,6 +34,7 @@ namespace Soul
 	{
 		MemoryManager::FreeMemory(m_Window);
 
+		MemoryManager::FreeMemory(m_PhysicsSystem);
 		MemoryManager::FreeMemory(m_DebugDrawer);
 		MemoryManager::FreeMemory(m_FontManager);
 		MemoryManager::FreeMemory(m_SoundManager);
@@ -49,7 +51,7 @@ namespace Soul
 		m_InputManager->AddController(-1);
 		m_InputManager->AddController(0);
 
-		Context context{ 1280, 720, *m_DebugDrawer, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager, *m_SceneManager };
+		Context context{ 1280, 720, *m_DebugDrawer, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager, *m_SceneManager, *m_PhysicsSystem };
 
 		m_SceneManager->ChangeScenes(Partition(MainMenuScene, context));
 

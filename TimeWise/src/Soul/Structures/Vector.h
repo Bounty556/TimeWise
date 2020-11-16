@@ -48,6 +48,12 @@ namespace Soul
 		const T& Peek() const;
 
 		/*
+		Removes the element that matches the given value and removes it from
+		the vector, replacing it with the last element.
+		*/
+		void Remove(T& element);
+
+		/*
 		Gets the current number of elements stored in this vector.
 		*/
 		unsigned int Length() const;
@@ -159,6 +165,27 @@ namespace Soul
 	{
 		Assert(m_Count > 0);
 		return m_Memory[m_Count - 1];
+	}
+
+	template <class T>
+	void Vector<T>::Remove(T& element)
+	{
+		// Search linearly for the element
+		for (unsigned int i = 0; i < m_Count; ++i)
+		{
+			if (m_Memory[i] == element)
+			{
+				if (i == m_Count - 1)
+				{
+					--m_Count;
+				}
+				else
+				{
+					m_Memory[i] = std::move(m_Memory[m_Count - 1]);
+					--m_Count;
+				}
+			}
+		}
 	}
 
 	template <class T>

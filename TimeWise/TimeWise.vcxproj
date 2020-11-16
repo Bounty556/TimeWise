@@ -377,6 +377,7 @@
     <ClCompile Include="src\Soul\Scenes\Scene.cpp" />
     <ClCompile Include="src\Soul\Scenes\SceneManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />
+    <ClCompile Include="src\Soul\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="src\Soul\UI\UIButton.cpp" />
     <ClCompile Include="src\Soul\UI\UIComponent.cpp" />
     <ClCompile Include="src\Soul\UI\UIContainer.cpp" />

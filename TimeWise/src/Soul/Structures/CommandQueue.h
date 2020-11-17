@@ -7,16 +7,11 @@ namespace Soul
 	class CommandQueue
 	{
 	public:
-		union Payload
-		{
-			void* Pointer;
-		};
-
 		struct Message
 		{
-			Message(const char* string, Payload data);
+			Message(const char* string, void* data);
 			const char* String;
-			Payload Data;
+			void* Data;
 		};
 
 	public:
@@ -25,7 +20,7 @@ namespace Soul
 		/*
 		Queues up a new message in the queue.
 		*/
-		void QueueMessage(const char* string, Payload data);
+		void QueueMessage(const char* string, void* data);
 
 		/*
 		Checks to make sure there is a message available, and matches the given message.

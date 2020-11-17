@@ -49,7 +49,6 @@ namespace Soul
 
 	void Application::Run()
 	{
-
 		m_InputManager->AddController(-1);
 		m_InputManager->AddController(0);
 

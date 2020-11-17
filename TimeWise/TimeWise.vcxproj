@@ -197,6 +197,7 @@
     <ClInclude Include="src\Soul\Scenes\SceneManager.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Structures\ObjectPool.h" />
+    <ClInclude Include="src\Soul\Tests\CommandQueueTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
     <ClInclude Include="src\Soul\Tests\FontManagerTests.h" />

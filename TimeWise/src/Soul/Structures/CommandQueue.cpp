@@ -7,7 +7,7 @@
 
 namespace Soul
 {
-	CommandQueue::Message::Message(const char* string, Payload data) :
+	CommandQueue::Message::Message(const char* string, void* data) :
 		String(string),
 		Data(data)
 	{
@@ -24,7 +24,7 @@ namespace Soul
 
 	}
 
-	void CommandQueue::QueueMessage(const char* string, Payload data)
+	void CommandQueue::QueueMessage(const char* string, void* data)
 	{
 		if (m_Count < m_Capacity)
 		{

@@ -174,6 +174,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Soul\Application.h" />
+    <ClInclude Include="src\Soul\Components\Collider.h" />
     <ClInclude Include="src\Soul\Components\Component.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
     <ClInclude Include="src\Soul\Entities\PlayerEntity.h" />
@@ -197,6 +198,7 @@
     <ClInclude Include="src\Soul\Scenes\SceneManager.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Structures\ObjectPool.h" />
+    <ClInclude Include="src\Soul\Systems\PhysicsSystem.h" />
     <ClInclude Include="src\Soul\Tests\CommandQueueTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
@@ -352,6 +354,7 @@
     <Library Include="vendor\SFML\lib\sfml-window.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Soul\Components\Collider.cpp" />
     <ClCompile Include="src\Soul\Components\Component.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />
     <ClCompile Include="src\Soul\Entities\PlayerEntity.cpp" />

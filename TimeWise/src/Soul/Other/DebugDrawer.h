@@ -11,14 +11,14 @@ namespace Soul
 	public:
 		DebugDrawer(unsigned int capacity);
 		
-		void AddShape(sf::Vector2f position, sf::Vector2f size, float angle);
+		void AddLine(sf::Vector2f vertex1, sf::Vector2f vertex2);
 
 		void Clear();
 
 		void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
-		UniquePointer<sf::RectangleShape> m_Shapes;
+		UniquePointer<sf::Vertex> m_Lines;
 
 		unsigned int m_MaxShapes;
 

@@ -7,30 +7,22 @@
 namespace Soul
 {
 	DebugDrawer::DebugDrawer(unsigned int capacity) :
-		m_Shapes(PartitionArray(sf::RectangleShape, capacity)),
+		m_Lines(PartitionArray(sf::Vertex, capacity)),
 		m_MaxShapes(capacity),
 		m_CurrentShapes(0)
 	{
 		for (unsigned int i = 0; i < m_MaxShapes; ++i)
 		{
-			new (&(m_Shapes[i])) sf::RectangleShape();
+			m_Lines[i] = sf::Vertex();
 		}
 	}
 
-	void DebugDrawer::AddShape(sf::Vector2f position, sf::Vector2f size, float angle)
+	void DebugDrawer::AddLine(sf::Vector2f vertex1, sf::Vector2f vertex2)
 	{
 		if (m_CurrentShapes != m_MaxShapes)
 		{
-			sf::RectangleShape& shape = m_Shapes[m_CurrentShapes];
-
-			shape.setFillColor(sf::Color::Transparent);
-			shape.setOutlineThickness(1.0f);
-			shape.setOutlineColor(sf::Color::Red);
-			shape.setPosition(position);
-			shape.setSize(size);
-			shape.setRotation(angle);
-
-			++m_CurrentShapes;
+			m_Lines[m_CurrentShapes++] = sf::Vertex(vertex1);
+			m_Lines[m_CurrentShapes++] = sf::Vertex(vertex2);
 		}
 	}
 
@@ -41,9 +33,9 @@ namespace Soul
 
 	void DebugDrawer::Draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		for (unsigned int i = 0; i < m_CurrentShapes; ++i)
+		for (unsigned int i = 0; i < m_CurrentShapes; i += 2)
 		{
-			target.draw(m_Shapes[i], states);
+			target.draw(&m_Lines[i], 2, sf::Lines);
 		}
 	}
 }

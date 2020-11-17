@@ -4,6 +4,7 @@
 #include <new>
 
 #include <Memory/MemoryManager.h>
+#include <Utility/Macros.h>
 
 namespace Soul
 {
@@ -41,8 +42,17 @@ namespace Soul
 
 	CommandQueue::Message& CommandQueue::ConsumeMessage()
 	{
-		Message& message = m_Commands[m_NextMessage];
-		m_NextMessage = (++m_NextMessage % m_Capacity);
-		return message;
+		if (m_Count > 0)
+		{
+			Message& message = m_Commands[m_NextMessage];
+			m_NextMessage = (++m_NextMessage % m_Capacity);
+			--m_Count;
+			return message;
+		}
+		else
+		{
+			SoulLogError("Queue out of bounds");
+			Assert(false);
+		}
 	}
 }

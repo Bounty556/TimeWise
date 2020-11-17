@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include <Memory/MemoryManager.h>
 #include <Memory/UniquePointer.h>
 
@@ -18,8 +20,8 @@ namespace Soul
 	{
 	public:
 		/*
-		Contain the actual elements of the object pool, as well as metadata such as if the element
-		is currently live, or what the next free object in the pool is.
+		Contain the actual elements of the object pool, as well as metadata such as if the
+		element is currently live, or what the next free object in the pool is.
 		*/
 		template <class T>
 		struct Object
@@ -66,7 +68,8 @@ namespace Soul
 		Returns a pointer to a new object in the pool if there is any room for one. Otherwise,
 		returns nullptr.
 		*/
-		T* RequestObject();
+		template <class... Args>
+		T* RequestObject(Args&&... args);
 
 		/*
 		Frees the object in the pool at the given location, if there is a live object there.
@@ -141,14 +144,15 @@ namespace Soul
 	}
 
 	template <class T>
-	T* ObjectPool<T>::RequestObject()
+	template <class... Args>
+	T* ObjectPool<T>::RequestObject(Args&&... args)
 	{
 		if (m_FreeList)
 		{
 			// Instantiate new object at the free list head.
 			Object<T>* head = m_FreeList;
 			m_FreeList = head->NextFree;
-			new (&(head->Element)) T();
+			new (&(head->Element)) T(std::forward<Args>(args)...);
 			head->IsLive = true;
 			m_ObjectCount++;
 

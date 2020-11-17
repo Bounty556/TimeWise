@@ -17,6 +17,8 @@ namespace Soul
 
 		virtual const char* GetType() const override;
 
+		void DrawCollider(Context& context) const;
+
 		// Getters
 		
 		unsigned int GetVertexCount() const;

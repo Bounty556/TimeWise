@@ -2,6 +2,8 @@
 
 #include <cstdarg>
 
+#include <Other/DebugDrawer.h>
+
 namespace Soul
 {
 	Collider::Collider(Entity* entity, unsigned int vertexCount, ...) :
@@ -21,14 +23,29 @@ namespace Soul
 		}
 	}
 
+	const sf::Vector2f& Collider::operator[](unsigned int index) const
+	{
+		return m_Vertices[index];
+	}
+
 	const char* Collider::GetType() const
 	{
 		return "Collider";
 	}
 
-	const sf::Vector2f& Collider::operator[](unsigned int index) const
+	void Collider::DrawCollider(Context& context) const
 	{
-		return m_Vertices[index];
+		for (unsigned int i = 0; i < m_VertexCount; i++)
+		{
+			if (i == m_VertexCount - 1)
+			{
+				context.DebugDrawer.AddLine(m_Vertices[i], m_Vertices[0]);
+			}
+			else
+			{
+				context.DebugDrawer.AddLine(m_Vertices[i], m_Vertices[i + 1]);
+			}
+		}
 	}
 
 	unsigned int Collider::GetVertexCount() const

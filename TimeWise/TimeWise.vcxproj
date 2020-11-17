@@ -175,10 +175,7 @@
   <ItemGroup>
     <ClInclude Include="src\Soul\Application.h" />
     <ClInclude Include="src\Soul\Components\Component.h" />
-    <ClInclude Include="src\Soul\Components\PhysicsComponent.h" />
-    <ClInclude Include="src\Soul\Components\Rigidbody.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
-    <ClInclude Include="src\Soul\Entities\Obstacle.h" />
     <ClInclude Include="src\Soul\Entities\PlayerEntity.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
     <ClInclude Include="src\Soul\Files\TextFile.h" />
@@ -188,6 +185,7 @@
     <ClInclude Include="src\Soul\Memory\ReferenceCounter.h" />
     <ClInclude Include="src\Soul\Memory\SharedPointer.h" />
     <ClInclude Include="src\Soul\Memory\UniquePointer.h" />
+    <ClInclude Include="src\Soul\Structures\CommandQueue.h" />
     <ClInclude Include="src\Soul\Other\DebugDrawer.h" />
     <ClInclude Include="src\Soul\Other\Logger.h" />
     <ClInclude Include="src\Soul\ResourceManagers\FontManager.h" />
@@ -199,7 +197,6 @@
     <ClInclude Include="src\Soul\Scenes\SceneManager.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Structures\ObjectPool.h" />
-    <ClInclude Include="src\Soul\Systems\PhysicsSystem.h" />
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsMapTests.h" />
     <ClInclude Include="src\Soul\Tests\FontManagerTests.h" />
@@ -355,10 +352,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Soul\Components\Component.cpp" />
-    <ClCompile Include="src\Soul\Components\PhysicsComponent.cpp" />
-    <ClCompile Include="src\Soul\Components\Rigidbody.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />
-    <ClCompile Include="src\Soul\Entities\Obstacle.cpp" />
     <ClCompile Include="src\Soul\Entities\PlayerEntity.cpp" />
     <ClCompile Include="src\Soul\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
@@ -379,7 +373,7 @@
     <ClCompile Include="src\Soul\Scenes\Scene.cpp" />
     <ClCompile Include="src\Soul\Scenes\SceneManager.cpp" />
     <ClCompile Include="src\Soul\Strings\StringReader.cpp" />
-    <ClCompile Include="src\Soul\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="src\Soul\Structures\CommandQueue.cpp" />
     <ClCompile Include="src\Soul\UI\UIButton.cpp" />
     <ClCompile Include="src\Soul\UI\UIComponent.cpp" />
     <ClCompile Include="src\Soul\UI\UIContainer.cpp" />

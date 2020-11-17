@@ -4,8 +4,6 @@
 
 #include <Input/InputManager.h>
 #include <ResourceManagers/TextureManager.h>
-#include <Systems/PhysicsSystem.h>
-#include <Components/Rigidbody.h>
 
 namespace Soul
 {
@@ -14,11 +12,6 @@ namespace Soul
 		m_MoveSpeed(0.5f),
 		m_JumpStrength(0.5f)
 	{
-		Rigidbody* rb = context.PhysicsSystem.CreatePhysicsComponent<Rigidbody>(this, sf::FloatRect(0.0f, 0.0f, 32.0f, 64.0f));
-		rb->SetStatic(false);
-		rb->SetGravity(0.008f);
-		rb->SetTerminalVelocity(1.0f);
-		AddComponent(rb);
 	}
 
 	void PlayerEntity::UpdateSelf(float dt, Context& context)

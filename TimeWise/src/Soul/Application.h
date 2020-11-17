@@ -8,7 +8,7 @@
 #include <ResourceManagers/SoundManager.h>
 #include <ResourceManagers/TextureManager.h>
 #include <Scenes/SceneManager.h>
-#include <Systems/PhysicsSystem.h>
+#include <Structures/CommandQueue.h>
 #include <Utility/Timer.h>
 
 namespace Soul
@@ -32,7 +32,7 @@ namespace Soul
 		TextureManager* m_TextureManager;
 		InputManager* m_InputManager;
 		SceneManager* m_SceneManager;
-		PhysicsSystem* m_PhysicsSystem;
+		CommandQueue* m_CommandQueue;
 
 		Timer m_Timer;
 		float m_AccumulatedMilliseconds;

@@ -23,7 +23,6 @@ namespace Soul
 		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
 		{
 			m_Colliders[i].Element.Update(dt);
-			m_Colliders[i].Element.DrawCollider(context);
 			
 			UniquePointer<sf::Vector2f> verticesA(m_Colliders[i].Element.GetOffsetVertices());
 			unsigned int vertexCountA = m_Colliders[i].Element.GetVertexCount();
@@ -54,6 +53,8 @@ namespace Soul
 					}
 				}
 			}
+
+			m_Colliders[i].Element.DrawCollider(context);
 		}
 	}
 

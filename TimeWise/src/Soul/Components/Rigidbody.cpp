@@ -14,6 +14,7 @@ namespace Soul
 	void Rigidbody::HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
 		m_AffectedEntity->move(correction);
+		m_AffectedEntity->SetVelocity(0.0f, 0.0f);
 	}
 
 	void Rigidbody::Update(float dt)

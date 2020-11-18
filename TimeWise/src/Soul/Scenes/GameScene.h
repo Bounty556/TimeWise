@@ -3,11 +3,13 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include <Entities/TestEntity.h>
+#include <Entities/TestEntity2.h>
 #include <Scenes/Scene.h>
 
 namespace Soul
 {
 	/*
+	The scene of the main play area.
 	The scene of the main play area.
 	*/
 	class GameScene : public Scene
@@ -22,5 +24,6 @@ namespace Soul
 	private:
 		TestEntity m_Entity1;
 		TestEntity m_Entity2;
+		TestEntity2 m_Entity3;
 	};
 }

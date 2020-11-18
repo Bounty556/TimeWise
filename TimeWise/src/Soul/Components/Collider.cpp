@@ -49,14 +49,7 @@ namespace Soul
 
 		for (unsigned int i = 0; i < m_VertexCount; i++)
 		{
-			if (i == m_VertexCount - 1)
-			{
-				context.DebugDrawer.AddLine(m_Vertices[i] + offset, m_Vertices[0] + offset);
-			}
-			else
-			{
-				context.DebugDrawer.AddLine(m_Vertices[i] + offset, m_Vertices[i + 1] + offset);
-			}
+			context.DebugDrawer.AddLine(m_Vertices[i] + offset, m_Vertices[(i + 1) % m_VertexCount] + offset);
 		}
 	}
 

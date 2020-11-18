@@ -178,9 +178,11 @@
     <ClInclude Include="src\Soul\Components\CollisionHandler.h" />
     <ClInclude Include="src\Soul\Components\Component.h" />
     <ClInclude Include="src\Soul\Components\Rigidbody.h" />
+    <ClInclude Include="src\Soul\Components\StaticCollider.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
     <ClInclude Include="src\Soul\Entities\PlayerEntity.h" />
     <ClInclude Include="src\Soul\Entities\TestEntity.h" />
+    <ClInclude Include="src\Soul\Entities\TestEntity2.h" />
     <ClInclude Include="src\Soul\Files\ControlsFile.h" />
     <ClInclude Include="src\Soul\Files\TextFile.h" />
     <ClInclude Include="src\Soul\Input\Controller.h" />
@@ -361,9 +363,11 @@
     <ClCompile Include="src\Soul\Components\CollisionHandler.cpp" />
     <ClCompile Include="src\Soul\Components\Component.cpp" />
     <ClCompile Include="src\Soul\Components\Rigidbody.cpp" />
+    <ClCompile Include="src\Soul\Components\StaticCollider.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />
     <ClCompile Include="src\Soul\Entities\PlayerEntity.cpp" />
     <ClCompile Include="src\Soul\Entities\TestEntity.cpp" />
+    <ClCompile Include="src\Soul\Entities\TestEntity2.cpp" />
     <ClCompile Include="src\Soul\EntryPoint.cpp" />
     <ClCompile Include="src\Soul\Application.cpp" />
     <ClCompile Include="src\Soul\Files\ControlsFile.cpp" />

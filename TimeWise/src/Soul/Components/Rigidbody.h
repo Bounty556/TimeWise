@@ -19,7 +19,7 @@ namespace Soul
 		/*
 		Handles gravity, angular momentum, drag, etc.
 		*/
-		void Update(float dt);
+		virtual void Update(float dt) override;
 
 		// Getters
 

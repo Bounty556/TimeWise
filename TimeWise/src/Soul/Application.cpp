@@ -21,7 +21,7 @@ namespace Soul
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		m_DebugDrawer = Partition(DebugDrawer, 16);
+		m_DebugDrawer = Partition(DebugDrawer, 32);
 		m_FontManager = Partition(FontManager, 4);
 		m_SoundManager = Partition(SoundManager, 8);
 		m_TextureManager = Partition(TextureManager, 16);
@@ -74,16 +74,16 @@ namespace Soul
 				m_SceneManager->Update(m_TargetFrameRateMilliseconds, context);
 				m_PhysicsSystem->Update(m_TargetFrameRateMilliseconds, context);
 
+				// Rendering
+				m_Window->clear();
+
+				m_SceneManager->Draw(*m_Window, sf::RenderStates::Default);
+				m_DebugDrawer->Draw(*m_Window, sf::RenderStates::Default);
+
+				m_Window->display();
+
 				m_AccumulatedMilliseconds -= m_TargetFrameRateMilliseconds;
 			}
-
-			// Rendering
-			m_Window->clear();
-
-			m_SceneManager->Draw(*m_Window, sf::RenderStates::Default);
-			m_DebugDrawer->Draw(*m_Window, sf::RenderStates::Default);
-
-			m_Window->display();
 		}
 	}
 

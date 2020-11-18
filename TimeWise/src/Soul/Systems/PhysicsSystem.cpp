@@ -22,6 +22,7 @@ namespace Soul
 		// TODO: Better broad phase collision checking?
 		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
 		{
+			m_Colliders[i].Element.Update(dt);
 			m_Colliders[i].Element.DrawCollider(context);
 			
 			UniquePointer<sf::Vector2f> verticesA(m_Colliders[i].Element.GetOffsetVertices());

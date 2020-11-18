@@ -175,6 +175,7 @@
   <ItemGroup>
     <ClInclude Include="src\Soul\Application.h" />
     <ClInclude Include="src\Soul\Components\Collider.h" />
+    <ClInclude Include="src\Soul\Components\CollisionHandler.h" />
     <ClInclude Include="src\Soul\Components\Component.h" />
     <ClInclude Include="src\Soul\Components\Rigidbody.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
@@ -327,7 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\guestControls.controls" />
-    <None Include="res\guestControls.controls" />
     <None Include="res\music.ogg" />
     <None Include="res\sound.ogg" />
     <None Include="res\test.controls" />
@@ -358,6 +358,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Soul\Components\Collider.cpp" />
+    <ClCompile Include="src\Soul\Components\CollisionHandler.cpp" />
     <ClCompile Include="src\Soul\Components\Component.cpp" />
     <ClCompile Include="src\Soul\Components\Rigidbody.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />

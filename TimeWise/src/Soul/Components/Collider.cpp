@@ -74,7 +74,15 @@ namespace Soul
 		}
 	}
 
-	void Collider::SetHandler(Rigidbody* handler)
+	void Collider::Update(float dt)
+	{
+		if (m_Handler)
+		{
+			m_Handler->Update(dt);
+		}
+	}
+
+	void Collider::SetHandler(CollisionHandler* handler)
 	{
 		m_Handler = handler;
 	}

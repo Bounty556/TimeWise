@@ -3,11 +3,10 @@
 namespace Soul
 {
 	Rigidbody::Rigidbody(Entity* entity, bool isSolid, float bounciness, float friction) :
-		Component(entity),
+		CollisionHandler(entity),
 		m_IsSolid(isSolid),
 		m_Bounciness(bounciness),
-		m_Friction(friction),
-		m_Collider(nullptr)
+		m_Friction(friction)
 	{
 
 	}
@@ -15,6 +14,15 @@ namespace Soul
 	void Rigidbody::HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
 		m_AffectedEntity->move(correction);
+	}
+
+	void Rigidbody::Update(float dt)
+	{
+		// Apply gravity
+		m_AffectedEntity->Accelerate(0.0f, 0.0005f * dt);
+
+		// Apply drag
+		m_AffectedEntity->SetVelocity((1.0f - (.0005f * dt)) * m_AffectedEntity->GetVelocity());
 	}
 
 	bool Rigidbody::IsSolid() const
@@ -45,12 +53,6 @@ namespace Soul
 	void Rigidbody::SetFriction(float friction)
 	{
 		m_Friction = friction;
-	}
-
-	void Rigidbody::SetCollider(Collider* collider)
-	{
-		m_Collider = collider;
-		m_Collider->SetHandler(this);
 	}
 
 	const char* Rigidbody::GetType() const

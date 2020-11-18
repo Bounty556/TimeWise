@@ -5,7 +5,7 @@
 
 namespace Soul
 {
-	class Rigidbody;
+	class CollisionHandler;
 
 	class Collider : public Component
 	{
@@ -18,9 +18,11 @@ namespace Soul
 
 		void HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider);
 
+		void Update(float dt);
+
 		// Setters
 
-		void SetHandler(Rigidbody* handler);
+		void SetHandler(CollisionHandler* handler);
 
 		// Getters
 
@@ -40,6 +42,6 @@ namespace Soul
 		unsigned int m_VertexCount;
 		UniquePointer<sf::Vector2f> m_Vertices;
 		UniquePointer<sf::Vector2f> m_Normals;
-		Rigidbody* m_Handler;
+		CollisionHandler* m_Handler;
 	};
 }

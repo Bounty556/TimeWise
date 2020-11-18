@@ -17,6 +17,7 @@ namespace Soul
 
 	void GameScene::Update(float dt, Context& context)
 	{
+		m_Entity1.Update(dt);
 		m_Entity2.Update(dt);
 	}
 

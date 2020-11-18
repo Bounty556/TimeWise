@@ -18,6 +18,11 @@ namespace Soul
 			m_Colliders.FreeObject((Collider*)message.Data);
 		}
 
+		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
+		{
+			m_Colliders[i].Element.DrawCollider(context);
+		}
+
 		// TODO: Broad phase collision checking
 		// TODO: Narrow phase collision checking
 	}

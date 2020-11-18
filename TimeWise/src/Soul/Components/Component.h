@@ -18,10 +18,7 @@ namespace Soul
 
 		virtual const char* GetType() const = 0;
 
-		unsigned long long GetHandle() const;
-
 	protected:
 		Entity* m_AffectedEntity;
-		unsigned long long m_Handle;
 	};
 }

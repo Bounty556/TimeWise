@@ -71,8 +71,8 @@ namespace Soul
 
 				// Updating
 				m_InputManager->Update();
-				m_PhysicsSystem->Update(m_TargetFrameRateMilliseconds, context);
 				m_SceneManager->Update(m_TargetFrameRateMilliseconds, context);
+				m_PhysicsSystem->Update(m_TargetFrameRateMilliseconds, context);
 
 				m_AccumulatedMilliseconds -= m_TargetFrameRateMilliseconds;
 			}

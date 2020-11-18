@@ -1,11 +1,6 @@
 #include "Application.h"
 
-// TODO: Remove components, switch to entities having bounding boxes and variables to check for
-//       collisions.
-// TODO: Add debug partition and free logging
-// TODO: Add entity masses.
 // TODO: Add jumping
-// TODO: Fix random memory leak when adding jumping
 // TODO: Volatile memory management
 // TODO: Networking
 // TODO: Multi-threading

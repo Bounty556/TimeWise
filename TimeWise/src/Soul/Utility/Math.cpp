@@ -112,7 +112,17 @@ namespace Soul
 		{
 			sf::Vector2f diff(vertex1 - vertex2);
 			float mag = Sqrt(diff.x * diff.x + diff.y * diff.y);
+			if (mag == 0)
+			{
+				return sf::Vector2f(0, 0);
+			}
+
 			return sf::Vector2f(-diff.y, diff.x) / mag;
+		}
+
+		sf::Vector2f Perpendicular(const sf::Vector2f& vector)
+		{
+			return sf::Vector2f(-vector.y, vector.x);
 		}
 
 		float Dot(const sf::Vector2f& a, const sf::Vector2f& b)
@@ -142,6 +152,40 @@ namespace Soul
 			{
 				return b;
 			}
+		}
+
+		/*
+		TODO: Potential optimizations
+		-Send a precomputed center
+		-Don't check for collisions if the point is not closer than the furthest vertex from the center
+		*/
+		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount)
+		{
+			// Find center of polygon
+			sf::Vector2f center(0.0f, 0.0f);
+			for (unsigned int i = 0; i < vertexCount; ++i)
+			{
+				center += polygon[i];
+			}
+
+			center = center / (float)vertexCount;
+
+			for (unsigned int i = 0; i < vertexCount; ++i)
+			{
+				sf::Vector2f pointToSegment = polygon[i] - point;
+				sf::Vector2f centerToSegment = polygon[i] - center;
+				sf::Vector2f perpSegment = Perpendicular(polygon[(i + 1) % vertexCount] - polygon[i]);
+
+				float a = Dot(pointToSegment, perpSegment);
+				float b = Dot(centerToSegment, perpSegment);
+
+				if ((a > 0 && b < 0) || (a < 0 && b > 0))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 }

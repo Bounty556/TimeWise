@@ -327,6 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\guestControls.controls" />
+    <None Include="res\guestControls.controls" />
     <None Include="res\music.ogg" />
     <None Include="res\sound.ogg" />
     <None Include="res\test.controls" />

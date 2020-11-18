@@ -55,6 +55,11 @@ namespace Soul
 		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2);
 
 		/*
+		Calculates the vector perpendicular to the given vector.
+		*/
+		sf::Vector2f Perpendicular(const sf::Vector2f& vector);
+
+		/*
 		Calculates the dot product of the provided vectors.
 		*/
 		float Dot(const sf::Vector2f& a, const sf::Vector2f& b);
@@ -68,5 +73,10 @@ namespace Soul
 		Returns the min of the two values.
 		*/
 		float Min(float a, float b);
+
+		/*
+		Returns whether the provided point falls within the given polygon.
+		*/
+		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount);
 	}
 }

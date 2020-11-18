@@ -24,24 +24,54 @@ namespace Soul
 		{
 			m_Colliders[i].Element.DrawCollider(context);
 			
-			UniquePointer<sf::Vector2f> axesA(m_Colliders[i].Element.GetOffsetNormals());
 			UniquePointer<sf::Vector2f> verticesA(m_Colliders[i].Element.GetOffsetVertices());
-			unsigned int aVertices = m_Colliders[i].Element.GetVertexCount();
+			unsigned int vertexCountA = m_Colliders[i].Element.GetVertexCount();
 
 			for (unsigned int j = i + 1; j < m_Colliders.Count(); ++j)
 			{
-				UniquePointer<sf::Vector2f> axesB(m_Colliders[j].Element.GetOffsetNormals());
 				UniquePointer<sf::Vector2f> verticesB(m_Colliders[j].Element.GetOffsetVertices());
-				unsigned int bVertices = m_Colliders[j].Element.GetVertexCount();
-				bool skipCheck = false;
+				unsigned int vertexCountB = m_Colliders[j].Element.GetVertexCount();
 
-				// Narrow phase collision
-				if (SATCollision(aVertices, aVertices, bVertices, axesA, verticesA, verticesB) && SATCollision(bVertices, aVertices, bVertices, axesB, verticesA, verticesB))
+				bool firstPolygon;
+				sf::Vector2f* collidedPoint = MyCollision(verticesA.Raw(), vertexCountA, verticesB.Raw(), vertexCountB, firstPolygon);
+
+				if (collidedPoint)
 				{
-					SoulLogInfo("Collision detected!");
+					SoulLogInfo("Collision!");
+					if (firstPolygon)
+					{
+						// point inside polygonB
+					}
+					else
+					{
+						// point inside polygonA
+					}
 				}
 			}
 		}
+	}
+
+	sf::Vector2f* PhysicsSystem::MyCollision(sf::Vector2f* polygonA, unsigned int vertexCountA, sf::Vector2f* polygonB, unsigned int vertexCountB, bool& firstPolygon)
+	{
+		for (unsigned int i = 0; i < vertexCountA; ++i)
+		{
+			if (Math::IsPointInPolygon(polygonA[i], polygonB, vertexCountB))
+			{
+				firstPolygon = true;
+				return &polygonA[i];
+			}
+		}
+
+		for (unsigned int i = 0; i < vertexCountB; ++i)
+		{
+			if (Math::IsPointInPolygon(polygonB[i], polygonA, vertexCountA))
+			{
+				firstPolygon = false;
+				return &polygonB[i];
+			}
+		}
+
+		return nullptr;
 	}
 
 	bool PhysicsSystem::SATCollision(unsigned int normalCount, unsigned int vertexCountA, unsigned int vertexCountB, const UniquePointer<sf::Vector2f>& normals, const UniquePointer<sf::Vector2f>& verticesA, const UniquePointer<sf::Vector2f>& verticesB)

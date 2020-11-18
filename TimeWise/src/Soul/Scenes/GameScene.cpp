@@ -14,6 +14,7 @@ namespace Soul
 
 	void GameScene::Update(float dt, Context& context)
 	{
+		m_Entity2.move(-0.05f * dt, -0.05f * dt);
 	}
 
 	void GameScene::Draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -47,11 +47,26 @@ namespace Soul
 		Calculates fast square root of number.
 		From: https://www.codeproject.com/Articles/69941/Best-Square-Root-Method-Algorithm-Function-Precisi
 		*/
-		double inline __declspec (naked) __fastcall Sqrt(double number);
+		float Sqrt(float number);
 
 		/*
 		Calculates the normal of the provided vertices.
 		*/
 		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2);
+
+		/*
+		Calculates the dot product of the provided vectors.
+		*/
+		float Dot(const sf::Vector2f& a, const sf::Vector2f& b);
+
+		/*
+		Returns the max of the two values.
+		*/
+		float Max(float a, float b);
+
+		/*
+		Returns the min of the two values.
+		*/
+		float Min(float a, float b);
 	}
 }

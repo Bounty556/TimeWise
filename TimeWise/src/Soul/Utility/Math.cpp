@@ -98,11 +98,14 @@ namespace Soul
 			}
 		}
 
-		double inline __declspec (naked) __fastcall Sqrt(double number)
+		float Sqrt(float x)
 		{
-			_asm fld qword ptr[esp + 4]
-			_asm fsqrt
-			_asm ret 8
+			unsigned int i = *(unsigned int*)&x;
+			// adjust bias
+			i += 127 << 23;
+			// approximation of square root
+			i >>= 1;
+			return *(float*)&i;
 		}
 
 		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2)
@@ -110,6 +113,35 @@ namespace Soul
 			sf::Vector2f diff(vertex1 - vertex2);
 			float mag = Sqrt(diff.x * diff.x + diff.y * diff.y);
 			return sf::Vector2f(-diff.y, diff.x) / mag;
+		}
+
+		float Dot(const sf::Vector2f& a, const sf::Vector2f& b)
+		{
+			return a.x * b.x + a.y * b.y;
+		}
+
+		float Max(float a, float b)
+		{
+			if (a >= b)
+			{
+				return a;
+			}
+			else
+			{
+				return b;
+			}
+		}
+
+		float Min(float a, float b)
+		{
+			if (a <= b)
+			{
+				return a;
+			}
+			else
+			{
+				return b;
+			}
 		}
 	}
 }

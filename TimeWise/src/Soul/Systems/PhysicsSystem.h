@@ -22,6 +22,9 @@ namespace Soul
 		void Update(float dt, Context& context);
 
 	private:
+		bool SATCollision(unsigned int normalCount, unsigned int vertexCountA, unsigned int vertexCountB, const UniquePointer<sf::Vector2f>& normals, const UniquePointer<sf::Vector2f>& verticesA, const UniquePointer<sf::Vector2f>& verticesB);
+
+	private:
 		ObjectPool<Collider> m_Colliders;
 	};
 

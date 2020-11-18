@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include <Components/Collider.h>
 #include <Structures/ObjectPool.h>
 
@@ -12,11 +14,20 @@ namespace Soul
 	class PhysicsSystem
 	{
 	public:
-		PhysicsSystem();
+		PhysicsSystem(unsigned int capacity = 32);
 
+		template <class... Args>
+		Collider* CreateCollider(Args&&... args);
 
+		void Update(float dt, Context& context);
 
 	private:
 		ObjectPool<Collider> m_Colliders;
 	};
+
+	template <class... Args>
+	Collider* PhysicsSystem::CreateCollider(Args&&... args)
+	{
+		return m_Colliders.RequestObject(std::forward<Args>(args)...);
+	}
 }

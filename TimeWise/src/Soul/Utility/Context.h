@@ -9,6 +9,7 @@ namespace Soul
 	class InputManager;
 	class SceneManager;
 	class CommandQueue;
+	class PhysicsSystem;
 
 	struct Context
 	{
@@ -22,5 +23,6 @@ namespace Soul
 		InputManager& InputManager;
 		SceneManager& SceneManager;
 		CommandQueue& CommandQueue;
+		PhysicsSystem& PhysicsSystem;
 	};
 }

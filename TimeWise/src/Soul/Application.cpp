@@ -26,16 +26,18 @@ namespace Soul
 		m_SoundManager = Partition(SoundManager, 8);
 		m_TextureManager = Partition(TextureManager, 16);
 		m_InputManager = Partition(InputManager, 2);
-		m_SceneManager = Partition(SceneManager);
 		m_CommandQueue = Partition(CommandQueue);
+		m_PhysicsSystem = Partition(PhysicsSystem);
+		m_SceneManager = Partition(SceneManager);
 	}
 
 	Application::~Application()
 	{
 		MemoryManager::FreeMemory(m_Window);
 
-		MemoryManager::FreeMemory(m_CommandQueue);
 		MemoryManager::FreeMemory(m_SceneManager);
+		MemoryManager::FreeMemory(m_PhysicsSystem);
+		MemoryManager::FreeMemory(m_CommandQueue);
 		MemoryManager::FreeMemory(m_InputManager);
 		MemoryManager::FreeMemory(m_TextureManager);
 		MemoryManager::FreeMemory(m_SoundManager);
@@ -52,7 +54,7 @@ namespace Soul
 		m_InputManager->AddController(-1);
 		m_InputManager->AddController(0);
 
-		Context context{ 1280, 720, *m_DebugDrawer, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager, *m_SceneManager, *m_CommandQueue };
+		Context context{ 1280, 720, *m_DebugDrawer, *m_FontManager, *m_SoundManager, *m_TextureManager, *m_InputManager, *m_SceneManager, *m_CommandQueue, *m_PhysicsSystem };
 
 		m_SceneManager->ChangeScenes(Partition(MainMenuScene, context));
 
@@ -69,6 +71,7 @@ namespace Soul
 
 				// Updating
 				m_InputManager->Update();
+				m_PhysicsSystem->Update(m_TargetFrameRateMilliseconds, context);
 				m_SceneManager->Update(m_TargetFrameRateMilliseconds, context);
 
 				m_AccumulatedMilliseconds -= m_TargetFrameRateMilliseconds;

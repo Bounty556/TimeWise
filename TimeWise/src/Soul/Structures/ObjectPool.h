@@ -4,6 +4,7 @@
 
 #include <Memory/MemoryManager.h>
 #include <Memory/UniquePointer.h>
+#include <Utility/Macros.h>
 
 namespace Soul
 {

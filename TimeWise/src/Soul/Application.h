@@ -9,6 +9,7 @@
 #include <ResourceManagers/TextureManager.h>
 #include <Scenes/SceneManager.h>
 #include <Structures/CommandQueue.h>
+#include <Systems/PhysicsSystem.h>
 #include <Utility/Timer.h>
 
 namespace Soul
@@ -33,6 +34,7 @@ namespace Soul
 		InputManager* m_InputManager;
 		SceneManager* m_SceneManager;
 		CommandQueue* m_CommandQueue;
+		PhysicsSystem* m_PhysicsSystem;
 
 		Timer m_Timer;
 		float m_AccumulatedMilliseconds;

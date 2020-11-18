@@ -5,18 +5,18 @@
 namespace Soul
 {
 	GameScene::GameScene(Context& context) :
-		m_Player(context)
+		m_Entity1(context),
+		m_Entity2(context)
 	{
-		m_Player.setPosition(context.WindowWidth / 2.0f, 20.0f);
+		m_Entity1.setPosition(50.0f, 50.0f);
+		m_Entity2.setPosition(100.0f, 100.0f);
 	}
 
 	void GameScene::Update(float dt, Context& context)
 	{
-		m_Player.Update(dt, context);
 	}
 
 	void GameScene::Draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(m_Player, states);
 	}
 }

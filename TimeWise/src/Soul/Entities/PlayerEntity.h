@@ -12,7 +12,7 @@ namespace Soul
 		PlayerEntity(Context& context);
 
 	private:
-		virtual void UpdateSelf(float dt, Context& context) override;
+		virtual void UpdateSelf(float dt) override;
 		
 		virtual void DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const override;
 

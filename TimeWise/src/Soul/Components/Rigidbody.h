@@ -30,6 +30,8 @@ namespace Soul
 		void SetFriction(float friction);
 		void SetCollider(Collider* collider);
 
+		virtual const char* GetType() const override;
+
 	private:
 		bool m_IsSolid;
 		float m_Bounciness;

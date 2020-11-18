@@ -51,4 +51,9 @@ namespace Soul
 	{
 		m_Collider = collider;
 	}
+
+	const char* Rigidbody::GetType() const
+	{
+		return "Rigidbody";
+	}
 }

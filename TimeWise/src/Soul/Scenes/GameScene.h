@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-#include <Entities/PlayerEntity.h>
+#include <Entities/TestEntity.h>
 #include <Scenes/Scene.h>
 
 namespace Soul
@@ -20,6 +20,7 @@ namespace Soul
 		virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
-		PlayerEntity m_Player;
+		TestEntity m_Entity1;
+		TestEntity m_Entity2;
 	};
 }

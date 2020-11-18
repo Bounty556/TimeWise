@@ -19,4 +19,9 @@ namespace Soul
 	{
 		return m_AffectedEntity;
 	}
+
+	bool Component::CleanUp(Context& context)
+	{
+		return true;
+	}
 }

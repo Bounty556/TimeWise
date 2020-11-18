@@ -18,6 +18,12 @@ namespace Soul
 
 		virtual const char* GetType() const = 0;
 
+		/*
+		Does any final necessary cleanup for this component. Returns true if the owning entity
+		can free it, and false if another system cleans this component up.
+		*/
+		virtual bool CleanUp(Context& context);
+
 	protected:
 		Entity* m_AffectedEntity;
 	};

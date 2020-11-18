@@ -13,13 +13,15 @@ namespace Soul
 		/*
 		Gets the vertex at index.
 		*/
-		const sf::Vector2f& operator[](unsigned int index) const;
+		const sf::Vector2f operator[](unsigned int index) const;
 
 		void DrawCollider(Context& context) const;
 
+		unsigned int GetVertexCount() const;
+
 		virtual const char* GetType() const override;
 
-		unsigned int GetVertexCount() const;
+		virtual bool CleanUp(Context& context) override;
 
 	private:
 		unsigned int m_VertexCount;

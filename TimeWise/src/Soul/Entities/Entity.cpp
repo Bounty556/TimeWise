@@ -2,21 +2,34 @@
 
 #include <cstring>
 
+#include <Structures/CommandQueue.h>
+
 namespace Soul
 {
+	Entity::Entity(Context& context) :
+		m_Velocity(0.0f, 0.0f),
+		m_Components(8),
+		m_Context(context)
+	{
+
+	}
+
 	Entity::~Entity()
 	{
 		for (unsigned int i = 0; i < m_Components.Length(); ++i)
 		{
-			MemoryManager::FreeMemory(m_Components[i]);
+			if (m_Components[i]->CleanUp(m_Context))
+			{
+				MemoryManager::FreeMemory(m_Components[i]);
+			}
 		}
 	}
 
-	void Entity::Update(float dt, Context& context)
+	void Entity::Update(float dt)
 	{
 		move(m_Velocity * dt);
 
-		UpdateSelf(dt, context);
+		UpdateSelf(dt);
 	}
 
 	void Entity::SetVelocity(float dx, float dy)

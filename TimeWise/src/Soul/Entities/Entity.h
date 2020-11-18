@@ -16,9 +16,10 @@ namespace Soul
 	class Entity : public sf::Drawable, public sf::Transformable
 	{
 	public:
+		Entity(Context& context);
 		virtual ~Entity();
 
-		void Update(float dt, Context& context);
+		void Update(float dt);
 
 		void SetVelocity(float dx, float dy);
 		void Accelerate(float dx, float dy);
@@ -28,11 +29,15 @@ namespace Soul
 		void AddComponent(Component* component);
 
 	private:
-		virtual void UpdateSelf(float dt, Context& context) = 0;
+		virtual void UpdateSelf(float dt) = 0;
 
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 		virtual void DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 	
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+
+	protected:
+		Context& m_Context;
+
 	private:
 		sf::Vector2f m_Velocity;
 		Vector<Component*> m_Components;

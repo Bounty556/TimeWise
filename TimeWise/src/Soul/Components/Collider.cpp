@@ -2,7 +2,9 @@
 
 #include <cstdarg>
 
+#include <Entities/Entity.h>
 #include <Other/DebugDrawer.h>
+#include <Structures/CommandQueue.h>
 
 namespace Soul
 {
@@ -20,9 +22,16 @@ namespace Soul
 		}
 	}
 
-	const sf::Vector2f& Collider::operator[](unsigned int index) const
+	const sf::Vector2f Collider::operator[](unsigned int index) const
 	{
-		return m_Vertices[index];
+		sf::Vector2f offset(0.0f, 0.0f);
+
+		if (m_AffectedEntity)
+		{
+			offset = m_AffectedEntity->getPosition();
+		}
+
+		return m_Vertices[index] + offset;
 	}
 
 	const char* Collider::GetType() const
@@ -32,15 +41,22 @@ namespace Soul
 
 	void Collider::DrawCollider(Context& context) const
 	{
+		sf::Vector2f offset(0.0f, 0.0f);
+
+		if (m_AffectedEntity)
+		{
+			offset = m_AffectedEntity->getPosition();
+		}
+
 		for (unsigned int i = 0; i < m_VertexCount; i++)
 		{
 			if (i == m_VertexCount - 1)
 			{
-				context.DebugDrawer.AddLine(m_Vertices[i], m_Vertices[0]);
+				context.DebugDrawer.AddLine(m_Vertices[i] + offset, m_Vertices[0] + offset);
 			}
 			else
 			{
-				context.DebugDrawer.AddLine(m_Vertices[i], m_Vertices[i + 1]);
+				context.DebugDrawer.AddLine(m_Vertices[i] + offset, m_Vertices[i + 1] + offset);
 			}
 		}
 	}
@@ -48,5 +64,11 @@ namespace Soul
 	unsigned int Collider::GetVertexCount() const
 	{
 		return m_VertexCount;
+	}
+
+	bool Collider::CleanUp(Context& context)
+	{
+		context.CommandQueue.QueueMessage("Remove Collider", this);
+		return false;
 	}
 }

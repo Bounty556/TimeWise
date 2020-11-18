@@ -15,7 +15,7 @@ namespace Soul
 		To be called from the entity's collider component. Sets Entity's velocity appropriately
 		based on collision data.
 		*/
-		void HandleCollision();
+		void HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider);
 
 		// Getters
 

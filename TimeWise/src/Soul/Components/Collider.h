@@ -5,6 +5,8 @@
 
 namespace Soul
 {
+	class Rigidbody;
+
 	class Collider : public Component
 	{
 	public:
@@ -13,6 +15,12 @@ namespace Soul
 		void DrawCollider(Context& context) const;
 
 		virtual bool CleanUp(Context& context) override;
+
+		void HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider);
+
+		// Setters
+
+		void SetHandler(Rigidbody* handler);
 
 		// Getters
 
@@ -32,5 +40,6 @@ namespace Soul
 		unsigned int m_VertexCount;
 		UniquePointer<sf::Vector2f> m_Vertices;
 		UniquePointer<sf::Vector2f> m_Normals;
+		Rigidbody* m_Handler;
 	};
 }

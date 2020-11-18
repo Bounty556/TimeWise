@@ -42,10 +42,14 @@ namespace Soul
 					{
 						// Find closest edge to point
 						correction = Math::CorrectionVector(*collidedPoint, verticesB.Raw(), vertexCountB);
+						m_Colliders[i].Element.HandleCollision(*collidedPoint, correction, m_Colliders[j].Element);
+						m_Colliders[j].Element.HandleCollision(*collidedPoint, -correction, m_Colliders[i].Element);
 					}
 					else
 					{
 						correction = Math::CorrectionVector(*collidedPoint, verticesA.Raw(), vertexCountA);
+						m_Colliders[i].Element.HandleCollision(*collidedPoint, -correction, m_Colliders[j].Element);
+						m_Colliders[j].Element.HandleCollision(*collidedPoint, correction, m_Colliders[i].Element);
 					}
 				}
 			}

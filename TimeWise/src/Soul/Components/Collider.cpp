@@ -2,6 +2,7 @@
 
 #include <cstdarg>
 
+#include <Components/Rigidbody.h>
 #include <Entities/Entity.h>
 #include <Other/DebugDrawer.h>
 #include <Structures/CommandQueue.h>
@@ -13,7 +14,8 @@ namespace Soul
 		Component(entity),
 		m_VertexCount(vertexCount),
 		m_Vertices(PartitionArray(sf::Vector2f, m_VertexCount)),
-		m_Normals(PartitionArray(sf::Vector2f, m_VertexCount))
+		m_Normals(PartitionArray(sf::Vector2f, m_VertexCount)),
+		m_Handler(nullptr)
 	{
 		va_list args;
 		va_start(args, vertexCount);
@@ -62,6 +64,19 @@ namespace Soul
 	{
 		context.CommandQueue.QueueMessage("Remove Collider", this);
 		return false;
+	}
+
+	void Collider::HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
+	{
+		if (m_Handler)
+		{
+			m_Handler->HandleCollision(contactPoint, correction, collider);
+		}
+	}
+
+	void Collider::SetHandler(Rigidbody* handler)
+	{
+		m_Handler = handler;
 	}
 
 	const UniquePointer<sf::Vector2f>& Collider::GetVertices() const

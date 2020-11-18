@@ -55,6 +55,8 @@ namespace Soul
 		*/
 		const ObjectPool<T>::Object<T>& operator[](unsigned int index) const;
 
+		ObjectPool<T>::Object<T>& operator[](unsigned int index);
+
 		/*
 		Gets the current number of live objects in the pool.
 		*/
@@ -129,6 +131,18 @@ namespace Soul
 			Assert(false);
 		}
 		
+		return m_ObjectPool[index];
+	}
+
+	template <class T>
+	ObjectPool<T>::Object<T>& ObjectPool<T>::operator[](unsigned int index)
+	{
+		if (index < 0 || index >= m_ObjectCapacity)
+		{
+			SoulLogError("Object pool index out of bounds.");
+			Assert(false);
+		}
+
 		return m_ObjectPool[index];
 	}
 

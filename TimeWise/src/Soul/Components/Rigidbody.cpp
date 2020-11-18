@@ -12,9 +12,9 @@ namespace Soul
 
 	}
 
-	void Rigidbody::HandleCollision()
+	void Rigidbody::HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
-		// TODO: Implement collision response
+		m_AffectedEntity->move(correction);
 	}
 
 	bool Rigidbody::IsSolid() const
@@ -50,6 +50,7 @@ namespace Soul
 	void Rigidbody::SetCollider(Collider* collider)
 	{
 		m_Collider = collider;
+		m_Collider->SetHandler(this);
 	}
 
 	const char* Rigidbody::GetType() const

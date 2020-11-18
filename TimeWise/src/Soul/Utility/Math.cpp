@@ -97,5 +97,19 @@ namespace Soul
 				return (int)(number);
 			}
 		}
+
+		double inline __declspec (naked) __fastcall Sqrt(double number)
+		{
+			_asm fld qword ptr[esp + 4]
+			_asm fsqrt
+			_asm ret 8
+		}
+
+		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2)
+		{
+			sf::Vector2f diff(vertex1 - vertex2);
+			float mag = Sqrt(diff.x * diff.x + diff.y * diff.y);
+			return sf::Vector2f(-diff.y, diff.x) / mag;
+		}
 	}
 }

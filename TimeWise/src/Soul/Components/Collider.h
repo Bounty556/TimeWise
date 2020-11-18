@@ -10,21 +10,27 @@ namespace Soul
 	public:
 		Collider(Entity* entity, unsigned int vertexCount, ...);
 
-		/*
-		Gets the vertex at index.
-		*/
-		const sf::Vector2f operator[](unsigned int index) const;
-
 		void DrawCollider(Context& context) const;
 
-		unsigned int GetVertexCount() const;
+		virtual bool CleanUp(Context& context) override;
+
+		// Getters
+
+		const UniquePointer<sf::Vector2f>& GetVertices() const;
+
+		const UniquePointer<sf::Vector2f>& GetNormals() const;
+
+		UniquePointer<sf::Vector2f> GetOffsetVertices() const;
+
+		UniquePointer<sf::Vector2f> GetOffsetNormals() const;
 
 		virtual const char* GetType() const override;
 
-		virtual bool CleanUp(Context& context) override;
+		unsigned int GetVertexCount() const;
 
 	private:
 		unsigned int m_VertexCount;
 		UniquePointer<sf::Vector2f> m_Vertices;
+		UniquePointer<sf::Vector2f> m_Normals;
 	};
 }

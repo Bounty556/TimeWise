@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/System/Vector2.hpp>
+
 #include <Strings/String.h>
 
 // TODO: Look into turning these into constexpr functions
@@ -40,5 +42,16 @@ namespace Soul
 		Rounds the provided float to the nearest integer.
 		*/
 		int Round(float number);
+
+		/*
+		Calculates fast square root of number.
+		From: https://www.codeproject.com/Articles/69941/Best-Square-Root-Method-Algorithm-Function-Precisi
+		*/
+		double inline __declspec (naked) __fastcall Sqrt(double number);
+
+		/*
+		Calculates the normal of the provided vertices.
+		*/
+		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2);
 	}
 }

@@ -5,13 +5,15 @@
 #include <Entities/Entity.h>
 #include <Other/DebugDrawer.h>
 #include <Structures/CommandQueue.h>
+#include <Utility/Math.h>
 
 namespace Soul
 {
 	Collider::Collider(Entity* entity, unsigned int vertexCount, ...) :
 		Component(entity),
 		m_VertexCount(vertexCount),
-		m_Vertices(PartitionArray(sf::Vector2f, m_VertexCount))
+		m_Vertices(PartitionArray(sf::Vector2f, m_VertexCount)),
+		m_Normals(PartitionArray(sf::Vector2f, m_VertexCount))
 	{
 		va_list args;
 		va_start(args, vertexCount);
@@ -20,23 +22,18 @@ namespace Soul
 		{
 			m_Vertices[i] = va_arg(args, sf::Vector2f);
 		}
-	}
 
-	const sf::Vector2f Collider::operator[](unsigned int index) const
-	{
-		sf::Vector2f offset(0.0f, 0.0f);
-
-		if (m_AffectedEntity)
+		for (unsigned int i = 0; i < m_VertexCount; i++)
 		{
-			offset = m_AffectedEntity->getPosition();
+			if (i == m_VertexCount - 1)
+			{
+				m_Normals[i] = Math::CalculateNormal(m_Vertices[i], m_Vertices[0]);
+			}
+			else
+			{
+				m_Normals[i] = Math::CalculateNormal(m_Vertices[i], m_Vertices[i + 1]);
+			}
 		}
-
-		return m_Vertices[index] + offset;
-	}
-
-	const char* Collider::GetType() const
-	{
-		return "Collider";
 	}
 
 	void Collider::DrawCollider(Context& context) const
@@ -61,14 +58,64 @@ namespace Soul
 		}
 	}
 
-	unsigned int Collider::GetVertexCount() const
-	{
-		return m_VertexCount;
-	}
-
 	bool Collider::CleanUp(Context& context)
 	{
 		context.CommandQueue.QueueMessage("Remove Collider", this);
 		return false;
+	}
+
+	const UniquePointer<sf::Vector2f>& Collider::GetVertices() const
+	{
+		return m_Vertices;
+	}
+
+	const UniquePointer<sf::Vector2f>& Collider::GetNormals() const
+	{
+		return m_Normals;
+	}
+
+	UniquePointer<sf::Vector2f> Collider::GetOffsetVertices() const
+	{
+		UniquePointer<sf::Vector2f> vertices(PartitionArray(sf::Vector2f, m_VertexCount));
+
+		// TODO: Include rotation
+
+		sf::Vector2f offset(0.0f, 0.0f);
+
+		if (m_AffectedEntity)
+		{
+			offset = m_AffectedEntity->getPosition();
+		}
+
+		for (unsigned int i = 0; i < m_VertexCount; ++i)
+		{
+			vertices[i] = m_Vertices[i] + offset;
+		}
+
+		return std::move(vertices);
+	}
+
+	UniquePointer<sf::Vector2f> Collider::GetOffsetNormals() const
+	{
+		UniquePointer<sf::Vector2f> normals(PartitionArray(sf::Vector2f, m_VertexCount));
+
+		// TODO: Include rotation
+
+		for (unsigned int i = 0; i < m_VertexCount; ++i)
+		{
+			normals[i] = m_Normals[i];
+		}
+
+		return std::move(normals);
+	}
+
+	const char* Collider::GetType() const
+	{
+		return "Collider";
+	}
+
+	unsigned int Collider::GetVertexCount() const
+	{
+		return m_VertexCount;
 	}
 }

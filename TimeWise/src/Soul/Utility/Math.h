@@ -60,6 +60,17 @@ namespace Soul
 		sf::Vector2f Perpendicular(const sf::Vector2f& vector);
 
 		/*
+		Calculates the direction from the point to the nearest point on the
+		line.
+		*/
+		sf::Vector2f Reject(const sf::Vector2f& point, const sf::Vector2f& line);
+
+		/*
+		Calculates the magnitude of the provided vector.
+		*/
+		float Magnitude(const sf::Vector2f& vector);
+
+		/*
 		Calculates the dot product of the provided vectors.
 		*/
 		float Dot(const sf::Vector2f& a, const sf::Vector2f& b);
@@ -78,5 +89,10 @@ namespace Soul
 		Returns whether the provided point falls within the given polygon.
 		*/
 		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount);
+
+		/*
+		Finds the smallest needed vector to move a point out of a polygon.
+		*/
+		sf::Vector2f CorrectionVector(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount);
 	}
 }

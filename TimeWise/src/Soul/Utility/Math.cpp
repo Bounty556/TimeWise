@@ -125,6 +125,16 @@ namespace Soul
 			return sf::Vector2f(-vector.y, vector.x);
 		}
 
+		sf::Vector2f Reject(const sf::Vector2f& point, const sf::Vector2f& line)
+		{
+			return point - (line * (Dot(point, line) / Dot(line, line)));
+		}
+
+		float Magnitude(const sf::Vector2f& vector)
+		{
+			 return Sqrt(vector.x * vector.x + vector.y * vector.y);
+		}
+
 		float Dot(const sf::Vector2f& a, const sf::Vector2f& b)
 		{
 			return a.x * b.x + a.y * b.y;
@@ -186,6 +196,28 @@ namespace Soul
 			}
 
 			return true;
+		}
+
+		sf::Vector2f CorrectionVector(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount)
+		{
+			sf::Vector2f smallest;
+			float mag = 99999999.0f;
+
+			for (unsigned int i = 0; i < vertexCount; ++i)
+			{
+				sf::Vector2f segment = polygon[i] - polygon[(i + 1) % vertexCount];
+				sf::Vector2f shiftedPoint = point - polygon[(i + 1) % vertexCount];
+				sf::Vector2f reject = Reject(shiftedPoint, segment);
+				float rejectMagnitude = Magnitude(reject);
+
+				if (rejectMagnitude < mag)
+				{
+					smallest = -reject;
+					mag = rejectMagnitude;
+				}
+			}
+
+			return smallest;
 		}
 	}
 }

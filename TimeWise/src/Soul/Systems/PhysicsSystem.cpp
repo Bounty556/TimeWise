@@ -37,14 +37,15 @@ namespace Soul
 
 				if (collidedPoint)
 				{
-					SoulLogInfo("Collision!");
+					sf::Vector2f correction;
 					if (firstPolygon)
 					{
-						// point inside polygonB
+						// Find closest edge to point
+						correction = Math::CorrectionVector(*collidedPoint, verticesB.Raw(), vertexCountB);
 					}
 					else
 					{
-						// point inside polygonA
+						correction = Math::CorrectionVector(*collidedPoint, verticesA.Raw(), vertexCountA);
 					}
 				}
 			}

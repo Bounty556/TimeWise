@@ -16,6 +16,7 @@ namespace Soul
 			RunTest(PoolClearCount);
 			RunTest(ArrayOperator);
 			RunTest(HalfFullPool);
+			RunTest(RequestConstructor);
 		}
 
 	private:
@@ -75,6 +76,19 @@ namespace Soul
 			Assert(one == pool.RequestObject());
 			Assert(two == pool.RequestObject());
 			Assert(three == pool.RequestObject());
+		}
+
+		static void RequestConstructor()
+		{
+			ObjectPool<String> pool(32);
+
+			String* one = pool.RequestObject("Test1");
+			String* two = pool.RequestObject("Test2");
+			String* three = pool.RequestObject("Test3");
+
+			Assert(one->CompareTo("Test1") == 0);
+			Assert(two->CompareTo("Test2") == 0);
+			Assert(three->CompareTo("Test3") == 0);
 		}
 	};
 }

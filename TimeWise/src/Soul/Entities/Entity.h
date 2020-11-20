@@ -24,6 +24,7 @@ namespace Soul
 		void SetVelocity(float dx, float dy);
 		void SetVelocity(sf::Vector2f dv);
 		void Accelerate(float dx, float dy);
+		void Accelerate(sf::Vector2f da);
 
 		const sf::Vector2f& GetVelocity() const;
 

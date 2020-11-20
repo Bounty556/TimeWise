@@ -17,9 +17,10 @@ namespace Soul
 		m_Center(0.0f, 0.0f),
 		m_Handler(nullptr),
 		m_Radius(0.0f),
-		m_IsSolid(true),
+		m_Mass(1.0f),
 		m_Bounciness(0.0f),
-		m_Friction(0.5f)
+		m_Friction(0.5f),
+		m_IsSolid(true)
 	{
 		va_list args;
 		va_start(args, vertexCount);
@@ -79,6 +80,11 @@ namespace Soul
 		}
 	}
 
+	void Collider::ApplyForce(sf::Vector2f force)
+	{
+		m_AffectedEntity->Accelerate(force / m_Mass);
+	}
+
 	void Collider::SetHandler(CollisionHandler* handler)
 	{
 		m_Handler = handler;
@@ -128,6 +134,11 @@ namespace Soul
 	const char* Collider::GetType() const
 	{
 		return "Collider";
+	}
+
+	float Collider::GetMass() const
+	{
+		return m_Mass;
 	}
 
 	unsigned int Collider::GetVertexCount() const

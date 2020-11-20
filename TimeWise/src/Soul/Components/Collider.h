@@ -20,6 +20,8 @@ namespace Soul
 
 		void Update(float dt);
 
+		void ApplyForce(sf::Vector2f force);
+
 		// Setters
 
 		void SetHandler(CollisionHandler* handler);
@@ -40,11 +42,13 @@ namespace Soul
 
 		unsigned int GetVertexCount() const;
 
-		bool IsSolid() const;
+		float GetMass() const;
 
 		float GetBounciness() const;
 
 		float GetFriction() const;
+
+		bool IsSolid() const;
 
 		const sf::Vector2f& GetVelocity() const;
 
@@ -56,8 +60,9 @@ namespace Soul
 		sf::Vector2f m_Center;
 		CollisionHandler* m_Handler;
 		float m_Radius; // Distance from the center to furthest vertex
-		bool m_IsSolid;
+		float m_Mass;
 		float m_Bounciness;
 		float m_Friction;
+		bool m_IsSolid;
 	};
 }

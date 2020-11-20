@@ -47,6 +47,11 @@ namespace Soul
 		m_Velocity += sf::Vector2f(dx, dy);
 	}
 
+	void Entity::Accelerate(sf::Vector2f da)
+	{
+		m_Velocity += da;
+	}
+
 	const sf::Vector2f& Entity::GetVelocity() const
 	{
 		return m_Velocity;

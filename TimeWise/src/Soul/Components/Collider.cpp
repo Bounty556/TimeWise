@@ -16,6 +16,7 @@ namespace Soul
 		m_Vertices(PartitionArray(sf::Vector2f, m_VertexCount)),
 		m_Center(0.0f, 0.0f),
 		m_Handler(nullptr),
+		m_Radius(0.0f),
 		m_IsSolid(true),
 		m_Bounciness(0.0f),
 		m_Friction(0.5f)

@@ -166,16 +166,20 @@ namespace Soul
 
 		/*
 		TODO: Potential optimizations
-		-Send a precomputed center
 		-Don't check for collisions if the point is not closer than the furthest vertex from the center
+		-Precalculate normals
 		*/
 		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount, const sf::Vector2f& center)
 		{
+			sf::Vector2f pointToSegment;
+			sf::Vector2f centerToSegment;
+			sf::Vector2f perpSegment;
+
 			for (unsigned int i = 0; i < vertexCount; ++i)
 			{
-				sf::Vector2f pointToSegment = polygon[i] - point;
-				sf::Vector2f centerToSegment = polygon[i] - center;
-				sf::Vector2f perpSegment = Perpendicular(polygon[(i + 1) % vertexCount] - polygon[i]);
+				pointToSegment = polygon[i] - point;
+				centerToSegment = polygon[i] - center;
+				perpSegment = Perpendicular(polygon[(i + 1) % vertexCount] - polygon[i]);
 
 				float a = Dot(pointToSegment, perpSegment);
 				float b = Dot(centerToSegment, perpSegment);

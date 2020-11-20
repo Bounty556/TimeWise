@@ -53,6 +53,7 @@ namespace Soul
 		UniquePointer<sf::Vector2f> m_Vertices;
 		sf::Vector2f m_Center;
 		CollisionHandler* m_Handler;
+		float m_Radius; // Distance from the center to furthest vertex
 		bool m_IsSolid;
 		float m_Bounciness;
 		float m_Friction;

@@ -20,13 +20,15 @@ namespace Soul
 	void Rigidbody::Update(float dt)
 	{
 		// Apply gravity
-		m_Collider->ApplyForce(sf::Vector2f(0.0f, m_Collider->GetMass() * dt * 0.0098f));
+		sf::Vector2f finalForce(0.0f, m_Collider->GetMass() * dt * 0.0098f);
 
-		// TODO: Find better method for calculating surface area perpendicular to velocity?
 		// Apply drag
+		// TODO: Find better method for calculating surface area perpendicular to velocity?
 		sf::Vector2f vSquared(m_AffectedEntity->GetVelocity().x * m_AffectedEntity->GetVelocity().x, m_AffectedEntity->GetVelocity().y * m_AffectedEntity->GetVelocity().y);
 		float cDrag = 0.5f * 0.7f * 0.001f;
-		m_Collider->ApplyForce(-vSquared * cDrag * m_Collider->GetRadius() * dt);
+		finalForce += -vSquared * cDrag * m_Collider->GetRadius() * dt;
+
+		m_Collider->ApplyForce(finalForce);
 	}
 
 	const char* Rigidbody::GetType() const

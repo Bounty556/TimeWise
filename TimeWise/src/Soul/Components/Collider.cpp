@@ -15,7 +15,10 @@ namespace Soul
 		m_VertexCount(vertexCount),
 		m_Vertices(PartitionArray(sf::Vector2f, m_VertexCount)),
 		m_Normals(PartitionArray(sf::Vector2f, m_VertexCount)),
-		m_Handler(nullptr)
+		m_Handler(nullptr),
+		m_IsSolid(true),
+		m_Bounciness(0.0f),
+		m_Friction(0.5f)
 	{
 		va_list args;
 		va_start(args, vertexCount);
@@ -80,6 +83,21 @@ namespace Soul
 		m_Handler = handler;
 	}
 
+	void Collider::SetIsSolid(bool isSolid)
+	{
+		m_IsSolid = isSolid;
+	}
+
+	void Collider::SetBounciness(float bounciness)
+	{
+		m_Bounciness = bounciness;
+	}
+
+	void Collider::SetFriction(float friction)
+	{
+		m_Friction = friction;
+	}
+
 	const UniquePointer<sf::Vector2f>& Collider::GetVertices() const
 	{
 		return m_Vertices;
@@ -133,5 +151,25 @@ namespace Soul
 	unsigned int Collider::GetVertexCount() const
 	{
 		return m_VertexCount;
+	}
+
+	bool Collider::IsSolid() const
+	{
+		return m_IsSolid;
+	}
+
+	float Collider::GetBounciness() const
+	{
+		return m_Bounciness;
+	}
+
+	float Collider::GetFriction() const
+	{
+		return m_Friction;
+	}
+
+	const sf::Vector2f& Collider::GetVelocity() const
+	{
+		return m_AffectedEntity->GetVelocity();
 	}
 }

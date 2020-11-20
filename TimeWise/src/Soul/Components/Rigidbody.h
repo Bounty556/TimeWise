@@ -21,23 +21,6 @@ namespace Soul
 		*/
 		virtual void Update(float dt) override;
 
-		// Getters
-
-		bool IsSolid() const;
-		float GetBounciness() const;
-		float GetFriction() const;
-
-		// Setters
-
-		void SetIsSolid(bool isSolid);
-		void SetBounciness(float bounciness);
-		void SetFriction(float friction);
-
 		virtual const char* GetType() const override;
-
-	private:
-		bool m_IsSolid;
-		float m_Bounciness;
-		float m_Friction;
 	};
 }

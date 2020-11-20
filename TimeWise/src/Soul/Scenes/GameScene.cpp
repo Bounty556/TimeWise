@@ -11,8 +11,9 @@ namespace Soul
 		m_Entity2(context),
 		m_Entity3(context)
 	{
-		m_Entity1.setPosition(500.0f, 500.0f);
-		m_Entity2.setPosition(550.0f, 150.0f);
+		m_Entity1.setPosition(500.0f, -500.0f);
+		m_Entity2.setPosition(550.0f, -550.0f);
+		m_Entity3.setPosition(50.0f, context.WindowHeight - 100.0f);
 	}
 
 	void GameScene::Update(float dt, Context& context)

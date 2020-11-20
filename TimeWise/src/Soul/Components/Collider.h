@@ -24,6 +24,12 @@ namespace Soul
 
 		void SetHandler(CollisionHandler* handler);
 
+		void SetIsSolid(bool isSolid);
+
+		void SetBounciness(float bounciness);
+
+		void SetFriction(float friction);
+
 		// Getters
 
 		const UniquePointer<sf::Vector2f>& GetVertices() const;
@@ -38,10 +44,21 @@ namespace Soul
 
 		unsigned int GetVertexCount() const;
 
+		bool IsSolid() const;
+
+		float GetBounciness() const;
+
+		float GetFriction() const;
+
+		const sf::Vector2f& GetVelocity() const;
+
 	private:
 		unsigned int m_VertexCount;
 		UniquePointer<sf::Vector2f> m_Vertices;
 		UniquePointer<sf::Vector2f> m_Normals;
 		CollisionHandler* m_Handler;
+		bool m_IsSolid;
+		float m_Bounciness;
+		float m_Friction;
 	};
 }

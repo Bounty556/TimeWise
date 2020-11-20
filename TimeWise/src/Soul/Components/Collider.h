@@ -48,6 +48,8 @@ namespace Soul
 
 		const sf::Vector2f& GetVelocity() const;
 
+		float GetRadius() const;
+
 	private:
 		unsigned int m_VertexCount;
 		UniquePointer<sf::Vector2f> m_Vertices;

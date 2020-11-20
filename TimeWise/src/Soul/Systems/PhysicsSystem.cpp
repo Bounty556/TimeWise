@@ -22,18 +22,26 @@ namespace Soul
 		// TODO: Better broad phase collision checking?
 		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
 		{
-			m_Colliders[i].Element.Update(dt);
+			Collider& a = m_Colliders[i].Element;
+			a.Update(dt);
 			
-			UniquePointer<sf::Vector2f> verticesA(m_Colliders[i].Element.GetVertices());
-			unsigned int vertexCountA = m_Colliders[i].Element.GetVertexCount();
+			UniquePointer<sf::Vector2f> verticesA(a.GetVertices());
+			unsigned int vertexCountA = a.GetVertexCount();
 
 			for (unsigned int j = i + 1; j < m_Colliders.Count(); ++j)
 			{
-				UniquePointer<sf::Vector2f> verticesB(m_Colliders[j].Element.GetVertices());
-				unsigned int vertexCountB = m_Colliders[j].Element.GetVertexCount();
+				Collider& b = m_Colliders[j].Element;
+
+				if (Math::Magnitude(a.GetCenter() - b.GetCenter()) > a.GetRadius() + b.GetRadius())
+				{
+					continue;
+				}
+
+				UniquePointer<sf::Vector2f> verticesB(b.GetVertices());
+				unsigned int vertexCountB = b.GetVertexCount();
 
 				bool firstPolygon;
-				sf::Vector2f* collidedPoint = MyCollision(verticesA.Raw(), vertexCountA, m_Colliders[i].Element.GetCenter(), verticesB.Raw(), vertexCountB, m_Colliders[j].Element.GetCenter(), firstPolygon);
+				sf::Vector2f* collidedPoint = MyCollision(verticesA.Raw(), vertexCountA, a.GetCenter(), verticesB.Raw(), vertexCountB, b.GetCenter(), firstPolygon);
 
 				if (collidedPoint)
 				{
@@ -42,19 +50,19 @@ namespace Soul
 					{
 						// Find closest edge to point
 						correction = Math::CorrectionVector(*collidedPoint, verticesB.Raw(), vertexCountB);
-						m_Colliders[i].Element.HandleCollision(*collidedPoint, correction, m_Colliders[j].Element);
-						m_Colliders[j].Element.HandleCollision(*collidedPoint, -correction, m_Colliders[i].Element);
+						a.HandleCollision(*collidedPoint, correction, b);
+						b.HandleCollision(*collidedPoint, -correction, a);
 					}
 					else
 					{
 						correction = Math::CorrectionVector(*collidedPoint, verticesA.Raw(), vertexCountA);
-						m_Colliders[i].Element.HandleCollision(*collidedPoint, -correction, m_Colliders[j].Element);
-						m_Colliders[j].Element.HandleCollision(*collidedPoint, correction, m_Colliders[i].Element);
+						a.HandleCollision(*collidedPoint, -correction, b);
+						b.HandleCollision(*collidedPoint, correction, a);
 					}
 				}
 			}
 
-			m_Colliders[i].Element.DrawCollider(context);
+			a.DrawCollider(context);
 		}
 	}
 

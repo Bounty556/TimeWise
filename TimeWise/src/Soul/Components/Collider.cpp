@@ -31,6 +31,15 @@ namespace Soul
 		}
 
 		m_Center = m_Center / (float)m_VertexCount;
+
+		for (unsigned int i = 0; i < m_VertexCount; ++i)
+		{
+			float mag = Math::Magnitude(m_Vertices[i] - m_Center);
+			if (mag > m_Radius)
+			{
+				m_Radius = mag;
+			}
+		}
 	}
 
 	void Collider::DrawCollider(Context& context) const
@@ -144,5 +153,10 @@ namespace Soul
 	const sf::Vector2f& Collider::GetVelocity() const
 	{
 		return m_AffectedEntity->GetVelocity();
+	}
+
+	float Collider::GetRadius() const
+	{
+		return m_Radius;
 	}
 }

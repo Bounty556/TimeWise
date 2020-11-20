@@ -88,7 +88,7 @@ namespace Soul
 		/*
 		Returns whether the provided point falls within the given polygon.
 		*/
-		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount);
+		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount, const sf::Vector2f& center);
 
 		/*
 		Finds the smallest needed vector to move a point out of a polygon.

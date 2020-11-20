@@ -14,7 +14,7 @@ namespace Soul
 		Component(entity),
 		m_VertexCount(vertexCount),
 		m_Vertices(PartitionArray(sf::Vector2f, m_VertexCount)),
-		m_Normals(PartitionArray(sf::Vector2f, m_VertexCount)),
+		m_Center(0.0f, 0.0f),
 		m_Handler(nullptr),
 		m_IsSolid(true),
 		m_Bounciness(0.0f),
@@ -26,19 +26,10 @@ namespace Soul
 		for (unsigned int i = 0; i < m_VertexCount; ++i)
 		{
 			m_Vertices[i] = va_arg(args, sf::Vector2f);
+			m_Center += m_Vertices[i];
 		}
 
-		for (unsigned int i = 0; i < m_VertexCount; i++)
-		{
-			if (i == m_VertexCount - 1)
-			{
-				m_Normals[i] = Math::CalculateNormal(m_Vertices[i], m_Vertices[0]);
-			}
-			else
-			{
-				m_Normals[i] = Math::CalculateNormal(m_Vertices[i], m_Vertices[i + 1]);
-			}
-		}
+		m_Center = m_Center / (float)m_VertexCount;
 	}
 
 	void Collider::DrawCollider(Context& context) const
@@ -98,17 +89,7 @@ namespace Soul
 		m_Friction = friction;
 	}
 
-	const UniquePointer<sf::Vector2f>& Collider::GetVertices() const
-	{
-		return m_Vertices;
-	}
-
-	const UniquePointer<sf::Vector2f>& Collider::GetNormals() const
-	{
-		return m_Normals;
-	}
-
-	UniquePointer<sf::Vector2f> Collider::GetOffsetVertices() const
+	UniquePointer<sf::Vector2f> Collider::GetVertices() const
 	{
 		UniquePointer<sf::Vector2f> vertices(PartitionArray(sf::Vector2f, m_VertexCount));
 
@@ -129,18 +110,9 @@ namespace Soul
 		return std::move(vertices);
 	}
 
-	UniquePointer<sf::Vector2f> Collider::GetOffsetNormals() const
+	sf::Vector2f Collider::GetCenter() const
 	{
-		UniquePointer<sf::Vector2f> normals(PartitionArray(sf::Vector2f, m_VertexCount));
-
-		// TODO: Include rotation
-
-		for (unsigned int i = 0; i < m_VertexCount; ++i)
-		{
-			normals[i] = m_Normals[i];
-		}
-
-		return std::move(normals);
+		return m_Center + m_AffectedEntity->getPosition();
 	}
 
 	const char* Collider::GetType() const

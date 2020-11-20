@@ -24,16 +24,16 @@ namespace Soul
 		{
 			m_Colliders[i].Element.Update(dt);
 			
-			UniquePointer<sf::Vector2f> verticesA(m_Colliders[i].Element.GetOffsetVertices());
+			UniquePointer<sf::Vector2f> verticesA(m_Colliders[i].Element.GetVertices());
 			unsigned int vertexCountA = m_Colliders[i].Element.GetVertexCount();
 
 			for (unsigned int j = i + 1; j < m_Colliders.Count(); ++j)
 			{
-				UniquePointer<sf::Vector2f> verticesB(m_Colliders[j].Element.GetOffsetVertices());
+				UniquePointer<sf::Vector2f> verticesB(m_Colliders[j].Element.GetVertices());
 				unsigned int vertexCountB = m_Colliders[j].Element.GetVertexCount();
 
 				bool firstPolygon;
-				sf::Vector2f* collidedPoint = MyCollision(verticesA.Raw(), vertexCountA, verticesB.Raw(), vertexCountB, firstPolygon);
+				sf::Vector2f* collidedPoint = MyCollision(verticesA.Raw(), vertexCountA, m_Colliders[i].Element.GetCenter(), verticesB.Raw(), vertexCountB, m_Colliders[j].Element.GetCenter(), firstPolygon);
 
 				if (collidedPoint)
 				{
@@ -58,11 +58,11 @@ namespace Soul
 		}
 	}
 
-	sf::Vector2f* PhysicsSystem::MyCollision(sf::Vector2f* polygonA, unsigned int vertexCountA, sf::Vector2f* polygonB, unsigned int vertexCountB, bool& firstPolygon)
+	sf::Vector2f* PhysicsSystem::MyCollision(sf::Vector2f* polygonA, unsigned int vertexCountA, const sf::Vector2f& centerA, sf::Vector2f* polygonB, unsigned int vertexCountB, const sf::Vector2f& centerB, bool& firstPolygon)
 	{
 		for (unsigned int i = 0; i < vertexCountA; ++i)
 		{
-			if (Math::IsPointInPolygon(polygonA[i], polygonB, vertexCountB))
+			if (Math::IsPointInPolygon(polygonA[i], polygonB, vertexCountB, centerB))
 			{
 				firstPolygon = true;
 				return &polygonA[i];
@@ -71,7 +71,7 @@ namespace Soul
 
 		for (unsigned int i = 0; i < vertexCountB; ++i)
 		{
-			if (Math::IsPointInPolygon(polygonB[i], polygonA, vertexCountA))
+			if (Math::IsPointInPolygon(polygonB[i], polygonA, vertexCountA, centerA))
 			{
 				firstPolygon = false;
 				return &polygonB[i];

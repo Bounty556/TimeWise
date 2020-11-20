@@ -32,13 +32,9 @@ namespace Soul
 
 		// Getters
 
-		const UniquePointer<sf::Vector2f>& GetVertices() const;
+		UniquePointer<sf::Vector2f> GetVertices() const;
 
-		const UniquePointer<sf::Vector2f>& GetNormals() const;
-
-		UniquePointer<sf::Vector2f> GetOffsetVertices() const;
-
-		UniquePointer<sf::Vector2f> GetOffsetNormals() const;
+		sf::Vector2f GetCenter() const;
 
 		virtual const char* GetType() const override;
 
@@ -55,7 +51,7 @@ namespace Soul
 	private:
 		unsigned int m_VertexCount;
 		UniquePointer<sf::Vector2f> m_Vertices;
-		UniquePointer<sf::Vector2f> m_Normals;
+		sf::Vector2f m_Center;
 		CollisionHandler* m_Handler;
 		bool m_IsSolid;
 		float m_Bounciness;

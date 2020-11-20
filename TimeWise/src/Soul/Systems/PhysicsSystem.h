@@ -22,7 +22,7 @@ namespace Soul
 		void Update(float dt, Context& context);
 
 	private:
-		sf::Vector2f* MyCollision(sf::Vector2f* polygonA, unsigned int vertexCountA, sf::Vector2f* polygonB, unsigned int vertexCountB, bool& firstPolygon);
+		sf::Vector2f* MyCollision(sf::Vector2f* polygonA, unsigned int vertexCountA, const sf::Vector2f& centerA, sf::Vector2f* polygonB, unsigned int vertexCountB, const sf::Vector2f& centerB, bool& firstPolygon);
 
 		bool SATCollision(unsigned int normalCount, unsigned int vertexCountA, unsigned int vertexCountB, const UniquePointer<sf::Vector2f>& normals, const UniquePointer<sf::Vector2f>& verticesA, const UniquePointer<sf::Vector2f>& verticesB);
 

@@ -169,17 +169,8 @@ namespace Soul
 		-Send a precomputed center
 		-Don't check for collisions if the point is not closer than the furthest vertex from the center
 		*/
-		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount)
+		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount, const sf::Vector2f& center)
 		{
-			// Find center of polygon
-			sf::Vector2f center(0.0f, 0.0f);
-			for (unsigned int i = 0; i < vertexCount; ++i)
-			{
-				center += polygon[i];
-			}
-
-			center = center / (float)vertexCount;
-
 			for (unsigned int i = 0; i < vertexCount; ++i)
 			{
 				sf::Vector2f pointToSegment = polygon[i] - point;

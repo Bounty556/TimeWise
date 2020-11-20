@@ -12,11 +12,6 @@ namespace Soul
 	{
 		if (collider.IsSolid())
 		{
-			// TODO: Factor mass
-			sf::Vector2f totalForce = collider.GetVelocity() - m_AffectedEntity->GetVelocity();
-
-
-
 			m_AffectedEntity->move(correction);
 			m_AffectedEntity->SetVelocity(0.0f, 0.0f);
 		}
@@ -24,6 +19,8 @@ namespace Soul
 
 	void Rigidbody::Update(float dt)
 	{
+		// TODO: Calculate actual drag and gravity
+
 		// Apply gravity
 		m_AffectedEntity->Accelerate(0.0f, 0.0005f * dt);
 

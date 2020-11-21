@@ -14,6 +14,10 @@ namespace Soul
 
 		rb->SetCollider(col);
 
+		col->SetMass(5.0f);
+		col->SetBounciness(0.1f);
+		col->SetFriction(0.45f);
+
 		AddComponent(rb);
 		AddComponent(col);
 	}

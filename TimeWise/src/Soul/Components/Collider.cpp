@@ -90,9 +90,9 @@ namespace Soul
 		m_Handler = handler;
 	}
 
-	void Collider::SetIsSolid(bool isSolid)
+	void Collider::SetMass(float mass)
 	{
-		m_IsSolid = isSolid;
+		m_Mass = mass;
 	}
 
 	void Collider::SetBounciness(float bounciness)
@@ -103,6 +103,11 @@ namespace Soul
 	void Collider::SetFriction(float friction)
 	{
 		m_Friction = friction;
+	}
+
+	void Collider::SetIsSolid(bool isSolid)
+	{
+		m_IsSolid = isSolid;
 	}
 
 	UniquePointer<sf::Vector2f> Collider::GetVertices() const

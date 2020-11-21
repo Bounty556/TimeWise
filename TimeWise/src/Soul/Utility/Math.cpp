@@ -111,8 +111,8 @@ namespace Soul
 		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2)
 		{
 			sf::Vector2f diff(vertex1 - vertex2);
-			float mag = Sqrt(diff.x * diff.x + diff.y * diff.y);
-			if (mag == 0)
+			float mag = Magnitude(diff);
+			if (mag == 0.0f)
 			{
 				return sf::Vector2f(0, 0);
 			}
@@ -125,9 +125,31 @@ namespace Soul
 			return sf::Vector2f(-vector.y, vector.x);
 		}
 
+		sf::Vector2f Project(const sf::Vector2f& point, const sf::Vector2f& line)
+		{
+			float dot = Dot(line, line);
+
+			if (dot == 0.0f)
+			{
+				return sf::Vector2f(0.0f, 0.0f);
+			}
+
+			return line * (Dot(point, line) / dot);
+		}
+
 		sf::Vector2f Reject(const sf::Vector2f& point, const sf::Vector2f& line)
 		{
-			return point - (line * (Dot(point, line) / Dot(line, line)));
+			return point - Project(point, line);
+		}
+
+		sf::Vector2f Normalize(const sf::Vector2f& vector)
+		{
+			float mag = Magnitude(vector);
+			if (mag == 0.0f)
+			{
+				return sf::Vector2f(0, 0);
+			}
+			return vector / mag;
 		}
 
 		float Magnitude(const sf::Vector2f& vector)

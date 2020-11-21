@@ -26,11 +26,13 @@ namespace Soul
 
 		void SetHandler(CollisionHandler* handler);
 
-		void SetIsSolid(bool isSolid);
+		void SetMass(float mass);
 
 		void SetBounciness(float bounciness);
 
 		void SetFriction(float friction);
+
+		void SetIsSolid(bool isSolid);
 
 		// Getters
 

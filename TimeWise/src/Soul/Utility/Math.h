@@ -60,10 +60,20 @@ namespace Soul
 		sf::Vector2f Perpendicular(const sf::Vector2f& vector);
 
 		/*
+		Calculates the projection of the point onto the provided line.
+		*/
+		sf::Vector2f Project(const sf::Vector2f& point, const sf::Vector2f& line);
+
+		/*
 		Calculates the direction from the point to the nearest point on the
 		line.
 		*/
 		sf::Vector2f Reject(const sf::Vector2f& point, const sf::Vector2f& line);
+
+		/*
+		Returns the unit vector of the provided vector.
+		*/
+		sf::Vector2f Normalize(const sf::Vector2f& vector);
 
 		/*
 		Calculates the magnitude of the provided vector.

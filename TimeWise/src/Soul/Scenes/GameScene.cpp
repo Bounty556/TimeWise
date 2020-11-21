@@ -9,13 +9,13 @@ namespace Soul
 	GameScene::GameScene(Context& context) :
 		m_Entity1(context),
 		m_Entity2(context),
-		m_Entity3(context)
+		m_Entity3(context),
+		m_Entity4(context)
 	{
-		m_Entity1.setPosition(500.0f, 50.0f);
-		m_Entity2.setPosition(550.0f, 100.0f);
-		m_Entity3.setPosition(50.0f, context.WindowHeight - 100.0f);
-
-		m_Entity2.SetVelocity(0.5f, 0.0f);
+		m_Entity1.setPosition(550.0f, 0.0f);
+		m_Entity2.setPosition(550.0f, 75.0f);
+		m_Entity3.setPosition(-640.0f, context.WindowHeight - 100.0f);
+		m_Entity4.setPosition(560.0f, context.WindowHeight - 100.0f);
 	}
 
 	void GameScene::Update(float dt, Context& context)

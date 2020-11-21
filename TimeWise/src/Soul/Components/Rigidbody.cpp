@@ -23,7 +23,7 @@ namespace Soul
 			sf::Vector2f finalForce(-normalForce);
 
 			// Add bounce force
-			finalForce -= normalForce * Math::Max(m_Collider->GetBounciness() - collider.GetBounciness(), 0.0f);
+			finalForce -= normalForce * Math::Max(m_Collider->GetBounciness() + collider.GetBounciness() / 2.0f, 0.0f);
 
 			// Add frictional force
 			sf::Vector2f frictionalForce = Math::Magnitude(normalForce * (m_Collider->GetFriction() * collider.GetFriction() / 2.0f)) * Math::Normalize(rejectionForce);

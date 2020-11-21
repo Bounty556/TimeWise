@@ -188,8 +188,8 @@ namespace Soul
 
 		/*
 		TODO: Potential optimizations
-		-Don't check for collisions if the point is not closer than the furthest vertex from the center
 		-Precalculate normals
+		TODO: Fix point on line intersection
 		*/
 		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount, const sf::Vector2f& center)
 		{

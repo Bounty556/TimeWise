@@ -19,6 +19,5 @@ namespace Soul
 	private:
 		sf::Sprite m_Sprite;
 		float m_MoveSpeed;
-		float m_JumpStrength;
 	};
 }

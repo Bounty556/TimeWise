@@ -186,35 +186,6 @@ namespace Soul
 			}
 		}
 
-		/*
-		TODO: Potential optimizations
-		-Precalculate normals
-		TODO: Fix point on line intersection
-		*/
-		bool IsPointInPolygon(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount, const sf::Vector2f& center)
-		{
-			sf::Vector2f pointToSegment;
-			sf::Vector2f centerToSegment;
-			sf::Vector2f perpSegment;
-
-			for (unsigned int i = 0; i < vertexCount; ++i)
-			{
-				pointToSegment = polygon[i] - point;
-				centerToSegment = polygon[i] - center;
-				perpSegment = Perpendicular(polygon[(i + 1) % vertexCount] - polygon[i]);
-
-				float a = Dot(pointToSegment, perpSegment);
-				float b = Dot(centerToSegment, perpSegment);
-
-				if ((a > 0 && b < 0) || (a < 0 && b > 0))
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
 		sf::Vector2f CorrectionVector(const sf::Vector2f& point, sf::Vector2f* polygon, unsigned int vertexCount)
 		{
 			sf::Vector2f smallest;

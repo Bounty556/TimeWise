@@ -21,7 +21,7 @@ namespace Soul
 		
 		m_Window = Partition(sf::RenderWindow, sf::VideoMode(1280, 720), "TimeWise", sf::Style::Close);
 
-		m_DebugDrawer = Partition(DebugDrawer, 32);
+		m_DebugDrawer = Partition(DebugDrawer, 64);
 		m_FontManager = Partition(FontManager, 4);
 		m_SoundManager = Partition(SoundManager, 8);
 		m_TextureManager = Partition(TextureManager, 16);

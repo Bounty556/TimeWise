@@ -4,7 +4,7 @@
 
 namespace Soul
 {
-	Rigidbody::Rigidbody(Entity* entity, bool isSolid, float bounciness, float friction) :
+	Rigidbody::Rigidbody(Entity* entity) :
 		CollisionHandler(entity)
 	{
 

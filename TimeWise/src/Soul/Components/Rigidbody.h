@@ -8,7 +8,7 @@ namespace Soul
 	class Rigidbody : public CollisionHandler
 	{
 	public:
-		Rigidbody(Entity* entity, bool isSolid, float bounciness, float friction);
+		Rigidbody(Entity* entity);
 
 		/*
 		To be called from the entity's collider component. Sets Entity's velocity appropriately

@@ -9,7 +9,7 @@ namespace Soul
 	TestEntity::TestEntity(Context& context) :
 		Entity(context)
 	{
-		Rigidbody* rb = Partition(Rigidbody, this, true, 0.0f, 0.5f);
+		Rigidbody* rb = Partition(Rigidbody, this);
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 3, sf::Vector2f(-20.0f, -20.0f), sf::Vector2f(20.0f, -20.0f), sf::Vector2f(0.0f, 20.0f));
 
 		rb->SetCollider(col);

@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+#include <Entities/PlayerEntity.h>
 #include <Entities/TestEntity.h>
 #include <Entities/TestEntity2.h>
 #include <Scenes/Scene.h>
@@ -25,5 +26,6 @@ namespace Soul
 		TestEntity m_Entity2;
 		TestEntity2 m_Entity3;
 		TestEntity2 m_Entity4;
+		PlayerEntity m_Player;
 	};
 }

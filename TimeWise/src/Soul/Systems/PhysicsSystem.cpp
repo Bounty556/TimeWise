@@ -2,6 +2,7 @@
 
 #include <Structures/CommandQueue.h>
 #include <Utility/Math.h>
+#include <Utility/Simplex.h>
 
 namespace Soul
 {

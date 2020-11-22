@@ -4,6 +4,7 @@
 
 #include <Components/Collider.h>
 #include <Structures/ObjectPool.h>
+#include <Utility/Simplex.h>
 
 namespace Soul
 {
@@ -22,7 +23,8 @@ namespace Soul
 		void Update(float dt, Context& context);
 
 	private:
-		
+		sf::Vector2f CheckColliding(const Collider& a, const Collider& b);
+		sf::Vector2f Support(const Collider& a, const Collider& b, sf::Vector2f& direction);
 
 	private:
 		ObjectPool<Collider> m_Colliders;

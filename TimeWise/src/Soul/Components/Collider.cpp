@@ -179,14 +179,19 @@ namespace Soul
 	sf::Vector2f Collider::FarthestVertex(const sf::Vector2f& direction) const
 	{
 		sf::Vector2f vertex(0.0f, 0.0f);
+		sf::Vector2f offset(0.0f, 0.0f);
+		if (m_AffectedEntity)
+		{
+			offset = m_AffectedEntity->getPosition();
+		}
 		unsigned int magnitude = 0;
 
 		for (unsigned int i = 0; i < m_VertexCount; ++i)
 		{
-			unsigned int mag = Math::Dot(direction, m_Vertices[i]);
+			unsigned int mag = Math::Dot(direction, m_Vertices[i] + offset);
 			if (mag > magnitude)
 			{
-				vertex = m_Vertices[i];
+				vertex = m_Vertices[i] + offset;
 				magnitude = mag;
 			}
 		}

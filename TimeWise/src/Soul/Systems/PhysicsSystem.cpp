@@ -27,11 +27,10 @@ namespace Soul
 
 			for (unsigned int j = i + 1; j < m_Colliders.Count(); ++j)
 			{
-				sf::Vector2f correction = CheckColliding(m_Colliders[i].Element, m_Colliders[j].Element);
-
-				if (Math::Magnitude(correction) > 0)
+				sf::Vector2f correction;
+				if (CheckColliding(m_Colliders[i].Element, m_Colliders[j].Element, correction))
 				{
-					SoulLogInfo("Colliding!");
+					SoulLogInfo("Colliding");
 				}
 			}
 
@@ -39,9 +38,31 @@ namespace Soul
 		}
 	}
 
-	sf::Vector2f PhysicsSystem::CheckColliding(const Collider& a, const Collider& b)
+	bool PhysicsSystem::CheckColliding(const Collider& a, const Collider& b, sf::Vector2f& correction)
 	{
 		sf::Vector2f direction(1.0f, 0.0f);
+		Simplex simplex;
+		unsigned int maxAttempts = 50;
+
+		sf::Vector2f support(Support(a, b, direction));
+		simplex.AddVertex(support);
+		direction = -support;
+
+		for (unsigned int i = 0; i < maxAttempts; ++i)
+		{
+			support = Support(a, b, direction);
+			if (Math::Dot(support, direction) < 0)
+			{
+				return false;
+			}
+			simplex.AddVertex(support);
+			if (simplex.DoSimplex(direction))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	sf::Vector2f PhysicsSystem::Support(const Collider& a, const Collider& b, sf::Vector2f& direction)

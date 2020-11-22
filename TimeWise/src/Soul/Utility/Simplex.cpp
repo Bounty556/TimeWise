@@ -13,7 +13,7 @@ namespace Soul
 
 	void Simplex::AddVertex(sf::Vector2f vertex)
 	{
-
+		m_Vertices[m_VertexCount++] = vertex;
 	}
 
 	bool Simplex::DoSimplex(sf::Vector2f& direction)

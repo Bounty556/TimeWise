@@ -4,7 +4,6 @@
 
 #include <Components/Collider.h>
 #include <Structures/ObjectPool.h>
-#include <Utility/Simplex.h>
 
 namespace Soul
 {

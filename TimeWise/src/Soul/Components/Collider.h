@@ -56,6 +56,8 @@ namespace Soul
 
 		float GetRadius() const;
 
+		sf::Vector2f FarthestVertex(const sf::Vector2f& direction) const;
+
 	private:
 		unsigned int m_VertexCount;
 		UniquePointer<sf::Vector2f> m_Vertices;

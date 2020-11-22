@@ -175,4 +175,22 @@ namespace Soul
 	{
 		return m_Radius;
 	}
+
+	sf::Vector2f Collider::FarthestVertex(const sf::Vector2f& direction) const
+	{
+		sf::Vector2f vertex(0.0f, 0.0f);
+		unsigned int magnitude = 0;
+
+		for (unsigned int i = 0; i < m_VertexCount; ++i)
+		{
+			unsigned int mag = Math::Dot(direction, m_Vertices[i]);
+			if (mag > magnitude)
+			{
+				vertex = m_Vertices[i];
+				magnitude = mag;
+			}
+		}
+
+		return vertex;
+	}
 }

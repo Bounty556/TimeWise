@@ -42,6 +42,16 @@ namespace Soul
 		void Pop();
 
 		/*
+		Inserts an element at the given index.
+		*/
+		void Insert(unsigned int index, T& element);
+
+		/*
+		Inserts an element at the given index.
+		*/
+		void Insert(unsigned int index, T&& element);
+
+		/*
 		Returns the element at the end of this vector without removing it.
 		*/
 		const T& Peek() const;
@@ -148,6 +158,52 @@ namespace Soul
 		m_Count--;
 		m_Memory[m_Count].~T();
 		memset(&(m_Memory[m_Count]), 0, sizeof(T));
+	}
+
+	template <class T>
+	void Vector<T>::Insert(unsigned int index, T& element)
+	{
+		if (index > m_Count)
+		{
+			SoulLogWarning("Index out of bounds during vector insertion");
+			return;
+		}
+
+		// Check to see if increasing our count hits our capacity limit.
+		if (m_Count == m_Capacity)
+		{
+			Resize(m_Capacity * 2);
+		}
+
+		for (unsigned int i = m_Count; i > index; --i)
+		{
+			new (&m_Memory[i]) T(std::move(m_Memory[i - 1]));
+		}
+
+		new (&m_Memory[index]) T(std::move(element));
+	}
+
+	template <class T>
+	void Vector<T>::Insert(unsigned int index, T&& element)
+	{
+		if (index > m_Count)
+		{
+			SoulLogWarning("Index out of bounds during vector insertion");
+			return;
+		}
+
+		// Check to see if increasing our count hits our capacity limit.
+		if (m_Count == m_Capacity)
+		{
+			Resize(m_Capacity * 2);
+		}
+
+		for (unsigned int i = m_Count; i > index; --i)
+		{
+			new (&m_Memory[i]) T(std::move(m_Memory[i - 1]));
+		}
+
+		new (&m_Memory[index]) T(std::move(element));
 	}
 
 	template <class T>

@@ -2,6 +2,7 @@
 
 #include <Structures/CommandQueue.h>
 #include <Structures/Set.h>
+#include <Utility/ConvexHull.h>
 #include <Utility/Math.h>
 #include <Utility/Simplex.h>
 
@@ -73,6 +74,8 @@ namespace Soul
 				{
 					minkowski.Add(bVertices[j]);
 				}
+
+				ConvexHull hull(minkowski);
 
 				return true;
 			}

@@ -5,21 +5,21 @@
 
 namespace Soul
 {
-	ConvexHull::ConvexHull(const UniquePointer<sf::Vector2f>& vertices, unsigned int vertexCount) :
+	ConvexHull::ConvexHull(const Set<sf::Vector2f>& vertices) :
 		m_Vertices(nullptr)
 	{
-		GenerateHull(vertices, vertexCount);
+		GenerateHull(vertices);
 	}
 
-	void ConvexHull::GenerateHull(const UniquePointer<sf::Vector2f>& vertices, unsigned int vertexCount)
+	void ConvexHull::GenerateHull(const Set<sf::Vector2f>& vertices)
 	{
-		Vector<sf::Vector2f> tempVertices(vertexCount);
+		Vector<sf::Vector2f> tempVertices(vertices.Length());
 		unsigned int hullVertices = 0;
 
 		// Find min and max x vertices
 		sf::Vector2f minX(9999999.0f, 9999999.0f);
 		sf::Vector2f maxX(-9999999.0f, -9999999.0f);
-		for (unsigned int i = 0; i < vertexCount; ++i)
+		for (unsigned int i = 0; i < vertices.Length(); ++i)
 		{
 			if (vertices[i].x < minX.x)
 			{
@@ -53,7 +53,7 @@ namespace Soul
 			float magnitude = 0.0f;
 			sf::Vector2f point;
 
-			for (unsigned int i = 0; i < vertexCount; ++i)
+			for (unsigned int i = 0; i < vertices.Length(); ++i)
 			{
 				float mag = Math::Dot(vertices[i] - m_Vertices[currentVertex], direction);
 				if (mag > magnitude)

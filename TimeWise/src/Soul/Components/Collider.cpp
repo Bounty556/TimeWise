@@ -184,11 +184,11 @@ namespace Soul
 		{
 			offset = m_AffectedEntity->getPosition();
 		}
-		unsigned int magnitude = 0;
+		float magnitude = -99999999.0f;
 
 		for (unsigned int i = 0; i < m_VertexCount; ++i)
 		{
-			unsigned int mag = Math::Dot(direction, m_Vertices[i] + offset);
+			float mag = Math::Dot(direction, m_Vertices[i] + offset);
 			if (mag > magnitude)
 			{
 				vertex = m_Vertices[i] + offset;

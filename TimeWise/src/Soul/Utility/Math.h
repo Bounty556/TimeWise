@@ -50,12 +50,14 @@ namespace Soul
 		float Sqrt(float number);
 
 		/*
-		Calculates the normal of the provided vertices.
+		Calculates the normal of the provided vertices. This will always be
+		a "left" normal.
 		*/
 		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2);
 
 		/*
-		Calculates the vector perpendicular to the given vector.
+		Calculates the vector perpendicular to the given vector. This will
+		always point "left" of the given vector.
 		*/
 		sf::Vector2f Perpendicular(const sf::Vector2f& vector);
 

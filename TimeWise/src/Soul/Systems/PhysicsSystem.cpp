@@ -77,6 +77,11 @@ namespace Soul
 
 				ConvexHull hull(minkowski);
 
+				float edgeDistance;
+				sf::Vector2f edgeNormal;
+				
+				// TODO: http://www.dyn4j.org/2010/05/epa-expanding-polytope-algorithm/
+
 				return true;
 			}
 		}

@@ -177,10 +177,14 @@ namespace Soul
 
 		for (unsigned int i = m_Count; i > index; --i)
 		{
+			memset(&m_Memory[i], 0, sizeof(T));
 			new (&m_Memory[i]) T(std::move(m_Memory[i - 1]));
 		}
 
+
+		memset(&m_Memory[index], 0, sizeof(T));
 		new (&m_Memory[index]) T(std::move(element));
+		++m_Count;
 	}
 
 	template <class T>
@@ -200,10 +204,14 @@ namespace Soul
 
 		for (unsigned int i = m_Count; i > index; --i)
 		{
+			memset(&m_Memory[i], 0, sizeof(T));
 			new (&m_Memory[i]) T(std::move(m_Memory[i - 1]));
 		}
 
+
+		memset(&m_Memory[index], 0, sizeof(T));
 		new (&m_Memory[index]) T(std::move(element));
+		++m_Count;
 	}
 
 	template <class T>

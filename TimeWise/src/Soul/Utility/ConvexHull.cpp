@@ -46,7 +46,7 @@ namespace Soul
 		unsigned int currentVertex = 0;
 		while (true)
 		{
-			sf::Vector2f line(m_Vertices[(currentVertex + 1) % tempVertices.Length()] - m_Vertices[currentVertex]);
+			sf::Vector2f line(tempVertices[(currentVertex + 1) % tempVertices.Length()] - tempVertices[currentVertex]);
 			sf::Vector2f direction = Math::Perpendicular(line);
 
 			bool found = false;
@@ -55,7 +55,7 @@ namespace Soul
 
 			for (unsigned int i = 0; i < vertices.Length(); ++i)
 			{
-				float mag = Math::Dot(vertices[i] - m_Vertices[currentVertex], direction);
+				float mag = Math::Dot(vertices[i] - tempVertices[currentVertex], direction);
 				if (mag > magnitude)
 				{
 					magnitude = mag;

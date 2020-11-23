@@ -1,6 +1,7 @@
 #include "PhysicsSystem.h"
 
 #include <Structures/CommandQueue.h>
+#include <Structures/Set.h>
 #include <Utility/Math.h>
 #include <Utility/Simplex.h>
 
@@ -58,6 +59,21 @@ namespace Soul
 			simplex.AddVertex(support);
 			if (simplex.DoSimplex(direction))
 			{
+				// Calculate Minkowski difference
+				Set<sf::Vector2f> minkowski(a.GetVertexCount() * b.GetVertexCount());
+				UniquePointer<sf::Vector2f> aVertices(std::move(a.GetVertices()));
+				UniquePointer<sf::Vector2f> bVertices(std::move(b.GetVertices()));
+
+				for (unsigned int j = 0; j < a.GetVertexCount(); ++j)
+				{
+					minkowski.Add(aVertices[j]);
+				}
+
+				for (unsigned int j = 0; j < b.GetVertexCount(); ++j)
+				{
+					minkowski.Add(bVertices[j]);
+				}
+
 				return true;
 			}
 		}

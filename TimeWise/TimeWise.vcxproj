@@ -203,6 +203,7 @@
     <ClInclude Include="src\Soul\Scenes\SceneManager.h" />
     <ClInclude Include="src\Soul\Strings\StringReader.h" />
     <ClInclude Include="src\Soul\Structures\ObjectPool.h" />
+    <ClInclude Include="src\Soul\Structures\Set.h" />
     <ClInclude Include="src\Soul\Systems\PhysicsSystem.h" />
     <ClInclude Include="src\Soul\Tests\CommandQueueTests.h" />
     <ClInclude Include="src\Soul\Tests\ControlsFileTests.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="src\Soul\UI\UIComponent.h" />
     <ClInclude Include="src\Soul\UI\UIContainer.h" />
     <ClInclude Include="src\Soul\Utility\Context.h" />
+    <ClInclude Include="src\Soul\Utility\ConvexHull.h" />
     <ClInclude Include="src\Soul\Utility\Handle.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
@@ -393,6 +395,7 @@
     <ClCompile Include="src\Soul\UI\UIButton.cpp" />
     <ClCompile Include="src\Soul\UI\UIComponent.cpp" />
     <ClCompile Include="src\Soul\UI\UIContainer.cpp" />
+    <ClCompile Include="src\Soul\Utility\ConvexHull.cpp" />
     <ClCompile Include="src\Soul\Utility\Handle.cpp" />
     <ClCompile Include="src\Soul\Utility\Hashes.cpp" />
     <ClCompile Include="src\Soul\Structures\Vector.h" />

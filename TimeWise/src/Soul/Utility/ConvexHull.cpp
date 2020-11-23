@@ -46,6 +46,7 @@ namespace Soul
 		unsigned int currentVertex = 0;
 		while (true)
 		{
+			// Find any vertices that are on the "left" side of this vector
 			sf::Vector2f line(tempVertices[(currentVertex + 1) % tempVertices.Length()] - tempVertices[currentVertex]);
 			sf::Vector2f direction = Math::Perpendicular(line);
 

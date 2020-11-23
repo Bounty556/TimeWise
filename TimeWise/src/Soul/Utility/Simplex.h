@@ -12,7 +12,7 @@ namespace Soul
 
 		void AddVertex(sf::Vector2f vertex);
 
-		bool DoSimplex(sf::Vector2f& direction);
+		bool DoGJK(sf::Vector2f& direction);
 
 	private:
 		UniquePointer<sf::Vector2f> m_Vertices;

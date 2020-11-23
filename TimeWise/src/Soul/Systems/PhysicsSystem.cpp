@@ -48,7 +48,7 @@ namespace Soul
 
 		sf::Vector2f support(Support(a, b, direction));
 		simplex.AddVertex(support);
-		direction = -support;
+		direction = Math::Normalize(-support);
 
 		for (unsigned int i = 0; i < maxAttempts; ++i)
 		{
@@ -58,7 +58,7 @@ namespace Soul
 				return false;
 			}
 			simplex.AddVertex(support);
-			if (simplex.DoSimplex(direction))
+			if (simplex.DoGJK(direction))
 			{
 				// Calculate Minkowski difference
 				Set<sf::Vector2f> minkowski(a.GetVertexCount() * b.GetVertexCount());

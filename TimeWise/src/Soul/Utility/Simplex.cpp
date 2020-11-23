@@ -16,13 +16,13 @@ namespace Soul
 		m_Vertices[m_VertexCount++] = vertex;
 	}
 
-	bool Simplex::DoSimplex(sf::Vector2f& direction)
+	bool Simplex::DoGJK(sf::Vector2f& direction)
 	{
 		switch (m_VertexCount)
 		{
 			case 1:
 			{
-				direction = -m_Vertices[0];
+				direction = Math::Normalize(-m_Vertices[0]);
 			} break;
 
 			case 2:
@@ -36,18 +36,18 @@ namespace Soul
 
 					if (Math::Dot(perp, m_Vertices[1]) < 0)
 					{
-						direction = perp;
+						direction = Math::Normalize(perp);
 					}
 					else
 					{
-						direction = -perp;
+						direction = Math::Normalize(-perp);
 					}
 				}
 				else
 				{
 					// We're somewhere past the last found vertex, search in the direction of the
 					// origin.
-					direction = -m_Vertices[1];
+					direction = Math::Normalize(-m_Vertices[1]);
 				}
 			} break;
 
@@ -63,7 +63,7 @@ namespace Soul
 				// with only the last vertex as the starting point.
 				m_VertexCount = 1;
 				m_Vertices[0] = m_Vertices[2];
-				direction = -m_Vertices[0];
+				direction = Math::Normalize(-m_Vertices[0]);
 			} break;
 		}
 

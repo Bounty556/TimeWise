@@ -13,6 +13,10 @@ namespace Soul
 		ConvexHull(const Set<sf::Vector2f>& vertices);
 
 	private:
+		/*
+		Generates a hull from the provided set of points using the quickhull
+		algorithm.
+		*/
 		void GenerateHull(const Set<sf::Vector2f>& vertices);
 		
 	private:

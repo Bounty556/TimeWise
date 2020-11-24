@@ -53,11 +53,17 @@ namespace Soul
 		Calculates the normal of the provided vertices. This will always be
 		a "left" normal.
 		*/
-		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2);
+		sf::Vector2f Normal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2);
+
+		/*
+		Calculates the normal of the provided line. This will always be
+		a "left" normal in worldspace.
+		*/
+		sf::Vector2f Normal(const sf::Vector2f& vertex1);
 
 		/*
 		Calculates the vector perpendicular to the given vector. This will
-		always point "left" of the given vector.
+		always point "left" of the given vector in worldspace.
 		*/
 		sf::Vector2f Perpendicular(const sf::Vector2f& vector);
 

@@ -257,6 +257,7 @@ namespace Soul
 	void Vector<T>::Clear()
 	{
 		m_Memory = PartitionArray(T, m_Capacity);
+		m_Count = 0;
 	}
 
 	template <class T>

@@ -50,7 +50,8 @@ namespace Soul
 		simplex.AddVertex(support);
 		direction = Math::Normalize(-support);
 
-		for (unsigned int i = 0; i < maxAttempts; ++i)
+		//for (unsigned int i = 0; i < maxAttempts; ++i)
+		while (true)
 		{
 			support = Support(a, b, direction);
 			if (Math::Dot(support, direction) < 0)
@@ -60,29 +61,29 @@ namespace Soul
 			simplex.AddVertex(support);
 			if (simplex.DoGJK(direction))
 			{
-				// Calculate Minkowski difference
-				Set<sf::Vector2f> minkowski(a.GetVertexCount() * b.GetVertexCount());
-				UniquePointer<sf::Vector2f> aVertices(std::move(a.GetVertices()));
-				UniquePointer<sf::Vector2f> bVertices(std::move(b.GetVertices()));
-
-				for (unsigned int j = 0; j < a.GetVertexCount(); ++j)
-				{
-					minkowski.Add(aVertices[j]);
-				}
-
-				for (unsigned int j = 0; j < b.GetVertexCount(); ++j)
-				{
-					minkowski.Add(bVertices[j]);
-				}
-
-				ConvexHull hull(minkowski);
-
 				float edgeDistance;
 				sf::Vector2f edgeNormal;
+				unsigned int edgeIndex;
+				while (false)
+				{
+					simplex.FindClosestEdge(edgeNormal, edgeDistance, edgeIndex, sf::Vector2f(0.0f, 0.0f));
 
-				simplex.FindClosestEdge(edgeNormal, edgeDistance, sf::Vector2f(0.0f, 0.0f));
+					support = Support(a, b, edgeNormal); // Search in the direction of the edge normal
 
-				return true;
+					// Check to see if this support is on the closest edge.
+					float supportDistance = Math::Dot(support, edgeNormal);
+					if (supportDistance - edgeDistance < .00001f)
+					{
+						// If this is the case, then we have found our solution.
+						correction = edgeDistance * edgeNormal;
+						return true;
+					}
+					else
+					{
+						// Add this point to our simplex and continue the search.
+						simplex.InsertVertex(edgeIndex, support);
+					}
+				}
 			}
 		}
 

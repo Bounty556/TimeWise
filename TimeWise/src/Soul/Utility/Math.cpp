@@ -3,6 +3,8 @@
 #include <cstring>
 #include <new>
 
+#include <Other/Logger.h>
+
 namespace Soul
 {
 	namespace Math
@@ -108,7 +110,7 @@ namespace Soul
 			return *(float*)&i;
 		}
 
-		sf::Vector2f CalculateNormal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2)
+		sf::Vector2f Normal(const sf::Vector2f& vertex1, const sf::Vector2f& vertex2)
 		{
 			sf::Vector2f diff(vertex1 - vertex2);
 			float mag = Magnitude(diff);
@@ -118,6 +120,17 @@ namespace Soul
 			}
 
 			return sf::Vector2f(-diff.y, diff.x) / mag;
+		}
+
+		sf::Vector2f Normal(const sf::Vector2f& line)
+		{
+			float mag = Magnitude(line);
+			if (mag == 0.0f)
+			{
+				return sf::Vector2f(0, 0);
+			}
+
+			return sf::Vector2f(-line.y, line.x) / mag;
 		}
 
 		sf::Vector2f Perpendicular(const sf::Vector2f& vector)

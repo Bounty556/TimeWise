@@ -64,7 +64,7 @@ namespace Soul
 				float edgeDistance;
 				sf::Vector2f edgeNormal;
 				unsigned int edgeIndex;
-				while (false)
+				while (true)
 				{
 					simplex.FindClosestEdge(edgeNormal, edgeDistance, edgeIndex, sf::Vector2f(0.0f, 0.0f));
 

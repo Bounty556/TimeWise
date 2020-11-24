@@ -67,6 +67,11 @@ namespace Soul
 		*/
 		unsigned int Length() const;
 
+		/*
+		Removes all elements from this Vector.
+		*/
+		void Clear();
+
 	private:
 		void Resize(unsigned int newCapacity);
 
@@ -246,6 +251,12 @@ namespace Soul
 	unsigned int Vector<T>::Length() const
 	{
 		return m_Count;
+	}
+
+	template <class T>
+	void Vector<T>::Clear()
+	{
+		m_Memory = PartitionArray(T, m_Capacity);
 	}
 
 	template <class T>

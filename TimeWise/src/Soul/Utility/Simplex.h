@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
-#include <Memory/UniquePointer.h>
+#include <Structures/Set.h>
 
 namespace Soul
 {
@@ -14,8 +14,9 @@ namespace Soul
 
 		bool DoGJK(sf::Vector2f& direction);
 
+		void FindClosestEdge(sf::Vector2f& edgeNormal, float& edgeDistance, const sf::Vector2f& point) const;
+
 	private:
-		UniquePointer<sf::Vector2f> m_Vertices;
-		unsigned int m_VertexCount;
+		Set<sf::Vector2f> m_Vertices;
 	};
 }

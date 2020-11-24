@@ -24,6 +24,11 @@ namespace Soul
 		void Add(T& element);
 
 		/*
+		Removes all elements from this set.
+		*/
+		void Clear();
+
+		/*
 		Gets the current number of elements stored in this Set.
 		*/
 		unsigned int Length() const;
@@ -64,6 +69,12 @@ namespace Soul
 		}
 
 		m_Vector.Push(element);
+	}
+
+	template <class T>
+	void Set<T>::Clear()
+	{
+		m_Vector.Clear();
 	}
 
 	template <class T>

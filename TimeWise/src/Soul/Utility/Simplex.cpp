@@ -5,10 +5,8 @@
 namespace Soul
 {
 	Simplex::Simplex() :
-		m_Vertices(PartitionArray(sf::Vector2f, 3)),
-		m_VertexCount(0)
+		m_Vertices(3)
 	{
-
 	}
 
 	void Simplex::AddVertex(sf::Vector2f vertex)
@@ -68,5 +66,13 @@ namespace Soul
 		}
 
 		return false;
+	}
+
+	void Simplex::FindClosestEdge(sf::Vector2f& edgeNormal, float& edgeDistance, const sf::Vector2f& point) const
+	{
+		for (unsigned int i = 0; i < m_VertexCount; ++i)
+		{
+
+		}
 	}
 }

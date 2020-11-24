@@ -79,8 +79,8 @@ namespace Soul
 
 				float edgeDistance;
 				sf::Vector2f edgeNormal;
-				
-				// TODO: http://www.dyn4j.org/2010/05/epa-expanding-polytope-algorithm/
+
+				simplex.FindClosestEdge(edgeNormal, edgeDistance, sf::Vector2f(0.0f, 0.0f));
 
 				return true;
 			}

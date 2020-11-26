@@ -28,12 +28,12 @@ namespace Soul
 
 	void Entity::Update(float dt)
 	{
+		UpdateSelf(dt);
+
 		Math::Clamp(m_Velocity.x, -1000.0f, 1000.0f);
 		Math::Clamp(m_Velocity.y, -1000.0f, 1000.0f);
 
 		move(m_Velocity * dt);
-
-		UpdateSelf(dt);
 	}
 
 	void Entity::SetVelocity(float dx, float dy)

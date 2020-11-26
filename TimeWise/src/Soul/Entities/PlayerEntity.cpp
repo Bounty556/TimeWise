@@ -14,7 +14,7 @@ namespace Soul
 		Entity(context),
 		m_Sprite(*(m_Context.TextureManager.RequestTexture("res/player.png"))),
 		m_MoveSpeed(0.5f),
-		m_JumpStrength(.75f)
+		m_JumpStrength(1.5f)
 	{
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 4, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(32.0f, 0.0f), sf::Vector2f(32.0f, 64.0f), sf::Vector2f(0.0f, 64.0f));
 		Rigidbody* rb = Partition(Rigidbody, this);

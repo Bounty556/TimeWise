@@ -18,6 +18,8 @@ namespace Soul
 		m_Entity3.setPosition(-640.0f, context.WindowHeight - 100.0f);
 		m_Entity4.setPosition(560.0f, context.WindowHeight - 100.0f);
 		m_Player.setPosition(700.0f, 50.0f);
+		m_Entity3.SetVelocity(-0.1f, 0.0f);
+		m_Entity4.SetVelocity(-0.1f, 0.0f);
 	}
 
 	void GameScene::Update(float dt, Context& context)

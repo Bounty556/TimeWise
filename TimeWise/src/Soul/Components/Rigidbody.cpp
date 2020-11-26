@@ -16,9 +16,8 @@ namespace Soul
 		{
 			m_AffectedEntity->move(correction);
 		
-			sf::Vector2f normalizedCorrection = Math::Normalize(correction);
-			sf::Vector2f normalForce = Math::Project((m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass(), normalizedCorrection);
-			sf::Vector2f rejectionForce = m_AffectedEntity->GetVelocity() * m_Collider->GetMass() - normalForce;
+			sf::Vector2f normalForce = Math::Project((m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass(), correction);
+			sf::Vector2f rejectionForce = (m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass() - normalForce;
 
 			sf::Vector2f finalForce(-normalForce);
 

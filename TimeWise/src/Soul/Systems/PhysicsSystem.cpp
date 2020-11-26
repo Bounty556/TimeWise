@@ -32,8 +32,8 @@ namespace Soul
 				sf::Vector2f correction;
 				if (CheckColliding(m_Colliders[i].Element, m_Colliders[j].Element, correction))
 				{
-					m_Colliders[i].Element.HandleCollision(sf::Vector2f(0.0f, 0.0f), correction, m_Colliders[j].Element);
-					m_Colliders[j].Element.HandleCollision(sf::Vector2f(0.0f, 0.0f), -correction, m_Colliders[i].Element);
+					m_Colliders[i].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), correction, m_Colliders[j].Element);
+					m_Colliders[j].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), -correction, m_Colliders[i].Element);
 				}
 			}
 

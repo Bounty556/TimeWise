@@ -8,7 +8,7 @@ namespace Soul
 
 	}
 
-	void StaticCollider::HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
+	void StaticCollider::HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
 
 	}

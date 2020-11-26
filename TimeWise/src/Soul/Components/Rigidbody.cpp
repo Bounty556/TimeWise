@@ -10,7 +10,7 @@ namespace Soul
 
 	}
 
-	void Rigidbody::HandleCollision(const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
+	void Rigidbody::HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
 		if (collider.IsSolid())
 		{

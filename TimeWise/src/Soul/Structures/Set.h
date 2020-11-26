@@ -24,6 +24,11 @@ namespace Soul
 		void Add(T& element);
 
 		/*
+		Adds a new element to the end of this Set.
+		*/
+		void Add(T&& element);
+
+		/*
 		Inserts a new elements at the provided index.
 		*/
 		void Insert(unsigned int index, T& element);
@@ -64,6 +69,20 @@ namespace Soul
 
 	template <class T>
 	void Set<T>::Add(T& element)
+	{
+		for (unsigned int i = 0; i < m_Vector.Length(); ++i)
+		{
+			if (m_Vector[i] == element)
+			{
+				return;
+			}
+		}
+
+		m_Vector.Push(element);
+	}
+
+	template <class T>
+	void Set<T>::Add(T&& element)
 	{
 		for (unsigned int i = 0; i < m_Vector.Length(); ++i)
 		{

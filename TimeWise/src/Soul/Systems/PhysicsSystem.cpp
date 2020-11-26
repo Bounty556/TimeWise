@@ -32,7 +32,11 @@ namespace Soul
 				sf::Vector2f correction;
 				if (CheckColliding(m_Colliders[i].Element, m_Colliders[j].Element, correction))
 				{
-					SoulLogInfo("Colliding");
+					m_Colliders[i].Element.HandleCollision(sf::Vector2f(0.0f, 0.0f), correction, m_Colliders[j].Element);
+					m_Colliders[j].Element.HandleCollision(sf::Vector2f(0.0f, 0.0f), -correction, m_Colliders[i].Element);
+
+					//SoulLogInfo("Correction vector x: %f y: %f", correction.x, correction.y);
+					//SoulLogInfo("Colliding");
 				}
 			}
 
@@ -50,8 +54,8 @@ namespace Soul
 		simplex.AddVertex(support);
 		direction = Math::Normalize(-support);
 
-		//for (unsigned int i = 0; i < maxAttempts; ++i)
-		while (true)
+		//while (true)
+		for (unsigned int i = 0; i < 25; ++i)
 		{
 			support = Support(a, b, direction);
 			if (Math::Dot(support, direction) < 0)
@@ -61,29 +65,39 @@ namespace Soul
 			simplex.AddVertex(support);
 			if (simplex.DoGJK(direction))
 			{
-				float edgeDistance;
-				sf::Vector2f edgeNormal;
-				unsigned int edgeIndex;
-				while (true)
+				Set<sf::Vector2f> minkowski(a.GetVertexCount() * b.GetVertexCount());
+				UniquePointer<sf::Vector2f> verticesA(std::move(a.GetVertices()));
+				UniquePointer<sf::Vector2f> verticesB(std::move(b.GetVertices()));
+				for (unsigned int i = 0; i < a.GetVertexCount(); ++i)
 				{
-					simplex.FindClosestEdge(edgeNormal, edgeDistance, edgeIndex, sf::Vector2f(0.0f, 0.0f));
-
-					support = Support(a, b, edgeNormal); // Search in the direction of the edge normal
-
-					// Check to see if this support is on the closest edge.
-					float supportDistance = Math::Dot(support, edgeNormal);
-					if (supportDistance - edgeDistance < .00001f)
+					for (unsigned int j = 0; j < b.GetVertexCount(); ++j)
 					{
-						// If this is the case, then we have found our solution.
-						correction = edgeDistance * edgeNormal;
-						return true;
-					}
-					else
-					{
-						// Add this point to our simplex and continue the search.
-						simplex.InsertVertex(edgeIndex, support);
+						minkowski.Add(verticesA[i] - verticesB[j]);
 					}
 				}
+
+				ConvexHull minkowskiHull(minkowski);
+
+				float smallestDistance = 99999999.0f;
+				sf::Vector2f smallestReject;
+
+				// Find the nearest point on the edge of the minkowski 
+				for (unsigned int i = 0; i < minkowskiHull.Length(); ++i)
+				{
+					sf::Vector2f edge = minkowskiHull[(i + 1) % minkowskiHull.Length()]- minkowskiHull[i];
+					sf::Vector2f reject = Math::Reject(-minkowskiHull[i], edge);
+					float distance = Math::Magnitude(reject);
+
+					if (distance < smallestDistance)
+					{
+						smallestDistance = distance;
+						smallestReject = reject;
+					}
+				}
+
+				correction = smallestReject;
+
+				return true;
 			}
 		}
 

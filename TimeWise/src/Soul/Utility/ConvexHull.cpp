@@ -6,9 +6,20 @@
 namespace Soul
 {
 	ConvexHull::ConvexHull(const Set<sf::Vector2f>& vertices) :
-		m_Vertices(nullptr)
+		m_Vertices(nullptr),
+		m_Length(0)
 	{
 		GenerateHull(vertices);
+	}
+
+	const sf::Vector2f& ConvexHull::operator[](unsigned int index)
+	{
+		return m_Vertices[index];
+	}
+
+	unsigned int ConvexHull::Length() const
+	{
+		return m_Length;
 	}
 
 	void ConvexHull::GenerateHull(const Set<sf::Vector2f>& vertices)
@@ -25,7 +36,7 @@ namespace Soul
 			{
 				minX = vertices[i];
 			}
-			else if (vertices[i].x = minX.x && vertices[i].y < minX.y)
+			else if (vertices[i].x == minX.x && vertices[i].y < minX.y)
 			{
 				minX = vertices[i];
 			}
@@ -34,7 +45,7 @@ namespace Soul
 			{
 				maxX = vertices[i];
 			}
-			else if (vertices[i].x = maxX.x && vertices[i].y > maxX.y)
+			else if (vertices[i].x == maxX.x && vertices[i].y > maxX.y)
 			{
 				maxX = vertices[i];
 			}
@@ -44,18 +55,23 @@ namespace Soul
 		tempVertices.Push(maxX);
 
 		unsigned int currentVertex = 0;
-		while (true)
+		while (currentVertex < tempVertices.Length())
 		{
 			// Find any vertices that are on the "left" side of this vector
 			sf::Vector2f line(tempVertices[(currentVertex + 1) % tempVertices.Length()] - tempVertices[currentVertex]);
 			sf::Vector2f direction = Math::Perpendicular(line);
 
+			// Find the farthest vertex in the direction of our normal
 			bool found = false;
 			float magnitude = 0.0f;
 			sf::Vector2f point;
-
 			for (unsigned int i = 0; i < vertices.Length(); ++i)
 			{
+				if (vertices[i] == tempVertices[currentVertex])
+				{
+					continue;
+				}
+
 				float mag = Math::Dot(vertices[i] - tempVertices[currentVertex], direction);
 				if (mag > magnitude)
 				{
@@ -73,11 +89,6 @@ namespace Soul
 			{
 				++currentVertex;
 			}
-
-			if (currentVertex == tempVertices.Length() - 1)
-			{
-				break;
-			}
 		}
 
 		m_Vertices = PartitionArray(sf::Vector2f, tempVertices.Length());
@@ -86,5 +97,7 @@ namespace Soul
 		{
 			new (&m_Vertices[i]) sf::Vector2f(tempVertices[i]);
 		}
+
+		m_Length = tempVertices.Length();
 	}
 }

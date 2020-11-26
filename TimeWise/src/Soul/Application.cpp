@@ -9,7 +9,7 @@
 
 #include <Scenes/MainMenuScene.h>
 
-// TODO: Make FPS customizable?
+// TODO: Make FPS customizable
 namespace Soul
 {
 	Application::Application() :
@@ -71,8 +71,8 @@ namespace Soul
 
 				// Updating
 				m_InputManager->Update();
-				m_SceneManager->Update(m_TargetFrameRateMilliseconds, context);
 				m_PhysicsSystem->Update(m_TargetFrameRateMilliseconds, context);
+				m_SceneManager->Update(m_TargetFrameRateMilliseconds, context);
 
 				// Rendering
 				m_Window->clear();

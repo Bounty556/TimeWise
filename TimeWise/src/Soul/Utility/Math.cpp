@@ -9,6 +9,12 @@ namespace Soul
 {
 	namespace Math
 	{
+		void Clamp(float& value, float min, float max)
+		{
+			value = Min(value, max);
+			value = Max(value, min);
+		}
+
 		int PowInt(int value, unsigned int power)
 		{
 			int total = 1;

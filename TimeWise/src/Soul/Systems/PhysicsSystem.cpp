@@ -78,7 +78,7 @@ namespace Soul
 				float smallestDistance = 99999999.0f;
 				sf::Vector2f smallestReject;
 
-				// Find the nearest point on the edge of the minkowski 
+				// Find the nearest point on the edge of the minkowski difference
 				for (unsigned int i = 0; i < minkowskiHull.Length(); ++i)
 				{
 					sf::Vector2f edge = minkowskiHull[(i + 1) % minkowskiHull.Length()]- minkowskiHull[i];

@@ -3,6 +3,7 @@
 #include <cstring>
 
 #include <Structures/CommandQueue.h>
+#include <Utility/Math.h>
 
 namespace Soul
 {
@@ -27,6 +28,9 @@ namespace Soul
 
 	void Entity::Update(float dt)
 	{
+		Math::Clamp(m_Velocity.x, -1000.0f, 1000.0f);
+		Math::Clamp(m_Velocity.y, -1000.0f, 1000.0f);
+
 		move(m_Velocity * dt);
 
 		UpdateSelf(dt);
@@ -60,6 +64,19 @@ namespace Soul
 	void Entity::AddComponent(Component* component)
 	{
 		m_Components.Push(component);
+	}
+
+	Component* Entity::GetComponent(const String& componentType)
+	{
+		for (unsigned int i = 0; i < m_Components.Length(); ++i)
+		{
+			if (componentType.CompareTo(m_Components[i]->GetType()) == 0)
+			{
+				return m_Components[i];
+			}
+		}
+		
+		return nullptr;
 	}
 
 	void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const

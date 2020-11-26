@@ -13,7 +13,8 @@ namespace Soul
 	PlayerEntity::PlayerEntity(Context& context) :
 		Entity(context),
 		m_Sprite(*(m_Context.TextureManager.RequestTexture("res/player.png"))),
-		m_MoveSpeed(0.5f)
+		m_MoveSpeed(0.5f),
+		m_JumpStrength(.75f)
 	{
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 4, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(32.0f, 0.0f), sf::Vector2f(32.0f, 64.0f), sf::Vector2f(0.0f, 64.0f));
 		Rigidbody* rb = Partition(Rigidbody, this);
@@ -38,6 +39,12 @@ namespace Soul
 		if (m_Context.InputManager.IsButtonDown(-1, "Left") || (m_Context.InputManager.IsButtonDown(0, "Left") && m_Context.InputManager.AxisPosition(0, "Left") < 0.0f))
 		{
 			move(-m_MoveSpeed * dt, 0.0f);
+		}
+
+		if (m_Context.InputManager.WasButtonPressed(-1, "Jump"))
+		{
+			Collider* col = (Collider*)GetComponent("Collider");
+			col->ApplyForce(sf::Vector2f(0.0f, -m_JumpStrength));
 		}
 	}
 

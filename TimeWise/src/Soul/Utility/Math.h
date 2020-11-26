@@ -14,6 +14,11 @@ namespace Soul
 	namespace Math
 	{
 		/*
+		Sets the provided value to be between min and max if outside range.
+		*/
+		void Clamp(float& val, float min, float max);
+
+		/*
 		Computes the value of value^power.
 		*/
 		int PowInt(int value, unsigned int power);

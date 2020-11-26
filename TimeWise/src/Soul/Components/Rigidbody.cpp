@@ -17,7 +17,7 @@ namespace Soul
 			m_AffectedEntity->move(correction);
 		
 			sf::Vector2f normalizedCorrection = Math::Normalize(correction);
-			sf::Vector2f normalForce = Math::Project(m_AffectedEntity->GetVelocity() * m_Collider->GetMass(), normalizedCorrection);
+			sf::Vector2f normalForce = Math::Project((m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass(), normalizedCorrection);
 			sf::Vector2f rejectionForce = m_AffectedEntity->GetVelocity() * m_Collider->GetMass() - normalForce;
 
 			sf::Vector2f finalForce(-normalForce);
@@ -47,9 +47,11 @@ namespace Soul
 
 		// Apply drag
 		// TODO: Find better method for calculating surface area perpendicular to velocity?
-		sf::Vector2f vSquared(m_AffectedEntity->GetVelocity().x * m_AffectedEntity->GetVelocity().x, m_AffectedEntity->GetVelocity().y * m_AffectedEntity->GetVelocity().y);
-		float cDrag = 0.5f * 0.7f;
-		finalForce += -vSquared * cDrag * m_Collider->GetRadius();
+		sf::Vector2f direction = Math::Normalize(m_AffectedEntity->GetVelocity());
+		float vSquared = Math::Dot(m_AffectedEntity->GetVelocity(), m_AffectedEntity->GetVelocity());
+		sf::Vector2f dragVector = direction * vSquared;
+		float cDrag = 0.5f * 0.5f;
+		finalForce += -dragVector * cDrag * m_Collider->GetRadius();
 
 		m_Collider->ApplyForce(finalForce * dt * 0.001f);
 	}

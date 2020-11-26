@@ -6,6 +6,7 @@
 #include <Components/Component.h>
 #include <Structures/Vector.h>
 #include <Utility/Context.h>
+#include <Strings/String.h>
 
 namespace Soul
 {
@@ -29,6 +30,8 @@ namespace Soul
 		const sf::Vector2f& GetVelocity() const;
 
 		void AddComponent(Component* component);
+
+		Component* GetComponent(const String& componentType);
 
 	private:
 		virtual void UpdateSelf(float dt) = 0;

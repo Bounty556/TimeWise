@@ -34,9 +34,6 @@ namespace Soul
 				{
 					m_Colliders[i].Element.HandleCollision(sf::Vector2f(0.0f, 0.0f), correction, m_Colliders[j].Element);
 					m_Colliders[j].Element.HandleCollision(sf::Vector2f(0.0f, 0.0f), -correction, m_Colliders[i].Element);
-
-					//SoulLogInfo("Correction vector x: %f y: %f", correction.x, correction.y);
-					//SoulLogInfo("Colliding");
 				}
 			}
 

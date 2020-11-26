@@ -1,6 +1,9 @@
 #include "Application.h"
 
+// TODO: Add Entity tags?
+// TODO: Add Triggers
 // TODO: Add jumping
+// TODO: Add platform movement
 // TODO: Volatile memory management
 // TODO: Networking
 // TODO: Multi-threading

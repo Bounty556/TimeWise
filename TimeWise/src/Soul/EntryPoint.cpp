@@ -1,10 +1,10 @@
 #include "Application.h"
 
-// TODO: Implement quad tree
-// TODO: Calculate physics from the bottom-up
 // TODO: Add Entity tags?
 // TODO: Add Triggers
 // TODO: Add jumping
+// TODO: Implement quad tree
+// TODO: Calculate physics from the bottom-up
 // TODO: Volatile memory management
 // TODO: Networking
 // TODO: Multi-threading

@@ -109,9 +109,9 @@ namespace Soul
 		float Sqrt(float x)
 		{
 			unsigned int i = *(unsigned int*)&x;
-			// adjust bias
+			// Adjust bias
 			i += 127 << 23;
-			// approximation of square root
+			// Approximation of square root
 			i >>= 1;
 			return *(float*)&i;
 		}

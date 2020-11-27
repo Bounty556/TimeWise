@@ -223,7 +223,6 @@
     <ClInclude Include="src\Soul\UI\UIContainer.h" />
     <ClInclude Include="src\Soul\Utility\Context.h" />
     <ClInclude Include="src\Soul\Utility\ConvexHull.h" />
-    <ClInclude Include="src\Soul\Utility\Handle.h" />
     <ClInclude Include="src\Soul\Utility\Hashes.h" />
     <ClInclude Include="src\Soul\Utility\Macros.h" />
     <ClInclude Include="src\Soul\Memory\MemoryManager.h" />
@@ -396,7 +395,6 @@
     <ClCompile Include="src\Soul\UI\UIComponent.cpp" />
     <ClCompile Include="src\Soul\UI\UIContainer.cpp" />
     <ClCompile Include="src\Soul\Utility\ConvexHull.cpp" />
-    <ClCompile Include="src\Soul\Utility\Handle.cpp" />
     <ClCompile Include="src\Soul\Utility\Hashes.cpp" />
     <ClCompile Include="src\Soul\Structures\Vector.h" />
     <ClCompile Include="src\Soul\Utility\Math.cpp" />

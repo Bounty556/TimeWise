@@ -3,7 +3,7 @@
 namespace Soul
 {
 	StaticCollider::StaticCollider(Entity* entity) :
-		CollisionHandler(entity)
+		CollisionHandler(entity, "Static Collider")
 	{
 
 	}
@@ -16,10 +16,5 @@ namespace Soul
 	void StaticCollider::Update(float dt)
 	{
 
-	}
-
-	const char* StaticCollider::GetType() const
-	{
-		return "StaticCollider";
 	}
 }

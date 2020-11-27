@@ -5,7 +5,7 @@
 namespace Soul
 {
 	Rigidbody::Rigidbody(Entity* entity) :
-		CollisionHandler(entity)
+		CollisionHandler(entity, "Rigidbody")
 	{
 
 	}
@@ -53,10 +53,5 @@ namespace Soul
 		finalForce += -dragVector * cDrag * m_Collider->GetRadius();
 
 		m_Collider->ApplyForce(finalForce * dt * 0.001f);
-	}
-
-	const char* Rigidbody::GetType() const
-	{
-		return "Rigidbody";
 	}
 }

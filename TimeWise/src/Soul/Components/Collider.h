@@ -40,8 +40,6 @@ namespace Soul
 
 		sf::Vector2f GetCenter() const;
 
-		virtual const char* GetType() const override;
-
 		unsigned int GetVertexCount() const;
 
 		float GetMass() const;

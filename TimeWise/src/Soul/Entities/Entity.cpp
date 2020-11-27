@@ -3,6 +3,7 @@
 #include <cstring>
 
 #include <Structures/CommandQueue.h>
+#include <Utility/Hashes.h>
 #include <Utility/Math.h>
 
 namespace Soul
@@ -70,7 +71,7 @@ namespace Soul
 	{
 		for (unsigned int i = 0; i < m_Components.Length(); ++i)
 		{
-			if (componentType.CompareTo(m_Components[i]->GetType()) == 0)
+			if (Hash(componentType) == m_Components[i]->GetType())
 			{
 				return m_Components[i];
 			}

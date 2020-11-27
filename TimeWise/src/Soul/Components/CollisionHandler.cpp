@@ -2,8 +2,8 @@
 
 namespace Soul
 {
-	CollisionHandler::CollisionHandler(Entity* entity) :
-		Component(entity),
+	CollisionHandler::CollisionHandler(Entity* entity, const char* type) :
+		Component(entity, type),
 		m_Collider(nullptr)
 	{
 

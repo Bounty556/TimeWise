@@ -8,7 +8,7 @@ namespace Soul
 	class CollisionHandler : public Component
 	{
 	public:
-		CollisionHandler(Entity* entity);
+		CollisionHandler(Entity* entity, const char* type);
 		virtual ~CollisionHandler();
 
 		/*

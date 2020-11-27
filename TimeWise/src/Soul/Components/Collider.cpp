@@ -11,7 +11,7 @@
 namespace Soul
 {
 	Collider::Collider(Entity* entity, unsigned int vertexCount, ...) :
-		Component(entity),
+		Component(entity, "Collider"),
 		m_VertexCount(vertexCount),
 		m_Vertices(PartitionArray(sf::Vector2f, m_VertexCount)),
 		m_Center(0.0f, 0.0f),
@@ -134,11 +134,6 @@ namespace Soul
 	sf::Vector2f Collider::GetCenter() const
 	{
 		return m_Center + m_AffectedEntity->getPosition();
-	}
-
-	const char* Collider::GetType() const
-	{
-		return "Collider";
 	}
 
 	float Collider::GetMass() const

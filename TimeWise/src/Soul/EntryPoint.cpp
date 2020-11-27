@@ -1,6 +1,7 @@
 #include "Application.h"
 
-// TODO: Change Components to use hashed strings
+// TODO: Implement quad tree
+// TODO: Calculate physics from the bottom-up
 // TODO: Add Entity tags?
 // TODO: Add Triggers
 // TODO: Add jumping

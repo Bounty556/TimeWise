@@ -11,12 +11,12 @@ namespace Soul
 	class Component
 	{
 	public:
-		Component(Entity* entity);
+		Component(Entity* entity, const char* type);
 		virtual ~Component();
 
 		const Entity* GetEntity() const;
 
-		virtual const char* GetType() const = 0;
+		const unsigned long long GetType() const;
 
 		/*
 		Does any final necessary cleanup for this component. Returns true if the owning entity
@@ -26,5 +26,6 @@ namespace Soul
 
 	protected:
 		Entity* m_AffectedEntity;
+		unsigned long long m_HashedType;
 	};
 }

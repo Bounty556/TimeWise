@@ -20,7 +20,5 @@ namespace Soul
 		Handles gravity, angular momentum, drag, etc.
 		*/
 		virtual void Update(float dt) override;
-
-		virtual const char* GetType() const override;
 	};
 }

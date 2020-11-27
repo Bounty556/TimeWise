@@ -24,6 +24,7 @@ namespace Soul
 		col->SetBounciness(0.0f);
 		col->SetFriction(0.5f);
 		col->SetIsSolid(true);
+		col->setPosition(50.0f, 50.0f);
 
 		AddComponent(col);
 		AddComponent(rb);

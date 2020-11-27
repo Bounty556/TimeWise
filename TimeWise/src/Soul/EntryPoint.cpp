@@ -1,6 +1,5 @@
 #include "Application.h"
 
-// TODO: Add Triggers
 // TODO: Add jumping
 // TODO: Add Entity tags?
 // TODO: Implement quad tree

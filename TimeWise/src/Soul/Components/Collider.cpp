@@ -45,11 +45,11 @@ namespace Soul
 
 	void Collider::DrawCollider(Context& context) const
 	{
-		sf::Vector2f offset(0.0f, 0.0f);
+		sf::Vector2f offset = getPosition();
 
 		if (m_AffectedEntity)
 		{
-			offset = m_AffectedEntity->getPosition();
+			offset += m_AffectedEntity->getPosition();
 		}
 
 		for (unsigned int i = 0; i < m_VertexCount; i++)
@@ -116,11 +116,11 @@ namespace Soul
 
 		// TODO: Include rotation
 
-		sf::Vector2f offset(0.0f, 0.0f);
+		sf::Vector2f offset = getPosition();
 
 		if (m_AffectedEntity)
 		{
-			offset = m_AffectedEntity->getPosition();
+			offset += m_AffectedEntity->getPosition();
 		}
 
 		for (unsigned int i = 0; i < m_VertexCount; ++i)
@@ -133,7 +133,7 @@ namespace Soul
 
 	sf::Vector2f Collider::GetCenter() const
 	{
-		return m_Center + m_AffectedEntity->getPosition();
+		return m_Center + m_AffectedEntity->getPosition() + getPosition();
 	}
 
 	float Collider::GetMass() const
@@ -174,10 +174,10 @@ namespace Soul
 	sf::Vector2f Collider::FarthestVertex(const sf::Vector2f& direction) const
 	{
 		sf::Vector2f vertex(0.0f, 0.0f);
-		sf::Vector2f offset(0.0f, 0.0f);
+		sf::Vector2f offset = getPosition();
 		if (m_AffectedEntity)
 		{
-			offset = m_AffectedEntity->getPosition();
+			offset += m_AffectedEntity->getPosition();
 		}
 		float magnitude = -99999999.0f;
 

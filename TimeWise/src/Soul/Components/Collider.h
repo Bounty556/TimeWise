@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics/Transformable.hpp>
+
 #include <Components/Component.h>
 #include <Memory/UniquePointer.h>
 
@@ -7,7 +9,7 @@ namespace Soul
 {
 	class CollisionHandler;
 
-	class Collider : public Component
+	class Collider : public Component, public sf::Transformable
 	{
 	public:
 		Collider(Entity* entity, unsigned int vertexCount, ...);
@@ -21,6 +23,8 @@ namespace Soul
 		void Update(float dt);
 
 		void ApplyForce(sf::Vector2f force);
+
+		sf::Vector2f FarthestVertex(const sf::Vector2f& direction) const;
 
 		// Setters
 
@@ -53,8 +57,6 @@ namespace Soul
 		const sf::Vector2f& GetVelocity() const;
 
 		float GetRadius() const;
-
-		sf::Vector2f FarthestVertex(const sf::Vector2f& direction) const;
 
 	private:
 		unsigned int m_VertexCount;

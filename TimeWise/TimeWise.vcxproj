@@ -179,6 +179,7 @@
     <ClInclude Include="src\Soul\Components\Component.h" />
     <ClInclude Include="src\Soul\Components\Rigidbody.h" />
     <ClInclude Include="src\Soul\Components\StaticCollider.h" />
+    <ClInclude Include="src\Soul\Components\Trigger.h" />
     <ClInclude Include="src\Soul\Entities\Entity.h" />
     <ClInclude Include="src\Soul\Entities\PlayerEntity.h" />
     <ClInclude Include="src\Soul\Entities\TestEntity.h" />
@@ -366,6 +367,7 @@
     <ClCompile Include="src\Soul\Components\Component.cpp" />
     <ClCompile Include="src\Soul\Components\Rigidbody.cpp" />
     <ClCompile Include="src\Soul\Components\StaticCollider.cpp" />
+    <ClCompile Include="src\Soul\Components\Trigger.cpp" />
     <ClCompile Include="src\Soul\Entities\Entity.cpp" />
     <ClCompile Include="src\Soul\Entities\PlayerEntity.cpp" />
     <ClCompile Include="src\Soul\Entities\TestEntity.cpp" />

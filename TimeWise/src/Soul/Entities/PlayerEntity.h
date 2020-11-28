@@ -22,5 +22,6 @@ namespace Soul
 		Trigger* m_JumpTrigger;
 		float m_MoveSpeed;
 		float m_JumpStrength;
+		float m_JumpCount;
 	};
 }

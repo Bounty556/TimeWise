@@ -15,7 +15,8 @@ namespace Soul
 		m_Sprite(*(m_Context.TextureManager.RequestTexture("res/player.png"))),
 		m_JumpTrigger(nullptr),
 		m_MoveSpeed(0.5f),
-		m_JumpStrength(1.5f)
+		m_JumpStrength(1.5f),
+		m_JumpCount(1)
 	{
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 4, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(32.0f, 0.0f), sf::Vector2f(32.0f, 64.0f), sf::Vector2f(0.0f, 64.0f));
 		Rigidbody* rb = Partition(Rigidbody, this);
@@ -58,8 +59,14 @@ namespace Soul
 		}
 
 		Collider* otherJumpCol = m_JumpTrigger->ConsumeCollision();
-		if (m_Context.InputManager.WasButtonPressed(-1, "Jump") && otherJumpCol)
+		if (otherJumpCol)
 		{
+			m_JumpCount = 2;
+		}
+
+		if (m_Context.InputManager.WasButtonPressed(-1, "Jump") && m_JumpCount > 0)
+		{
+			--m_JumpCount;
 			Collider* col = (Collider*)GetComponent("Collider");
 			col->ApplyForce(sf::Vector2f(0.0f, -m_JumpStrength));
 		}

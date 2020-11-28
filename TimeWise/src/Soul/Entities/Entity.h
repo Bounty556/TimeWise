@@ -22,7 +22,7 @@ namespace Soul
 
 		void AddTag(const char* tag);
 
-		bool HasTag(unsigned long long tag);
+		bool HasTag(unsigned long long tag) const;
 
 		void Update(float dt);
 
@@ -42,7 +42,7 @@ namespace Soul
 
 		const sf::Vector2f& GetVelocity() const;
 
-		Component* GetComponent(const String& componentType);
+		Component* GetComponent(const String& componentType) const;
 
 	private:
 

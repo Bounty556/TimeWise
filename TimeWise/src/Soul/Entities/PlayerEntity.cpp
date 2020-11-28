@@ -30,10 +30,10 @@ namespace Soul
 		col->SetIsSolid(true);
 
 		jumpTrigger->SetCollider(jumpCol);
-		jumpTrigger->WhitelistTag("Player");
+		jumpTrigger->BlacklistTag("Player");
 
 		jumpCol->SetIsSolid(false);
-		jumpCol->setPosition(0.0f, 67.0f);
+		jumpCol->setPosition(0.0f, 70.0f);
 
 		AddComponent(col);
 		AddComponent(rb);
@@ -41,6 +41,8 @@ namespace Soul
 		AddComponent(jumpTrigger);
 
 		m_JumpTrigger = jumpTrigger;
+
+		AddTag("Player");
 	}
 
 	void PlayerEntity::UpdateSelf(float dt)
@@ -55,7 +57,8 @@ namespace Soul
 			move(-m_MoveSpeed * dt, 0.0f);
 		}
 
-		if (m_Context.InputManager.WasButtonPressed(-1, "Jump"))
+		Collider* otherJumpCol = m_JumpTrigger->ConsumeCollision();
+		if (m_Context.InputManager.WasButtonPressed(-1, "Jump") && otherJumpCol)
 		{
 			Collider* col = (Collider*)GetComponent("Collider");
 			col->ApplyForce(sf::Vector2f(0.0f, -m_JumpStrength));

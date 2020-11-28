@@ -6,31 +6,45 @@ namespace Soul
 {
 	Trigger::Trigger(Entity* entity) :
 		CollisionHandler(entity, "Trigger"),
-		m_TagWhitelist(),
+		m_TagBlacklist(),
 		m_IsTriggered(false),
 		m_OtherCollider(nullptr)
 	{
 
 	}
 
-	void Trigger::WhitelistTag(const char* tag)
+	void Trigger::BlacklistTag(const char* tag)
 	{
-		m_TagWhitelist.Push(Hash(tag));
+		m_TagBlacklist.Push(Hash(tag));
+	}
+
+	Collider* Trigger::ConsumeCollision()
+	{
+		Collider* col = m_OtherCollider;
+		m_IsTriggered = false;
+		m_OtherCollider = nullptr;
+
+		return col;
 	}
 
 	void Trigger::HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
+		for (unsigned int i = 0; i < m_TagBlacklist.Length(); ++i)
+		{
+			if (collider.GetEntity()->HasTag(m_TagBlacklist[i]))
+			{
+				return;
+			}
+		}
 		m_IsTriggered = true;
 		m_OtherCollider = &collider;
 	}
 
 	void Trigger::Update(float dt)
 	{
-		m_IsTriggered = false;
-		m_OtherCollider = nullptr;
 	}
 
-	Collider* Trigger::IsTriggered()
+	Collider* Trigger::IsTriggered() const
 	{
 		return m_OtherCollider;
 	}

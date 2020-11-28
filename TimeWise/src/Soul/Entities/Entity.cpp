@@ -33,7 +33,7 @@ namespace Soul
 		m_Tags.Push(Hash(tag));
 	}
 
-	bool Entity::HasTag(unsigned long long tag)
+	bool Entity::HasTag(unsigned long long tag) const
 	{
 		for (unsigned int i = 0; i < m_Tags.Length(); ++i)
 		{
@@ -86,7 +86,7 @@ namespace Soul
 		m_Components.Push(component);
 	}
 
-	Component* Entity::GetComponent(const String& componentType)
+	Component* Entity::GetComponent(const String& componentType) const
 	{
 		for (unsigned int i = 0; i < m_Components.Length(); ++i)
 		{

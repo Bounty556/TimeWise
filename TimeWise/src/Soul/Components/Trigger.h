@@ -11,7 +11,9 @@ namespace Soul
 	public:
 		Trigger(Entity* entity);
 
-		void WhitelistTag(const char* tag);
+		void BlacklistTag(const char* tag);
+
+		Collider* ConsumeCollision();
 
 		// Inherited
 
@@ -21,10 +23,10 @@ namespace Soul
 
 		// Getters
 
-		Collider* IsTriggered();
+		Collider* IsTriggered() const;
 
 	private:
-		Vector<unsigned long long> m_TagWhitelist;
+		Vector<unsigned long long> m_TagBlacklist;
 		bool m_IsTriggered;
 		Collider* m_OtherCollider;
 	};

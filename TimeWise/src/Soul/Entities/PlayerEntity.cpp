@@ -13,21 +13,34 @@ namespace Soul
 	PlayerEntity::PlayerEntity(Context& context) :
 		Entity(context),
 		m_Sprite(*(m_Context.TextureManager.RequestTexture("res/player.png"))),
+		m_JumpTrigger(nullptr),
 		m_MoveSpeed(0.5f),
 		m_JumpStrength(1.5f)
 	{
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 4, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(32.0f, 0.0f), sf::Vector2f(32.0f, 64.0f), sf::Vector2f(0.0f, 64.0f));
 		Rigidbody* rb = Partition(Rigidbody, this);
 
+		Collider* jumpCol = context.PhysicsSystem.CreateCollider(this, 3, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(16.0f, -16.0f), sf::Vector2f(32.0f, 0.0f));
+		Trigger* jumpTrigger = Partition(Trigger, this);
+
 		rb->SetCollider(col);
 
 		col->SetBounciness(0.0f);
 		col->SetFriction(0.5f);
 		col->SetIsSolid(true);
-		col->setPosition(50.0f, 50.0f);
+
+		jumpTrigger->SetCollider(jumpCol);
+		jumpTrigger->WhitelistTag("Player");
+
+		jumpCol->SetIsSolid(false);
+		jumpCol->setPosition(0.0f, 67.0f);
 
 		AddComponent(col);
 		AddComponent(rb);
+		AddComponent(jumpCol);
+		AddComponent(jumpTrigger);
+
+		m_JumpTrigger = jumpTrigger;
 	}
 
 	void PlayerEntity::UpdateSelf(float dt)

@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+#include <Components/Trigger.h>
 #include <Entities/Entity.h>
 
 namespace Soul
@@ -18,6 +19,7 @@ namespace Soul
 
 	private:
 		sf::Sprite m_Sprite;
+		Trigger* m_JumpTrigger;
 		float m_MoveSpeed;
 		float m_JumpStrength;
 	};

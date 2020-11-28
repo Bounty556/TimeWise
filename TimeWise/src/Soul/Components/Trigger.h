@@ -2,6 +2,7 @@
 
 #include <Components/CollisionHandler.h>
 #include <Entities/Entity.h>
+#include <Structures/Vector.h>
 
 namespace Soul
 {
@@ -9,6 +10,10 @@ namespace Soul
 	{
 	public:
 		Trigger(Entity* entity);
+
+		void WhitelistTag(const char* tag);
+
+		// Inherited
 
 		virtual void HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider) override;
 
@@ -19,6 +24,7 @@ namespace Soul
 		Collider* IsTriggered();
 
 	private:
+		Vector<unsigned long long> m_TagWhitelist;
 		bool m_IsTriggered;
 		Collider* m_OtherCollider;
 	};

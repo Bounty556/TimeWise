@@ -20,31 +20,48 @@ namespace Soul
 		Entity(Context& context);
 		virtual ~Entity();
 
+		void AddTag(const char* tag);
+
+		bool HasTag(unsigned long long tag);
+
 		void Update(float dt);
 
+		void AddComponent(Component* component);
+
+		// Setters
+
 		void SetVelocity(float dx, float dy);
+		
 		void SetVelocity(sf::Vector2f dv);
+		
 		void Accelerate(float dx, float dy);
+		
 		void Accelerate(sf::Vector2f da);
 
-		const sf::Vector2f& GetVelocity() const;
+		// Getters
 
-		void AddComponent(Component* component);
+		const sf::Vector2f& GetVelocity() const;
 
 		Component* GetComponent(const String& componentType);
 
 	private:
+
+		// To inherit
+
 		virtual void UpdateSelf(float dt) = 0;
 
 		virtual void DrawSelf(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 	
+		// Inherited
+
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
 	protected:
 		Context& m_Context;
 
 	private:
-		sf::Vector2f m_Velocity;
+		Vector<unsigned long long> m_Tags;
 		Vector<Component*> m_Components;
+		sf::Vector2f m_Velocity;
 	};
 }

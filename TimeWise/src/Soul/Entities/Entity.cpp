@@ -9,9 +9,10 @@
 namespace Soul
 {
 	Entity::Entity(Context& context) :
-		m_Velocity(0.0f, 0.0f),
-		m_Components(8),
-		m_Context(context)
+		m_Context(context),
+		m_Tags(),
+		m_Components(),
+		m_Velocity(0.0f, 0.0f)
 	{
 
 	}
@@ -25,6 +26,24 @@ namespace Soul
 				MemoryManager::FreeMemory(m_Components[i]);
 			}
 		}
+	}
+
+	void Entity::AddTag(const char* tag)
+	{
+		m_Tags.Push(Hash(tag));
+	}
+
+	bool Entity::HasTag(unsigned long long tag)
+	{
+		for (unsigned int i = 0; i < m_Tags.Length(); ++i)
+		{
+			if (m_Tags[i] == tag)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	void Entity::Update(float dt)

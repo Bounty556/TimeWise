@@ -20,7 +20,7 @@ namespace Soul
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 4, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(32.0f, 0.0f), sf::Vector2f(32.0f, 64.0f), sf::Vector2f(0.0f, 64.0f));
 		Rigidbody* rb = Partition(Rigidbody, this);
 
-		Collider* jumpCol = context.PhysicsSystem.CreateCollider(this, 3, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(16.0f, -16.0f), sf::Vector2f(32.0f, 0.0f));
+		Collider* jumpCol = context.PhysicsSystem.CreateCollider(this, 3, sf::Vector2f(1.0f, 0.0f), sf::Vector2f(16.0f, -16.0f), sf::Vector2f(31.0f, 0.0f));
 		Trigger* jumpTrigger = Partition(Trigger, this);
 
 		rb->SetCollider(col);

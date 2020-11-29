@@ -5,6 +5,7 @@
 #include <Utility/ConvexHull.h>
 #include <Utility/Math.h>
 #include <Utility/Simplex.h>
+#include <Entities/Entity.h>
 
 namespace Soul
 {
@@ -21,27 +22,29 @@ namespace Soul
 			CommandQueue::Message& message = context.CommandQueue.ConsumeMessage();
 			m_Colliders.FreeObject((Collider*)message.Data);
 		}
-
+		
 		// TODO: Better broad phase collision checking?
 		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
 		{
-			m_Colliders[i].Element.Update(dt);
+			Collider& a = m_Colliders[i].Element;
+			a.Update(dt);
 
 			for (unsigned int j = i + 1; j < m_Colliders.Count(); ++j)
 			{
-				if (Math::Magnitude(m_Colliders[i].Element.GetCenter() - m_Colliders[j].Element.GetCenter()) <= m_Colliders[i].Element.GetRadius() + m_Colliders[j].Element.GetRadius())
+				Collider& b = m_Colliders[j].Element;
+
+				if (Math::Magnitude(a.GetCenter() - b.GetCenter()) <= a.GetRadius() + b.GetRadius())
 				{
 					sf::Vector2f correction;
-					if (CheckColliding(m_Colliders[i].Element, m_Colliders[j].Element, correction))
+					if (CheckColliding(a, b, correction))
 					{
-						++physicsChecks;
-						m_Colliders[i].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), correction, m_Colliders[j].Element);
-						m_Colliders[j].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), -correction, m_Colliders[i].Element);
+						a.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), correction, b);
+						b.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), -correction, a);
 					}
 				}
 			}
 
-			m_Colliders[i].Element.DrawCollider(context);
+			a.DrawCollider(context);
 		}
 	}
 

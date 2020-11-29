@@ -64,11 +64,19 @@ namespace Soul
 		return false;
 	}
 
-	void Collider::HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
+	void Collider::AddCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
 		if (m_Handler)
 		{
-			m_Handler->HandleCollision(dt, contactPoint, correction, collider);
+			m_Handler->AddCollision(dt, contactPoint, correction, collider);
+		}
+	}
+
+	void Collider::ResolveCollisions()
+	{
+		if (m_Handler)
+		{
+			m_Handler->ResolveCollisions();
 		}
 	}
 

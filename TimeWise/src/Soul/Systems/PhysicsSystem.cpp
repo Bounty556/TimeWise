@@ -23,11 +23,17 @@ namespace Soul
 			m_Colliders.FreeObject((Collider*)message.Data);
 		}
 
+		// Update colliders in natural conditions
+		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
+		{
+			m_Colliders[i].Element.Update(dt);
+		}
+
+		// Calculate all possible collisions
 		// TODO: Better broad phase collision checking?
 		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
 		{
 			Collider& a = m_Colliders[i].Element;
-			a.Update(dt);
 
 			for (unsigned int j = i + 1; j < m_Colliders.Count(); ++j)
 			{
@@ -38,13 +44,18 @@ namespace Soul
 					sf::Vector2f correction;
 					if (CheckColliding(a, b, correction))
 					{
-						a.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), correction, b);
-						b.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), -correction, a);
+						a.AddCollision(dt, sf::Vector2f(0.0f, 0.0f), correction, b);
+						b.AddCollision(dt, sf::Vector2f(0.0f, 0.0f), -correction, a);
 					}
 				}
 			}
+		}
 
-			a.DrawCollider(context);
+		// Resolve collisions
+		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
+		{
+			m_Colliders[i].Element.ResolveCollisions();
+			m_Colliders[i].Element.DrawCollider(context);
 		}
 	}
 

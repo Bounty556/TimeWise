@@ -10,7 +10,11 @@ namespace Soul
 	public:
 		StaticCollider(Entity* entity);
 
-		virtual void HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider) override;
+		// Inherited
+
+		virtual void AddCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider) override;
+
+		virtual void ResolveCollisions() override;
 
 		virtual void Update(float dt) override;
 	};

@@ -10,15 +10,15 @@ namespace Soul
 	public:
 		Rigidbody(Entity* entity);
 
-		/*
-		To be called from the entity's collider component. Sets Entity's velocity appropriately
-		based on collision data.
-		*/
-		virtual void HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider) override;
+		// Inherited
 
-		/*
-		Handles gravity, angular momentum, drag, etc.
-		*/
+		virtual void AddCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider) override;
+
+		virtual void ResolveCollisions() override;
+
 		virtual void Update(float dt) override;
+
+	private:
+		sf::Vector2f m_FinalForce;
 	};
 }

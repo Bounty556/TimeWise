@@ -5,12 +5,13 @@
 namespace Soul
 {
 	Rigidbody::Rigidbody(Entity* entity) :
-		CollisionHandler(entity, "Rigidbody")
+		CollisionHandler(entity, "Rigidbody"),
+		m_FinalForce(0.0f, 0.0f)
 	{
 
 	}
 
-	void Rigidbody::HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
+	void Rigidbody::AddCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
 		if (collider.IsSolid())
 		{
@@ -35,8 +36,14 @@ namespace Soul
 				finalForce -= frictionalForce;
 			}
 
-			m_Collider->ApplyForce(finalForce);
+			m_FinalForce += finalForce;
 		}
+	}
+
+	void Rigidbody::ResolveCollisions()
+	{
+		m_Collider->ApplyForce(m_FinalForce);
+		m_FinalForce = sf::Vector2f(0.0f, 0.0f);
 	}
 
 	void Rigidbody::Update(float dt)

@@ -18,7 +18,9 @@ namespace Soul
 
 		virtual bool CleanUp(Context& context) override;
 
-		void HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider);
+		void AddCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider);
+
+		void ResolveCollisions();
 
 		void Update(float dt);
 

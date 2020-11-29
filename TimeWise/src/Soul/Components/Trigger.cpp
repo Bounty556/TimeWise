@@ -27,7 +27,7 @@ namespace Soul
 		return col;
 	}
 
-	void Trigger::HandleCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
+	void Trigger::AddCollision(float dt, const sf::Vector2f& contactPoint, const sf::Vector2f& correction, Collider& collider)
 	{
 		for (unsigned int i = 0; i < m_TagBlacklist.Length(); ++i)
 		{
@@ -38,6 +38,11 @@ namespace Soul
 		}
 		m_IsTriggered = true;
 		m_OtherCollider = &collider;
+	}
+	
+	void Trigger::ResolveCollisions()
+	{
+
 	}
 
 	void Trigger::Update(float dt)

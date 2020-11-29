@@ -29,11 +29,15 @@ namespace Soul
 
 			for (unsigned int j = i + 1; j < m_Colliders.Count(); ++j)
 			{
-				sf::Vector2f correction;
-				if (CheckColliding(m_Colliders[i].Element, m_Colliders[j].Element, correction))
+				if (Math::Magnitude(m_Colliders[i].Element.GetCenter() - m_Colliders[j].Element.GetCenter()) <= m_Colliders[i].Element.GetRadius() + m_Colliders[j].Element.GetRadius())
 				{
-					m_Colliders[i].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), correction, m_Colliders[j].Element);
-					m_Colliders[j].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), -correction, m_Colliders[i].Element);
+					sf::Vector2f correction;
+					if (CheckColliding(m_Colliders[i].Element, m_Colliders[j].Element, correction))
+					{
+						++physicsChecks;
+						m_Colliders[i].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), correction, m_Colliders[j].Element);
+						m_Colliders[j].Element.HandleCollision(dt, sf::Vector2f(0.0f, 0.0f), -correction, m_Colliders[i].Element);
+					}
 				}
 			}
 

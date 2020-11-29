@@ -10,13 +10,14 @@
 
 namespace Soul
 {
-	PlayerEntity::PlayerEntity(Context& context) :
+	PlayerEntity::PlayerEntity(Context& context, unsigned int controller) :
 		Entity(context),
 		m_Sprite(*(m_Context.TextureManager.RequestTexture("res/player.png"))),
 		m_JumpTrigger(nullptr),
 		m_MoveSpeed(0.5f),
 		m_JumpStrength(1.5f),
-		m_JumpCount(1)
+		m_JumpCount(1),
+		m_Controller(controller)
 	{
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 4, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(32.0f, 0.0f), sf::Vector2f(32.0f, 64.0f), sf::Vector2f(0.0f, 64.0f));
 		Rigidbody* rb = Partition(Rigidbody, this);
@@ -30,8 +31,10 @@ namespace Soul
 		col->SetFriction(0.5f);
 		col->SetIsSolid(true);
 
+		String blackListedTag = "Player";
+		blackListedTag += String::IntToString(controller);
 		jumpTrigger->SetCollider(jumpCol);
-		jumpTrigger->BlacklistTag("Player");
+		jumpTrigger->BlacklistTag(blackListedTag.GetCString());
 
 		jumpCol->SetIsSolid(false);
 		jumpCol->setPosition(0.0f, 70.0f);
@@ -43,17 +46,17 @@ namespace Soul
 
 		m_JumpTrigger = jumpTrigger;
 
-		AddTag("Player");
+		AddTag(blackListedTag.GetCString());
 	}
 
 	void PlayerEntity::UpdateSelf(float dt)
 	{
-		if (m_Context.InputManager.IsButtonDown(-1, "Right") || (m_Context.InputManager.IsButtonDown(0, "Right") && m_Context.InputManager.AxisPosition(0, "Right") > 0.0f))
+		if (m_Context.InputManager.IsButtonDown(m_Controller, "Right") && (m_Controller == -1 || m_Context.InputManager.AxisPosition(m_Controller, "Right") > 0.0f))
 		{
 			move(m_MoveSpeed * dt, 0.0f);
 		}
 
-		if (m_Context.InputManager.IsButtonDown(-1, "Left") || (m_Context.InputManager.IsButtonDown(0, "Left") && m_Context.InputManager.AxisPosition(0, "Left") < 0.0f))
+		if (m_Context.InputManager.IsButtonDown(m_Controller, "Left") && (m_Controller == -1 || m_Context.InputManager.AxisPosition(m_Controller, "Left") < 0.0f))
 		{
 			move(-m_MoveSpeed * dt, 0.0f);
 		}
@@ -64,7 +67,7 @@ namespace Soul
 			m_JumpCount = 2;
 		}
 
-		if (m_Context.InputManager.WasButtonPressed(-1, "Jump") && m_JumpCount > 0)
+		if (m_Context.InputManager.WasButtonPressed(m_Controller, "Jump") && m_JumpCount > 0)
 		{
 			--m_JumpCount;
 			Collider* col = (Collider*)GetComponent("Collider");

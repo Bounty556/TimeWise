@@ -22,7 +22,7 @@ namespace Soul
 			CommandQueue::Message& message = context.CommandQueue.ConsumeMessage();
 			m_Colliders.FreeObject((Collider*)message.Data);
 		}
-		
+
 		// TODO: Better broad phase collision checking?
 		for (unsigned int i = 0; i < m_Colliders.Count(); ++i)
 		{

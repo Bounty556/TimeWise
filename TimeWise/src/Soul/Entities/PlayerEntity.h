@@ -10,7 +10,7 @@ namespace Soul
 	class PlayerEntity : public Entity
 	{
 	public:
-		PlayerEntity(Context& context);
+		PlayerEntity(Context& context, unsigned int controller);
 
 	private:
 		virtual void UpdateSelf(float dt) override;
@@ -23,5 +23,6 @@ namespace Soul
 		float m_MoveSpeed;
 		float m_JumpStrength;
 		float m_JumpCount;
+		unsigned int m_Controller;
 	};
 }

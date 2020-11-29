@@ -25,6 +25,7 @@ namespace Soul
 		TestEntity2 m_Entity3;
 		TestEntity2 m_Entity4;
 		PlayerEntity m_Player;
+		PlayerEntity m_Player2;
 		TestEntity m_Entity1;
 		TestEntity m_Entity2;
 	};

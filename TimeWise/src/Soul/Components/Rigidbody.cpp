@@ -6,7 +6,8 @@ namespace Soul
 {
 	Rigidbody::Rigidbody(Entity* entity) :
 		CollisionHandler(entity, "Rigidbody"),
-		m_FinalForce(0.0f, 0.0f)
+		m_CorrectiveForces(0.0f, 0.0f),
+		m_NaturalForces(0.0f, 0.0f)
 	{
 
 	}
@@ -15,7 +16,7 @@ namespace Soul
 	{
 		if (collider.IsSolid())
 		{
-			m_AffectedEntity->move(correction);
+			m_CorrectiveForces += correction;
 		
 			sf::Vector2f normalForce = Math::Project((m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass(), correction);
 			sf::Vector2f rejectionForce = (m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass() - normalForce;
@@ -36,14 +37,16 @@ namespace Soul
 				finalForce -= frictionalForce;
 			}
 
-			m_FinalForce += finalForce;
+			m_NaturalForces += finalForce;
 		}
 	}
 
 	void Rigidbody::ResolveCollisions()
 	{
-		m_Collider->ApplyForce(m_FinalForce);
-		m_FinalForce = sf::Vector2f(0.0f, 0.0f);
+		m_AffectedEntity->move(m_CorrectiveForces);
+		m_Collider->ApplyForce(m_NaturalForces);
+		m_NaturalForces = sf::Vector2f(0.0f, 0.0f);
+		m_CorrectiveForces = sf::Vector2f(0.0f, 0.0f);
 	}
 
 	void Rigidbody::Update(float dt)

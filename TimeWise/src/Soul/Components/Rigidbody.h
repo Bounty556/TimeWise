@@ -19,6 +19,7 @@ namespace Soul
 		virtual void Update(float dt) override;
 
 	private:
-		sf::Vector2f m_FinalForce;
+		sf::Vector2f m_CorrectiveForces;
+		sf::Vector2f m_NaturalForces;
 	};
 }

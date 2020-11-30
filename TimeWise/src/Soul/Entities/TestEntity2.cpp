@@ -4,6 +4,8 @@
 #include <Components/Collider.h>
 #include <Systems/PhysicsSystem.h>
 
+#include <Utility/Macros.h>
+
 namespace Soul
 {
 	TestEntity2::TestEntity2(Context& context) :
@@ -13,6 +15,8 @@ namespace Soul
 		Collider* col = context.PhysicsSystem.CreateCollider(this, 4, sf::Vector2f(0.0f, 0.0f), sf::Vector2f(context.WindowWidth - 100.0f, 0.0f), sf::Vector2f(context.WindowWidth - 100.0f, 150.0f), sf::Vector2f(0.0f, 150.0f));
 
 		statCol->SetCollider(col);
+
+		col->SetMass(FloatMax);
 
 		AddComponent(statCol);
 		AddComponent(col);

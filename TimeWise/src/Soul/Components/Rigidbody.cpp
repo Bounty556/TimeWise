@@ -16,7 +16,9 @@ namespace Soul
 	{
 		if (collider.IsSolid())
 		{
-			m_CorrectiveForces += correction;
+			float massRatio = collider.GetMass() / (m_Collider->GetMass() + collider.GetMass());
+
+			m_CorrectiveForces += correction * massRatio;
 		
 			sf::Vector2f normalForce = Math::Project((m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass(), correction);
 			sf::Vector2f rejectionForce = (m_AffectedEntity->GetVelocity() - collider.GetVelocity()) * m_Collider->GetMass() - normalForce;

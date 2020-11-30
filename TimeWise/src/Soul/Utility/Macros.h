@@ -6,6 +6,8 @@
 
 #define ByteDistance(x, y) ((unsigned int)y - (unsigned int)x)
 
+#define FloatMax 3.40282346e+38F
+
 #define Assert(x) \
 if (x) \
 	{} \
